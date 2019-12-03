@@ -44,7 +44,7 @@ export default function AddEvent() {
         <br />
         <input
           style={{ width: "500px", padding: "1em" }}
-          placeholder="Teams (separate by a comma and a space)"
+          placeholder="Teams (separate by a comma and a space e.g. Team A, Team B, etc)"
           value={teams}
           onChange={e => setTeams(e.target.value)}
         />
