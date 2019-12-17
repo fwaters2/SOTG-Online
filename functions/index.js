@@ -4,18 +4,11 @@ const functions = require("firebase-functions");
 const db = admin.firestore();
 const sgMail = require("@sendgrid/mail");
 //const SpiritScoreSubmissionTemplate = require("./EmailTemplates/SpiritScoreSubmission.js");
-sgMail.setApiKey(
-  "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"
-);
+sgMail.setApiKey(functions.config().sendgrid.key);
 
 exports.firestoreEmail = functions.firestore
   .document("spiritscores/{spiritscore}")
   .onCreate(async (change, context) => {
-    // const postSnap = await db
-    //   .collection("posts")
-    //   .doc(context.params.spiritscore)
-    //   .get();
-    // const scoreSpecific = postSnap.data();
     const scoreAll = change.data();
     const dataPretty = {
       myTeam: scoreAll.myTeam,

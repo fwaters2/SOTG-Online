@@ -1,0 +1,86 @@
+import React from "react";
+import Firebase from "../../Firebase";
+import { Typography } from "@material-ui/core";
+import NavLink from "../NavLink";
+
+export default function Verified(props) {
+  const [message, setMessage] = React.useState("");
+  React.useEffect(() => {
+    // Confirm the link is a sign-in with email link.
+    if (Firebase.auth().isSignInWithEmailLink(window.location.href)) {
+      // Additional state parameters can also be passed via URL.
+      // This can be used to continue the user's intended action before triggering
+      // the sign-in operation.
+      // Get the email if available. This should be available if the user completes
+      // the flow on the same device where they started it.
+      var email = window.localStorage.getItem("emailForSignIn");
+      console.log(email);
+      setMessage("Email retrieved from storage");
+      if (!email) {
+        // User opened the link on a different device. To prevent session fixation
+        // attacks, ask the user to provide the associated email again. For example:
+        email = window.prompt("Please provide your email for confirmation");
+        setMessage(
+          "No email in local storage so must have logged in from another device/browser"
+        );
+      }
+      // The client SDK will parse the code from the link for you.
+      Firebase.auth()
+        .signInWithEmailLink(email, window.location.href)
+        .then(function(result) {
+          // Clear email from storage.
+          window.localStorage.removeItem("emailForSignIn");
+          // You can access the new user via result.user
+          // Additional user info profile not available via:
+          // result.additionalUserInfo.profile == null
+          // You can check if the user is new or existing:
+          // result.additionalUserInfo.isNewUser
+          setMessage(message.concat(". AND the result is in the console log"));
+          //This will ACTUALLY CREATE THE EVENT
+          Firebase.firestore()
+            .collection("events")
+            .add({
+              email: result.user.email,
+              name: new URLSearchParams(props.location.search).get("eventName"),
+              teams: new URLSearchParams(props.location.search)
+                .get("teams")
+                .split(","),
+              slug: new URLSearchParams(props.location.search).get("slug")
+            })
+            .then(docRef => {
+              console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(error => {
+              console.error("Error adding document: ", error);
+            });
+
+          console.log(result);
+        })
+        .catch(function(error) {
+          // Some error occurred, you can inspect the code: error.code
+          // Common errors could be invalid email and invalid or expired OTPs.
+          console.log(error);
+        });
+    } else {
+      setMessage("The link is NOT a sign-in with email link");
+    }
+  }, []);
+  return (
+    <div>
+      <Typography variant="h6">
+        Congrats your email is verified and your link is ready to receive spirit
+        scores!
+      </Typography>
+
+      <Typography>
+        Your URL: SOTG.online/
+        {new URLSearchParams(props.location.search).get("slug")}
+      </Typography>
+      {console.log(new URLSearchParams(props.location.search).get("teams"))}
+      <NavLink
+        label="Go to your spirit form"
+        extension={new URLSearchParams(props.location.search).get("slug")}
+      />
+    </div>
+  );
+}
