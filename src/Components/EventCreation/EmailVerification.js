@@ -3,6 +3,8 @@ import StyledTextField from "../StyledTextField";
 import Firebase from "../../Firebase";
 import LastButtons from "../Stepper/LastButtons";
 import string_to_slug from "../../slugify";
+import { Dialog } from "@material-ui/core";
+import CheckEmail from "./CheckEmail";
 
 // var actionCodeSettings = {
 //   // URL you want to redirect back to. The domain (www.example.com) for this
@@ -20,6 +22,7 @@ export default function EmailVerification({
   step,
   setStep
 }) {
+  const [emailSent, setEmailSent] = React.useState(false);
   var actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be whitelisted in the Firebase Console.
@@ -83,6 +86,7 @@ export default function EmailVerification({
         // Some error occurred, you can inspect the code: error.code
         console.log(error);
       });
+    setEmailSent(true);
   };
   return Firebase.auth().isSignInWithEmailLink(window.location.href) ? (
     <div>Congrats you are signed in</div>
@@ -102,6 +106,13 @@ export default function EmailVerification({
         label="Verify Email"
         handleSubmit={handleVerify}
       />
+      <Dialog
+        fullScreen
+        open={emailSent}
+        onClose={() => alert("attempting to close")}
+      >
+        <CheckEmail />
+      </Dialog>
     </React.Fragment>
   );
 }

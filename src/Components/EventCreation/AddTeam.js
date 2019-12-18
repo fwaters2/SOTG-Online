@@ -8,7 +8,7 @@ import {
   Grid,
   IconButton
 } from "@material-ui/core";
-import StyledFormLabel from "./StyledFormLabel";
+import StyledFormLabel from "../StyledFormLabel";
 import { Add } from "@material-ui/icons";
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -49,7 +49,7 @@ export default function AddTeam({ formResponses, setFormResponses }) {
         <StyledFormLabel>Add Teams</StyledFormLabel>
         <FormControl variant="outlined" className={classes.formControl}>
           <Grid container>
-            <Grid item>
+            <Grid item xs>
               <InputBase
                 style={{ padding: ".5em 1em" }}
                 type="text"

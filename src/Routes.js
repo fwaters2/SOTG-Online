@@ -6,6 +6,7 @@ import Contact from "./Components/Pages/Contact";
 import Verified from "./Components/Pages/Verified";
 import SpiritScore from "./Components/SpiritScoring/Index";
 import EventCreation from "./Components/EventCreation/Index";
+import CheckEmail from "./Components/EventCreation/CheckEmail";
 
 export default function Routes() {
   return (
@@ -15,6 +16,7 @@ export default function Routes() {
       <Route exact path="/about" component={About} />
       <Route exact path="/contact" component={Contact} />
       <Route exact path="/verified" component={Verified} />
+      <Route exact path="/development" component={CheckEmail} />
       <Route path="/:event" component={SpiritScore} />
     </Switch>
   );

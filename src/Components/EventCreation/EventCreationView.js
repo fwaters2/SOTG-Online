@@ -1,6 +1,6 @@
 import React from "react";
 import StyledTextField from "../StyledTextField";
-import AddTeam from "../AddTeam";
+import AddTeam from "./AddTeam";
 import EmailVerification from "./EmailVerification";
 import FirstButton from "../Stepper/FirstButton";
 import StepButtonGroup from "../Stepper/StepButtonGroup";
