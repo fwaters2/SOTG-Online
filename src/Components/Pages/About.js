@@ -6,18 +6,21 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon
+  ListItemIcon,
+  CardHeader,
+  CardMedia,
+  Paper,
+  Button
 } from "@material-ui/core";
 import { Check } from "@material-ui/icons";
+import scoreSheet from "../../Assets/photos/SpiritScoresheet-min.JPG";
+import { Link } from "react-router-dom";
 
 const StyledCard = props => {
   return (
     <Card style={{ margin: "1em 0" }}>
-      <CardContent>
-        <Typography variant="h5">{props.title}</Typography>
-        <Typography variant="body1">{props.body}</Typography>
-        {props.children}
-      </CardContent>
+      <CardHeader title={props.title} subheader={props.body} />
+      <CardContent>{props.children}</CardContent>
     </Card>
   );
 };
@@ -37,13 +40,44 @@ const organizerBenefits = [
 export default function InfoLayout() {
   return (
     <div style={{ width: "100%" }}>
-      <StyledCard
-        title="What is SOTG Online?"
-        body=" A tool for players and organizers to improve spirit score recording and
+      <Card style={{ margin: "2em 0" }}>
+        <CardHeader
+          title="What is SOTG Online?"
+          subheader=" A tool for players and organizers to improve spirit score recording and
             management"
-      ></StyledCard>
+        />
+      </Card>
+      <Card style={{ margin: "2em 0" }}>
+        <CardHeader
+          title="What are we trying to improve upon?"
+          subheader="The paper scoresheet"
+        />
+        <CardMedia>
+          <img src={scoreSheet} alt="Paper Sheet" />
+        </CardMedia>
+      </Card>
+      <Card style={{ margin: "2em 0" }}>
+        <CardHeader
+          title="Where did the examples come From?"
+          subheader="Straight from WFDF!"
+        />
+        <CardMedia>
+          <a href="http://www.wfdf.org/downloads/cat_view/42-sotg-documents/134-spirit-examples">
+            <img
+              src="//upload.wikimedia.org/wikipedia/commons/thumb/b/b1/WFDF_Logo.png/400px-WFDF_Logo.png"
+              alt="wfdf"
+              width="100%"
+            />
+          </a>
+        </CardMedia>
+      </Card>
+      <Button fullWidth variant="contained" color="primary">
+        <Link to="/demo" style={{ color: "inherit", textDecoration: "none" }}>
+          Check Out Demo
+        </Link>
+      </Button>
 
-      <StyledCard title="Player Benefits">
+      {/* <StyledCard title="Player Benefits">
         <List>
           {playerBenefits.map(x => (
             <ListItem key={x}>
@@ -54,8 +88,8 @@ export default function InfoLayout() {
             </ListItem>
           ))}
         </List>
-      </StyledCard>
-      <StyledCard title="Organizer Benefits">
+      </StyledCard> */}
+      {/* <StyledCard title="Organizer Benefits">
         {organizerBenefits.map(x => (
           <ListItem key={x}>
             <ListItemIcon>
@@ -64,7 +98,7 @@ export default function InfoLayout() {
             <ListItemText primary={x} />
           </ListItem>
         ))}
-      </StyledCard>
+      </StyledCard> */}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React from "react";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import StyledSelect from "../StyledSelect";
-import FirstButton from "../Stepper/FirstButton";
 
 export default function TeamSelection({
   formResponses,
@@ -29,7 +28,14 @@ export default function TeamSelection({
         />
       </Box>
 
-      <FirstButton action={() => setStep(step + 1)}>Begin</FirstButton>
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        onClick={() => setStep(step + 1)}
+      >
+        Begin
+      </Button>
     </React.Fragment>
   );
 }

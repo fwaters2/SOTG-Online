@@ -3,8 +3,8 @@ import { List, ListItem, Grid, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 const steps = [
-  { title: "Enter event Name, Teams, email" },
-  { title: "Verify your email and receive your events link" },
+  { title: "Enter event name, teams, email" },
+  { title: "Verify your email and receive your event's link" },
   { title: "Share your event link to your team captains/spirit captains" },
   {
     title:
@@ -17,7 +17,7 @@ export default function HowToUse() {
     <List>
       {steps.map((item, index) => (
         <ListItem key={item}>
-          <Grid container spacing={2}>
+          <Grid container spacing={3} alignItems="center">
             <Grid item>
               <Typography variant="h4">{index + 1}</Typography>
             </Grid>

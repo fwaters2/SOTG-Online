@@ -12,12 +12,13 @@ export default function StyledPaper(props) {
         color: "white",
         backgroundColor: myBlue,
         borderRadius: "12px",
-        marginBottom: "1em"
+        marginBottom: "1em",
+        padding: "2em 0"
       }}
     >
       <div
         style={{
-          padding: "2em 0",
+          padding: "0 0 2em 0",
           marginLeft: "2em",
           marginRight: "2em",
           marginBottom: 0

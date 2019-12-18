@@ -1,5 +1,5 @@
 import React from "react";
-import { SvgIcon, Typography, Container, Grid } from "@material-ui/core";
+import { SvgIcon, Typography, Grid } from "@material-ui/core";
 import { Email } from "@material-ui/icons";
 
 export default function CheckEmail() {

@@ -1,73 +1,80 @@
 import React from "react";
-
 import StyledTextField from "../StyledTextField";
-
-import Stepper from "../Stepper/Index";
-import FirstButton from "../Stepper/FirstButton";
-import StepButtonGroup from "../Stepper/StepButtonGroup";
-import LastButtons from "../Stepper/LastButtons";
+import {
+  Button,
+  Box,
+  InputBase,
+  FormControl,
+  Dialog,
+  DialogTitle
+} from "@material-ui/core";
+import StyledPaper from "../StyledPaper";
+import Firebase from "../../Firebase";
+import { Redirect } from "react-router-dom";
 
 export default function Contact() {
+  const [redirect, setRedirect] = React.useState(false);
+  const [isDialogOpen, toggleDialog] = React.useState(false);
   const [formResponses, setFormResponses] = React.useState({
     name: "",
     email: "",
     comment: ""
   });
-  const [step, setStep] = React.useState(0);
-  const stepContent = step => {
-    switch (step) {
-      case 0:
-        return (
-          <React.Fragment>
-            <StyledTextField
-              label="Name"
-              stateKey="myTeam"
-              placeholder="Name"
-              formResponses={formResponses}
-              setFormResponses={setFormResponses}
-            />
-            <FirstButton action={() => setStep(step + 1)}>Next</FirstButton>
-          </React.Fragment>
-        );
-      case 1:
-        return (
-          <React.Fragment>
-            <StyledTextField
-              label="Email"
-              stateKey="email"
-              placeholder="Email"
-              formResponses={formResponses}
-              setFormResponses={setFormResponses}
-            />
-            <StepButtonGroup step={step} setStep={setStep}>
-              Next
-            </StepButtonGroup>
-          </React.Fragment>
-        );
-      case 2:
-        return (
-          <React.Fragment>
-            <StyledTextField
-              label="Comment"
-              stateKey="comment"
-              placeholder="Comment"
-              formResponses={formResponses}
-              setFormResponses={setFormResponses}
-            />
-            <LastButtons step={step} setStep={setStep} label="Contact" />
-          </React.Fragment>
-        );
-      default:
-        return <div>Step Not Found</div>;
-    }
+  const handleSubmit = () => {
+    toggleDialog(true);
+    Firebase.collection("Contact").add({
+      ...formResponses,
+      timestamp: Firebase.firestore.FieldValue.serverTimestamp
+    });
   };
-  return (
-    <Stepper
-      step={step}
-      formResponses={formResponses}
-      setFormResponses={setFormResponses}
-      steps={["Contact Form", "Contact Form", "Contact Form"]}
-      stepContent={stepContent(step)}
-    ></Stepper>
+  return redirect ? (
+    <Redirect push to="/demo" />
+  ) : (
+    <StyledPaper title="Contact Form">
+      <Dialog open={isDialogOpen} onClose={() => setRedirect(true)}>
+        <DialogTitle>Thank you for your feedback!</DialogTitle>
+      </Dialog>
+      <Box pl={"2em"} pr={"2em"} mt={"-2em"}>
+        <StyledTextField
+          label="Name"
+          autoFocus={true}
+          stateKey="name"
+          placeholder="Name"
+          formResponses={formResponses}
+          setFormResponses={setFormResponses}
+        />
+        <Box mt={"-.5em"}>
+          <StyledTextField
+            label="Email (if response desired)"
+            stateKey="email"
+            placeholder="Email"
+            formResponses={formResponses}
+            setFormResponses={setFormResponses}
+          />
+        </Box>
+        <Box mt={"-2em"}>
+          <FormControl>
+            <InputBase
+              multiline
+              required
+              rows="4"
+              placeholder="Comment"
+              value={formResponses.comment}
+              onChange={e =>
+                setFormResponses({ ...formResponses, comment: e.target.value })
+              }
+            />
+          </FormControl>
+        </Box>
+        <Button
+          fullWidth
+          variant="contained"
+          color="secondary"
+          onClick={handleSubmit}
+        >
+          Contact
+        </Button>
+      </Box>
+    </StyledPaper>
   );
 }

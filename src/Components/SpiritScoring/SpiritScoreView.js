@@ -2,6 +2,8 @@ import React from "react";
 import TeamSelection from "./TeamSelection";
 import Category from "./Category";
 import Summary from "./Summary";
+import LastButtons from "../Stepper/LastButtons";
+import { Dialog, DialogTitle } from "@material-ui/core";
 
 export default function SpiritScoreView({
   step,
@@ -9,7 +11,8 @@ export default function SpiritScoreView({
   setFormResponses,
   data,
   setStep,
-  handleSubmit
+  handleFormSubmit,
+  isDialogOpen
 }) {
   switch (step) {
     case 0:
@@ -37,13 +40,24 @@ export default function SpiritScoreView({
       );
     case 6:
       return (
-        <Summary
-          step={step}
-          setStep={setStep}
-          formResponses={formResponses}
-          setFormResponses={setFormResponses}
-          handleSubmit={handleSubmit}
-        />
+        <React.Fragment>
+          <Summary
+            step={step}
+            setStep={setStep}
+            formResponses={formResponses}
+            setFormResponses={setFormResponses}
+            isDialogOpen={isDialogOpen}
+          />
+          <LastButtons
+            step={step}
+            setStep={setStep}
+            handleSubmit={handleFormSubmit}
+            label="Submit"
+          />
+          <Dialog open={isDialogOpen} onClose={() => setStep(0)}>
+            <DialogTitle>Thanks for Scoring!</DialogTitle>
+          </Dialog>
+        </React.Fragment>
       );
     default:
       return "Step Not Found";

@@ -19,8 +19,8 @@ const myBlue = "#0C61E1";
 const myPurple = "#E82178";
 const links = [
   { text: "Home", extension: "" },
-  { text: "Create Event", extension: "" },
   { text: "How To Use", extension: "howtouse" },
+  { text: "Demo", extension: "demo" },
   { text: "About", extension: "about" },
   { text: "Contact", extension: "contact" }
 ];

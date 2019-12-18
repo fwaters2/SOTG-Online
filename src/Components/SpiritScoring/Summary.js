@@ -5,32 +5,20 @@ import {
   Paper,
   ListItemText,
   Typography,
-  Dialog,
-  DialogTitle
+  Box
 } from "@material-ui/core";
-
 import EnglishText from "../../Assets/Lang/enSpirit.json";
 import StyledFormLabel from "../StyledFormLabel.js";
-import FeedbackContainer from "../FeedbackContainer.js";
-import LastButtons from "../Stepper/LastButtons.js";
+import FeedbackContainer from "./FeedbackContainer.js";
+
 const spiritTexts = { en: EnglishText };
 const lang = "en";
 const SpiritText = spiritTexts[lang];
 const categories = Object.keys(SpiritText).filter(x => x !== "general");
 
-export default function Summary({
-  step,
-  setStep,
-  formResponses,
-  setFormResponses,
-  handleSubmit
-}) {
+export default function Summary({ formResponses, setFormResponses }) {
   const summaryText = SpiritText;
-  const [isDialogOpen, toggleDialog] = React.useState(false);
-  const handleFormSubmit = () => {
-    toggleDialog(true);
-    handleSubmit();
-  };
+
   return (
     <div
       style={{
@@ -83,18 +71,36 @@ export default function Summary({
         formResponses={formResponses}
         setFormResponses={setFormResponses}
       />
-      <LastButtons
-        step={step}
-        setStep={setStep}
-        handleSubmit={handleFormSubmit}
-        label="Submit"
-      />
-      <Dialog
-        open={isDialogOpen}
-        //onClose={() => setStep(1)}
+
+      <div
+        style={{
+          background: "#0038ae",
+          margin: "5px -2em 20px",
+          boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.1)",
+          height: "30vh",
+          overflow: "auto"
+        }}
       >
-        <DialogTitle>Thanks for Scoring!</DialogTitle>
-      </Dialog>
+        <Box m="1em 2em">
+          {[
+            { name: "Rules", state: "rulesExamples" },
+            { name: "Fouls", state: "foulsExamples" },
+            { name: "Fairness", state: "fairnessExamples" },
+            { name: "Attitude", state: "attitudeExamples" },
+            { name: "Communication", state: "communicationExamples" }
+          ].map(category =>
+            category.state ? (
+              <Typography
+                key={category.name}
+                variant="body2"
+                style={{ margin: ".5em 0" }}
+              >
+                {category.name + ": " + formResponses[category.state].join(" ")}
+              </Typography>
+            ) : null
+          )}{" "}
+        </Box>
+      </div>
     </div>
   );
 }

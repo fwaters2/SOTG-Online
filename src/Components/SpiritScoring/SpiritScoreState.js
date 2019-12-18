@@ -16,17 +16,24 @@ export default function SpiritScoreState(props) {
     opponent: "Select",
     rules: 2,
     rulesFeedback: "",
+    rulesExamples: [],
     fouls: 2,
     foulsFeedback: "",
+    foulsExamples: [],
     fairness: 2,
     fairnessFeedback: "",
+    fairnessExamples: [],
     attitude: 2,
     attitudeFeedback: "",
+    attitudeExamples: [],
     communication: 2,
     communicationFeedback: "",
+    communicationExamples: [],
     feedback: "",
     email: eventData.email
   });
+  const [isDialogOpen, toggleDialog] = React.useState(false);
+
   const handleSubmit = () => {
     eventData
       ? Firebase.firestore()
@@ -43,6 +50,10 @@ export default function SpiritScoreState(props) {
             feedback: formResponses.feedback
           })
       : alert("spiritscore has been submitted");
+  };
+  const handleFormSubmit = () => {
+    toggleDialog(true);
+    handleSubmit();
   };
   const { event } = props.match.params;
   useEffect(() => {
@@ -96,7 +107,8 @@ export default function SpiritScoreState(props) {
           setFormResponses={setFormResponses}
           data={eventData}
           setStep={setStep}
-          handleSubmit={handleSubmit}
+          handleFormSubmit={handleFormSubmit}
+          isDialogOpen={isDialogOpen}
         />
       }
     />

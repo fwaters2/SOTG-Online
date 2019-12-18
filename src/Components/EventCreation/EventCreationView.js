@@ -2,8 +2,8 @@ import React from "react";
 import StyledTextField from "../StyledTextField";
 import AddTeam from "./AddTeam";
 import EmailVerification from "./EmailVerification";
-import FirstButton from "../Stepper/FirstButton";
 import StepButtonGroup from "../Stepper/StepButtonGroup";
+import { Button } from "@material-ui/core";
 
 export default function EventCreationView({
   step,
@@ -23,7 +23,14 @@ export default function EventCreationView({
             formResponses={formResponses}
             setFormResponses={setFormResponses}
           />
-          <FirstButton action={() => setStep(step + 1)}>Create</FirstButton>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => setStep(step + 1)}
+          >
+            Create
+          </Button>
         </React.Fragment>
       );
     case 1:
