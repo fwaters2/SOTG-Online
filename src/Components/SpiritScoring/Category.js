@@ -6,7 +6,8 @@ import {
   ListItem,
   ListItemText,
   SvgIcon,
-  TextField
+  TextField,
+  Divider
 } from "@material-ui/core";
 import {
   SentimentDissatisfied,
@@ -65,18 +66,16 @@ export default function Category({
       >
         <List dense>
           {examples[tempScore].map(x => (
-            <ListItem
-              style={{ padding: "4px 2em" }}
-              key={x}
-              divider={examples[tempScore].length !== 1}
-            >
+            <React.Fragment key={x}>
               <ListCheckBox
                 examples={categories[currentStep] + "Examples"}
                 formResponses={formResponses}
                 setFormResponses={setFormResponses}
                 example={x}
               />
-            </ListItem>
+
+              {examples[tempScore].length !== 1 ? <Divider /> : null}
+            </React.Fragment>
           ))}
         </List>
       </div>

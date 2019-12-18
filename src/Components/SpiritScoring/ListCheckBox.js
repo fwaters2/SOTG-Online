@@ -1,5 +1,5 @@
 import React from "react";
-import { ListItemIcon, ListItemText } from "@material-ui/core";
+import { ListItemIcon, ListItemText, ListItem } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 
 export default function ListCheckBox({
@@ -27,8 +27,8 @@ export default function ListCheckBox({
     toggleChecked(!isChecked);
   };
   return (
-    <React.Fragment>
-      <ListItemIcon onClick={handleClick} style={{ minWidth: "2.5em" }}>
+    <ListItem style={{ padding: "4px 2em" }} onClick={handleClick}>
+      <ListItemIcon style={{ minWidth: "2.5em" }}>
         {isChecked ? (
           <CheckBox color="primary" />
         ) : (
@@ -40,6 +40,6 @@ export default function ListCheckBox({
       ) : (
         <ListItemText primary={example} />
       )}
-    </React.Fragment>
+    </ListItem>
   );
 }
