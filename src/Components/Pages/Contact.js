@@ -22,10 +22,12 @@ export default function Contact() {
   });
   const handleSubmit = () => {
     toggleDialog(true);
-    Firebase.collection("Contact").add({
-      ...formResponses,
-      timestamp: Firebase.firestore.FieldValue.serverTimestamp
-    });
+    Firebase.firestore()
+      .collection("Contact")
+      .add({
+        ...formResponses,
+        timestamp: Firebase.firestore.FieldValue.serverTimestamp()
+      });
   };
   return redirect ? (
     <Redirect push to="/demo" />
