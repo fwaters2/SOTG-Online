@@ -12,7 +12,8 @@ export default function SpiritScoreView({
   data,
   setStep,
   handleFormSubmit,
-  isDialogOpen
+  isDialogOpen,
+  currentLanguage
 }) {
   switch (step) {
     case 0:
@@ -36,6 +37,7 @@ export default function SpiritScoreView({
           setFormResponses={setFormResponses}
           step={step}
           setStep={setStep}
+          currentLanguage={currentLanguage}
         />
       );
     case 6:
@@ -47,6 +49,7 @@ export default function SpiritScoreView({
             formResponses={formResponses}
             setFormResponses={setFormResponses}
             isDialogOpen={isDialogOpen}
+            currentLanguage={currentLanguage}
           />
           <LastButtons
             step={step}

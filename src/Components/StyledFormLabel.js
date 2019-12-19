@@ -4,7 +4,8 @@ const useStyles = makeStyles(theme => ({
   formLabel: {
     color: "rgba(255,255,255,0.4)",
     textTransform: "uppercase",
-    fontSize: "10pt"
+    fontSize: "10pt",
+    display: "span"
   }
 }));
 export default function StyledFormLabel({ children }) {

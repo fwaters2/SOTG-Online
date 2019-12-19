@@ -14,8 +14,11 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
+import { Strings as Languages } from "../../Assets/Lang/Languages";
+
 export default function PlayerDemo() {
   const [step, setStep] = React.useState(1);
+  const [lang, setLang] = React.useState("ch");
   const [formResponses, setFormResponses] = React.useState({
     myTeam: "Select",
     opponent: "Select",
@@ -38,14 +41,14 @@ export default function PlayerDemo() {
   });
   const [isDialogOpen, toggleDialog] = React.useState(false);
 
+  const currentLanguage = Languages(lang);
   const exampleTeams = ["Team A", "Team B", "Team C"];
   const steps = [
     "Teams",
-    "Rules Knowledge and Use",
-    "Fouls and Body Contact",
-    "Fair-Mindedness",
-    "Positive Attitude and Self-Control",
-    "Communication",
+
+    ...["rules", "fouls", "fairness", "attitude", "communication"].map(
+      cat => currentLanguage[cat].title
+    ),
     "Summary"
   ];
   const stepContent = step => {
@@ -71,6 +74,8 @@ export default function PlayerDemo() {
             setFormResponses={setFormResponses}
             step={step}
             setStep={setStep}
+            currentLanguage={currentLanguage}
+            setLang={setLang}
           />
         );
       case 6:
@@ -82,6 +87,7 @@ export default function PlayerDemo() {
               formResponses={formResponses}
               setFormResponses={setFormResponses}
               isDialogOpen={isDialogOpen}
+              currentLanguage={currentLanguage}
             />
             <LastButtons
               step={step}
@@ -126,5 +132,12 @@ export default function PlayerDemo() {
         return "Step Not Found";
     }
   };
-  return <Stepper step={step} steps={steps} stepContent={stepContent(step)} />;
+  return (
+    <Stepper
+      step={step}
+      steps={steps}
+      stepContent={stepContent(step)}
+      currentLanguage={currentLanguage}
+    />
+  );
 }

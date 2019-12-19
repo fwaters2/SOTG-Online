@@ -3,6 +3,11 @@ import Firebase from "../../Firebase";
 import Stepper from "../Stepper/Index";
 import SpiritScoreView from "./SpiritScoreView";
 
+import EnglishText from "../../Assets/Lang/enSpirit.json";
+const spiritTexts = { en: EnglishText };
+const lang = "en";
+const currentLanguage = spiritTexts[lang];
+
 export default function SpiritScoreState(props) {
   const [step, setStep] = React.useState(0);
   const [exists, setExists] = useState(true);
@@ -109,6 +114,7 @@ export default function SpiritScoreState(props) {
           setStep={setStep}
           handleFormSubmit={handleFormSubmit}
           isDialogOpen={isDialogOpen}
+          currentLanguage={currentLanguage}
         />
       }
     />

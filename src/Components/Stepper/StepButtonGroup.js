@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonGroup, Button } from "@material-ui/core";
 
-export default function StepButtonGroup({ step, setStep }) {
+export default function StepButtonGroup({ step, setStep, currentLanguage }) {
   const handleBack = () => {
     setStep(step - 1);
   };
@@ -16,10 +16,10 @@ export default function StepButtonGroup({ step, setStep }) {
         onClick={handleBack}
         style={{ color: "black" }}
       >
-        Back
+        {currentLanguage.general.back}
       </Button>
       <Button variant="contained" color="primary" onClick={handleNext}>
-        Next
+        {currentLanguage.general.next}
       </Button>
     </ButtonGroup>
   );

@@ -4,11 +4,13 @@
     "yourTeam": "Your Team",
     "opponent": "Opponent",
     "next": "Next",
-    "back": "Back"
+    "back": "Back",
+    "ready": "Ready",
+    "feedback": "Feedback",
+    "additionalFeedback": "Additional Feedback"
   },
   "rules": {
     "title": "Rules Knowledge and Use",
-    "example": "Examples: They did not purposefully misinterpret the rules. They kept to time limits. When they didn't know the rules, they showed a real willingness to learn",
     "examples": {
       "0": [
         "They repeatedly exhibited poor knowledge of the rules.",
@@ -42,7 +44,6 @@
 
   "fouls": {
     "title": "Fouls and Body Contact",
-    "example": "Examples: They avoided fouling, contact, and dangerous plays.",
     "examples": {
       "0": [
         "Even after repeated calls they continued to have the same foul or contact issues.",
@@ -66,7 +67,6 @@
 
   "fairness": {
     "title": "Fair-Mindedness",
-    "example": "Examples: They apologized in situations where it was appropriate, informed teammates about wrong/unnecessary call. Only called significant breaches.",
     "examples": {
       "0": [
         "The opposing team always took the stance that they were right on calls.",
@@ -101,7 +101,6 @@
 
   "attitude": {
     "title": "Positive Attitude and Self-Control",
-    "example": "Examples: They were polite. They played with appropriate intensity irrespective of the score. They left an overall positive impression during and after the game",
     "examples": {
       "0": [
         "Players and/or their sideline were often rude and discourteous towards opponents, their own teammates, officials, volunteers, organizers, and/or spectators.",
@@ -137,7 +136,6 @@
 
   "communication": {
     "title": "Communication",
-    "example": "Examples: They communicated respectfully. They listened. They kept to discussion time limits.",
     "examples": {
       "0": [
         "They frequently refused to discuss issues/calls.",

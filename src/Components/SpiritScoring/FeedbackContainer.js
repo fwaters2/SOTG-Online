@@ -4,7 +4,8 @@ import { Paper, TextField, FormControl, InputBase } from "@material-ui/core";
 export default function FeedbackContainer({
   feedback,
   formResponses,
-  setFormResponses
+  setFormResponses,
+  currentLanguage
 }) {
   return (
     <FormControl>
@@ -12,7 +13,7 @@ export default function FeedbackContainer({
         variant="filled"
         fullWidth
         multiline
-        placeholder="Additional Feedback"
+        placeholder={currentLanguage.general.additionalFeedback}
         rows="4"
         value={formResponses[feedback]}
         onChange={e =>

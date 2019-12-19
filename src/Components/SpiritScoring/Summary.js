@@ -16,7 +16,11 @@ const lang = "en";
 const SpiritText = spiritTexts[lang];
 const categories = Object.keys(SpiritText).filter(x => x !== "general");
 
-export default function Summary({ formResponses, setFormResponses }) {
+export default function Summary({
+  formResponses,
+  setFormResponses,
+  currentLanguage
+}) {
   const summaryText = SpiritText;
 
   return (
@@ -52,7 +56,7 @@ export default function Summary({ formResponses, setFormResponses }) {
                 key={x}
                 divider={y === categories.length - 1}
               >
-                <ListItemText primary={summaryText[categories[y]].title} />
+                <ListItemText primary={currentLanguage[categories[y]].title} />
                 <Typography variant="h6">{formResponses[x]}</Typography>
               </ListItem>
             ))}
@@ -82,23 +86,32 @@ export default function Summary({ formResponses, setFormResponses }) {
         }}
       >
         <Box m="1em 2em">
-          {[
-            { name: "Rules", state: "rulesExamples" },
-            { name: "Fouls", state: "foulsExamples" },
-            { name: "Fairness", state: "fairnessExamples" },
-            { name: "Attitude", state: "attitudeExamples" },
-            { name: "Communication", state: "communicationExamples" }
-          ].map(category =>
-            category.state ? (
-              <Typography
-                key={category.name}
-                variant="body2"
-                style={{ margin: ".5em 0" }}
-              >
-                {category.name + ": " + formResponses[category.state].join(" ")}
-              </Typography>
-            ) : null
-          )}{" "}
+          {["rules", "fouls", "fairness", "attitude", "communication"]
+            .map(cat => ({
+              name: cat.charAt(0).toUpperCase() + cat.slice(1),
+              state: cat + "Examples",
+              categoryState: cat
+            }))
+            .map(category =>
+              category.state ? (
+                <Typography
+                  key={category.name}
+                  variant="body2"
+                  style={{ margin: ".5em 0" }}
+                >
+                  {category.name +
+                    ": " +
+                    formResponses[category.state]
+                      .map(
+                        example =>
+                          currentLanguage[example.category].examples[
+                            example.categoryScore
+                          ][example.index]
+                      )
+                      .join(" ")}
+                </Typography>
+              ) : null
+            )}{" "}
         </Box>
       </div>
     </div>

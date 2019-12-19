@@ -1,42 +1,26 @@
 import React from "react";
-import {
-  ButtonGroup,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  SvgIcon,
-  TextField,
-  Divider
-} from "@material-ui/core";
-import {
-  SentimentDissatisfied,
-  SentimentSatisfied,
-  Whatshot,
-  SentimentVeryDissatisfied,
-  SentimentVerySatisfied
-} from "@material-ui/icons";
-import EnglishText from "../../Assets/Lang/enSpirit.json";
+import { List, Grid, IconButton } from "@material-ui/core";
+import { Language } from "@material-ui/icons";
 import StyledFormLabel from "../StyledFormLabel.js";
 import FeedbackContainer from "./FeedbackContainer.js";
 import StepButtonGroup from "../Stepper/StepButtonGroup.js";
 import ListCheckBox from "./ListCheckBox.js";
 import NumberScore from "./NumberScore.js";
-const spiritTexts = { en: EnglishText };
-const lang = "en";
-const SpiritText = spiritTexts[lang];
-const categories = Object.keys(SpiritText).filter(x => x !== "general");
+import LangDialog from "./LangDialog.js";
 
 export default function Category({
   step,
   setStep,
   formResponses,
-  setFormResponses
+  setFormResponses,
+  currentLanguage,
+  setLang
 }) {
-  const textGen = SpiritText;
+  const [isLangSelectOpen, toggleLangSelect] = React.useState(false);
+  const categories = Object.keys(currentLanguage).filter(x => x !== "general");
   const currentStep = step - 1;
-  const text = textGen[categories[currentStep]];
-  const { title, examples } = text;
+  const text = currentLanguage[categories[currentStep]];
+  const { examples } = text;
   const tempScore = formResponses[categories[currentStep]];
 
   return (
@@ -53,28 +37,53 @@ export default function Category({
         tempScore={tempScore}
         stateKey={categories[currentStep]}
       />
+      <Grid container alignItems="center">
+        <Grid item xs>
+          <StyledFormLabel>{currentLanguage.general.feedback}:</StyledFormLabel>
+        </Grid>
+        <Grid item>
+          <IconButton
+            onClick={() => toggleLangSelect(!isLangSelectOpen)}
+            style={{
+              color: "#0038ae",
 
-      <StyledFormLabel>Examples:</StyledFormLabel>
+              padding: 0
+            }}
+            size="small"
+          >
+            <Language />
+          </IconButton>
+        </Grid>
+      </Grid>
+      <LangDialog
+        open={isLangSelectOpen}
+        onClose={() => toggleLangSelect(false)}
+        setLang={setLang}
+        currentLanguage={currentLanguage}
+      />
       <div
         style={{
-          background: "#0038ae",
-          margin: "5px -2em 0px",
-          boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)",
-          height: "30vh",
-          overflow: "auto"
+          //background: "#0038ae",
+          margin: "0px -2em"
+          //boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
+          //height: "30vh",
+          //overflow: "auto"
         }}
       >
         <List dense>
-          {examples[tempScore].map(x => (
+          {examples[tempScore].map((x, index) => (
             <React.Fragment key={x}>
               <ListCheckBox
                 examples={categories[currentStep] + "Examples"}
                 formResponses={formResponses}
                 setFormResponses={setFormResponses}
                 example={x}
+                isLastListItem={examples[tempScore].length === index + 1}
+                //For storing of the example
+                category={categories[currentStep]}
+                categoryScore={tempScore}
+                index={index}
               />
-
-              {examples[tempScore].length !== 1 ? <Divider /> : null}
             </React.Fragment>
           ))}
         </List>
@@ -83,8 +92,13 @@ export default function Category({
         feedback={categories[currentStep] + "Feedback"}
         formResponses={formResponses}
         setFormResponses={setFormResponses}
+        currentLanguage={currentLanguage}
       />
-      <StepButtonGroup step={step} setStep={setStep} />
+      <StepButtonGroup
+        step={step}
+        setStep={setStep}
+        currentLanguage={currentLanguage}
+      />
     </div>
   );
 }
