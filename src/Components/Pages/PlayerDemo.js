@@ -18,7 +18,7 @@ import { Strings as Languages } from "../../Assets/Lang/Languages";
 
 export default function PlayerDemo() {
   const [step, setStep] = React.useState(1);
-  const [lang, setLang] = React.useState("ch");
+  const [lang, setLang] = React.useState("en");
   const [formResponses, setFormResponses] = React.useState({
     myTeam: "Select",
     opponent: "Select",
