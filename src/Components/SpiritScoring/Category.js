@@ -7,6 +7,7 @@ import StepButtonGroup from "../Stepper/StepButtonGroup.js";
 import ListCheckBox from "./ListCheckBox.js";
 import NumberScore from "./NumberScore.js";
 import LangDialog from "./LangDialog.js";
+import { SnackbarProvider, useSnackbar } from "notistack";
 
 export default function Category({
   step,
@@ -73,17 +74,19 @@ export default function Category({
         <List dense>
           {examples[tempScore].map((x, index) => (
             <React.Fragment key={x}>
-              <ListCheckBox
-                examples={categories[currentStep] + "Examples"}
-                formResponses={formResponses}
-                setFormResponses={setFormResponses}
-                example={x}
-                isLastListItem={examples[tempScore].length === index + 1}
-                //For storing of the example
-                category={categories[currentStep]}
-                categoryScore={tempScore}
-                index={index}
-              />
+              <SnackbarProvider maxSnack={3}>
+                <ListCheckBox
+                  examples={categories[currentStep] + "Examples"}
+                  formResponses={formResponses}
+                  setFormResponses={setFormResponses}
+                  example={x}
+                  isLastListItem={examples[tempScore].length === index + 1}
+                  //For storing of the example
+                  category={categories[currentStep]}
+                  categoryScore={tempScore}
+                  index={index}
+                />
+              </SnackbarProvider>
             </React.Fragment>
           ))}
         </List>
