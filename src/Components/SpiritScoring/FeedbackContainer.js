@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, TextField, FormControl, InputBase } from "@material-ui/core";
+import { FormControl, InputBase } from "@material-ui/core";
 
 export default function FeedbackContainer({
   feedback,

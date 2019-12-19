@@ -7,22 +7,14 @@ import {
   Typography,
   Box
 } from "@material-ui/core";
-import EnglishText from "../../Assets/Lang/enSpirit.json";
 import StyledFormLabel from "../StyledFormLabel.js";
 import FeedbackContainer from "./FeedbackContainer.js";
-
-const spiritTexts = { en: EnglishText };
-const lang = "en";
-const SpiritText = spiritTexts[lang];
-const categories = Object.keys(SpiritText).filter(x => x !== "general");
-
+const categories = ["rules", "fouls", "fairness", "attitude", "communication"];
 export default function Summary({
   formResponses,
   setFormResponses,
   currentLanguage
 }) {
-  const summaryText = SpiritText;
-
   return (
     <div
       style={{
@@ -74,6 +66,7 @@ export default function Summary({
         feedback="feedback"
         formResponses={formResponses}
         setFormResponses={setFormResponses}
+        currentLanguage={currentLanguage}
       />
 
       <div
