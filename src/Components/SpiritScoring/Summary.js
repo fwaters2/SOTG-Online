@@ -73,9 +73,7 @@ export default function Summary({
         style={{
           background: "#0038ae",
           margin: "5px -2em 20px",
-          boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.1)",
-          height: "30vh",
-          overflow: "auto"
+          boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.1)"
         }}
       >
         <Box m="1em 2em">
