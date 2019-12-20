@@ -92,14 +92,15 @@ export default function Summary({
                 >
                   {category.name +
                     ": " +
-                    formResponses[category.state]
-                      .map(
+                    [
+                      formResponses[category.categoryState + "Feedback"],
+                      ...formResponses[category.state].map(
                         example =>
                           currentLanguage[example.category].examples[
                             example.categoryScore
                           ][example.index]
                       )
-                      .join(" ")}
+                    ].join(" ")}
                 </Typography>
               ) : null
             )}{" "}

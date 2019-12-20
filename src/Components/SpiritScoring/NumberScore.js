@@ -1,5 +1,13 @@
 import React from "react";
-import { SvgIcon, List, ButtonGroup, Button } from "@material-ui/core";
+import {
+  SvgIcon,
+  List,
+  ButtonGroup,
+  Button,
+  Tabs,
+  Tab,
+  makeStyles
+} from "@material-ui/core";
 import {
   SentimentVeryDissatisfied,
   SentimentDissatisfied,
@@ -7,17 +15,30 @@ import {
   SentimentVerySatisfied,
   Whatshot
 } from "@material-ui/icons";
-
+const useStyles = makeStyles(theme => ({
+  tabs: { background: "white", color: "black" },
+  tab: { minWidth: 0, padding: "1em", fontWeight: "bold" }
+}));
 export default function NumberScore({
   formResponses,
   setFormResponses,
   tempScore,
-  stateKey
+  stateKey,
+  examplesTab,
+  setExamplesTab
 }) {
+  const classes = useStyles();
+  const handleClick = score => {
+    setFormResponses({
+      ...formResponses,
+      [stateKey]: score
+    });
+    setExamplesTab(score);
+  };
   return (
     <div
       style={{
-        margin: "2em 0",
+        margin: "1em 0 0",
         flex: 1,
         display: "flex",
         flexDirection: "column"
@@ -47,27 +68,30 @@ export default function NumberScore({
           <Whatshot />
         </SvgIcon>
       </List>
-      <ButtonGroup variant="contained" fullWidth>
+      <Tabs
+        value={examplesTab}
+        className={classes.tabs}
+        variant="fullWidth"
+        style={{ borderRadius: "8px" }}
+        indicatorColor="secondary"
+      >
         {[0, 1, 2, 3, 4].map(x => (
-          <Button
+          <Tab
+            className={classes.tab}
+            label={x}
             key={x}
             style={
               tempScore === x
-                ? { background: "#8FDE58", margin: "0" }
-                : { margin: "0" }
+                ? { background: "#8FDE58" }
+                : x <= 3
+                ? { borderRight: "1px solid darkgrey" }
+                : null
             }
             selected={tempScore === x}
-            onClick={() =>
-              setFormResponses({
-                ...formResponses,
-                [stateKey]: x
-              })
-            }
-          >
-            {x}
-          </Button>
+            onClick={() => handleClick(x)}
+          />
         ))}
-      </ButtonGroup>
+      </Tabs>
     </div>
   );
 }

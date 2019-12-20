@@ -59,33 +59,31 @@ export default function ListCheckBox({
     }
   };
   return (
-    <SnackbarProvider maxSnack={3}>
-      <ListItem
-        style={
-          isLastListItem
-            ? { padding: "4px 2em" }
-            : {
-                padding: "4px 2em"
-                //borderTop: "1px solid rgba(255,255,255,0.4)",
+    <ListItem
+      style={
+        isLastListItem
+          ? { padding: "4px 2em" }
+          : {
+              padding: "4px 2em"
+              //borderTop: "1px solid rgba(255,255,255,0.4)",
 
-                //borderBottom: "1px solid rgba(255,255,255,0.4)"
-              }
-        }
-        onClick={handleClick}
-      >
-        <ListItemIcon style={{ minWidth: "2.5em" }}>
-          {isChecked ? (
-            <CheckBox color="primary" />
-          ) : (
-            <CheckBoxOutlineBlank style={{ color: "white" }} />
-          )}
-        </ListItemIcon>
+              //borderBottom: "1px solid rgba(255,255,255,0.4)"
+            }
+      }
+      onClick={handleClick}
+    >
+      <ListItemIcon style={{ minWidth: "2.5em" }}>
         {isChecked ? (
-          <ListItemText primary={example} style={{ color: "#8FDE58" }} />
+          <CheckBox color="primary" />
         ) : (
-          <ListItemText primary={example} />
+          <CheckBoxOutlineBlank style={{ color: "white" }} />
         )}
-      </ListItem>
-    </SnackbarProvider>
+      </ListItemIcon>
+      {isChecked ? (
+        <ListItemText primary={example} style={{ color: "#8FDE58" }} />
+      ) : (
+        <ListItemText primary={example} />
+      )}
+    </ListItem>
   );
 }

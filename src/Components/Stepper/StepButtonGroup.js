@@ -1,12 +1,22 @@
 import React from "react";
 import { ButtonGroup, Button } from "@material-ui/core";
 
-export default function StepButtonGroup({ step, setStep, currentLanguage }) {
+export default function StepButtonGroup({
+  step,
+  setStep,
+  currentLanguage,
+  formResponses,
+  categories,
+  currentStep,
+  setExamplesTab
+}) {
   const handleBack = () => {
     setStep(step - 1);
+    setExamplesTab(formResponses[categories[currentStep - 1]]);
   };
   const handleNext = () => {
     setStep(step + 1);
+    setExamplesTab(formResponses[categories[currentStep + 1]]);
   };
   return (
     <ButtonGroup fullWidth>

@@ -26,45 +26,43 @@ export default function LangDialog({
   currentLanguage
 }) {
   return (
-    <div>
-      <Dialog
-        open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={onClose}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="alert-dialog-slide-title">
-          {"Language Selection"}
-        </DialogTitle>
-        <DialogContent>
-          <List>
-            {LangSelection.map(language => (
-              <ListItem
-                onClick={() => setLang(language.nameShort)}
-                key={language.avatar}
+    <Dialog
+      open={open}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={onClose}
+      aria-labelledby="alert-dialog-slide-title"
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="alert-dialog-slide-title">
+        {"Language Selection"}
+      </DialogTitle>
+      <DialogContent>
+        <List>
+          {LangSelection.map(language => (
+            <ListItem
+              onClick={() => setLang(language.nameShort)}
+              key={language.avatar}
+            >
+              <Avatar
+                style={{
+                  background: "#0038ae",
+                  marginRight: "1em",
+                  fontWeight: "bold"
+                }}
               >
-                <Avatar
-                  style={{
-                    background: "#0038ae",
-                    marginRight: "1em",
-                    fontWeight: "bold"
-                  }}
-                >
-                  {language.avatar}
-                </Avatar>
-                <ListItemText primary={language.name} />
-              </ListItem>
-            ))}
-          </List>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose} color="primary">
-            {currentLanguage.general.ready}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+                {language.avatar}
+              </Avatar>
+              <ListItemText primary={language.name} />
+            </ListItem>
+          ))}
+        </List>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          {currentLanguage.general.ready}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }

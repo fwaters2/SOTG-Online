@@ -20,7 +20,6 @@ const theme = createMuiTheme({
         margin: ".5em 0",
         padding: ".5em",
         color: "white",
-        fontWeight: "bold",
         textTransform: "none",
         fontSize: "14pt"
       }
