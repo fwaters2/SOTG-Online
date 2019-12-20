@@ -53,11 +53,21 @@ const QontoConnector = withStyles({
   }
 })(StepConnector);
 
-export default function StepperTest({ step, steps, stepContent }) {
+export default function StepperTest({
+  step,
+  steps,
+  stepContent,
+  setLang,
+  currentLanguage
+}) {
   const activeStep = step;
 
   return (
-    <StyledPaper title={steps[activeStep]}>
+    <StyledPaper
+      title={steps[activeStep]}
+      setLang={setLang}
+      currentLanguage={currentLanguage}
+    >
       <div
         style={{
           zIndex: 0,

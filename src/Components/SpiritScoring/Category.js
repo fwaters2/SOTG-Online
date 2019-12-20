@@ -71,16 +71,16 @@ export default function Category({
         setExamplesTab={setExamplesTab}
       />
 
-      <LangDialog
+      {/* <LangDialog
         open={isLangSelectOpen}
         onClose={() => toggleLangSelect(false)}
         setLang={setLang}
         currentLanguage={currentLanguage}
-      />
+      /> */}
       <Box mt="1em" mb="-0.5em" style={{ borderBottom: "1px white solid" }}>
         <Typography
           align="right"
-          style={{ fontSize: "10px", textDecoration: "underline" }}
+          style={{ fontSize: "10px" }}
         >
           Swipe for more examples
         </Typography>

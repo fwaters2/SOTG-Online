@@ -1,11 +1,19 @@
 import React from "react";
-import { Paper, Typography } from "@material-ui/core";
+import { Paper, Typography, Grid, IconButton } from "@material-ui/core";
+import { Language } from "@material-ui/icons";
+import LangDialog from "./SpiritScoring/LangDialog";
 
 const myBlue = "#0C61E1";
 //const myGreen = "#8FDE58";
 //const myPurple = "#E82178";
 
-export default function StyledPaper(props) {
+export default function StyledPaper({
+  title,
+  children,
+  setLang,
+  currentLanguage
+}) {
+  const [isLangSelectOpen, toggleLangSelect] = React.useState(false);
   return (
     <Paper
       style={{
@@ -24,9 +32,32 @@ export default function StyledPaper(props) {
           marginBottom: 0
         }}
       >
-        <Typography variant="h5">{props.title}</Typography>
+        <Grid container>
+          <Grid item xs>
+            <Typography variant="h5">{title}</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton
+              onClick={() => toggleLangSelect(!isLangSelectOpen)}
+              style={{
+                color: "#0038ae",
+
+                padding: 0
+              }}
+              size="small"
+            >
+              <Language />
+            </IconButton>
+          </Grid>
+        </Grid>
+        <LangDialog
+          open={isLangSelectOpen}
+          onClose={() => toggleLangSelect(false)}
+          setLang={setLang}
+          currentLanguage={currentLanguage}
+        />
       </div>
-      {props.children}
+      {children}
     </Paper>
   );
 }
