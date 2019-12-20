@@ -26,7 +26,6 @@ export default function ListCheckBox({
 
   const handleAddNotification = variant => {
     // variant could be success, error, warning, info, or default
-    console.log("variant firing");
     enqueueSnackbar("Added to Feedback!", { variant });
   };
   const handleRemoveNotification = variant => {
