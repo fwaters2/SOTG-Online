@@ -139,6 +139,7 @@ export default function PlayerDemo() {
       stepContent={stepContent(step)}
       currentLanguage={currentLanguage}
       setLang={setLang}
+      lang={lang}
     />
   );
 }

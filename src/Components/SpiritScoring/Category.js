@@ -77,38 +77,58 @@ export default function Category({
         setLang={setLang}
         currentLanguage={currentLanguage}
       /> */}
-      <Box mt="1em" mb="-0.5em" style={{ borderBottom: "1px white solid" }}>
-        <Typography
-          align="right"
-          style={{ fontSize: "10px" }}
-        >
+      <Box mt=".5em" mb="0.5em">
+        {/* <Typography align="right" style={{ fontSize: "10px" }}>
           Swipe for more examples
-        </Typography>
+        </Typography> */}
+
+        <Grid container alignItems="center">
+          <Grid item xs>
+            <StyledFormLabel>
+              {currentLanguage.general.feedback}:
+            </StyledFormLabel>
+          </Grid>
+          {/* <Grid item>
+          <IconButton
+            onClick={() => toggleLangSelect(!isLangSelectOpen)}
+            style={{
+              color: "#0038ae",
+
+              padding: 0
+            }}
+            size="small"
+          >
+            <Language />
+          </IconButton>
+        </Grid> */}
+        </Grid>
       </Box>
       <div
         style={{
-          //background: "#0038ae",
-          margin: "0px -2em"
-          //boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
+          background: "#0038ae",
+          margin: "0px -2em",
+          boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
           //height: "30vh",
           //overflow: "auto"
         }}
       >
         <SnackbarProvider maxSnack={3}>
           <SwipeableViews
+            animateHeight
+            resistance
             index={examplesTab}
             onChangeIndex={e => setExamplesTab(e)}
           >
             {[0, 1, 2, 3, 4].map(page => (
               <List
                 dense
-                style={
-                  page === 4
-                    ? { borderRight: "#E82178 2px solid" }
-                    : page === 0
-                    ? { borderLeft: "#E82178 2px solid" }
-                    : null
-                }
+                // style={
+                //   page === 4
+                //     ? { borderRight: "#E82178 2px solid" }
+                //     : page === 0
+                //     ? { borderLeft: "#E82178 2px solid" }
+                //     : null
+                // }
               >
                 {examples[page].map((x, index) => (
                   <ListCheckBox
@@ -129,24 +149,7 @@ export default function Category({
           </SwipeableViews>
         </SnackbarProvider>
       </div>
-      <Grid container alignItems="center">
-        <Grid item xs>
-          <StyledFormLabel>{currentLanguage.general.feedback}:</StyledFormLabel>
-        </Grid>
-        {/* <Grid item>
-          <IconButton
-            onClick={() => toggleLangSelect(!isLangSelectOpen)}
-            style={{
-              color: "#0038ae",
 
-              padding: 0
-            }}
-            size="small"
-          >
-            <Language />
-          </IconButton>
-        </Grid> */}
-      </Grid>
       <Box>
         <Typography variant="caption">
           {formResponses[categories[currentStep] + "Examples"]

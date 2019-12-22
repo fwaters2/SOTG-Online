@@ -23,7 +23,8 @@ export default function LangDialog({
   open,
   onClose,
   setLang,
-  currentLanguage
+  currentLanguage,
+  lang
 }) {
   return (
     <Dialog
@@ -43,6 +44,7 @@ export default function LangDialog({
             <ListItem
               onClick={() => setLang(language.nameShort)}
               key={language.avatar}
+              selected={language.nameShort === lang}
             >
               <Avatar
                 style={{

@@ -58,7 +58,8 @@ export default function StepperTest({
   steps,
   stepContent,
   setLang,
-  currentLanguage
+  currentLanguage,
+  lang
 }) {
   const activeStep = step;
 
@@ -67,6 +68,7 @@ export default function StepperTest({
       title={steps[activeStep]}
       setLang={setLang}
       currentLanguage={currentLanguage}
+      lang={lang}
     >
       <div
         style={{

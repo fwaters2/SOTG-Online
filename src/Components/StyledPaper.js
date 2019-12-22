@@ -11,7 +11,8 @@ export default function StyledPaper({
   title,
   children,
   setLang,
-  currentLanguage
+  currentLanguage,
+  lang
 }) {
   const [isLangSelectOpen, toggleLangSelect] = React.useState(false);
   return (
@@ -55,6 +56,7 @@ export default function StyledPaper({
           onClose={() => toggleLangSelect(false)}
           setLang={setLang}
           currentLanguage={currentLanguage}
+          lang={lang}
         />
       </div>
       {children}

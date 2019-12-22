@@ -13,10 +13,18 @@ export default function StepButtonGroup({
   const handleBack = () => {
     setStep(step - 1);
     setExamplesTab(formResponses[categories[currentStep - 1]]);
+    window.scrollTo({
+      top: 120,
+      behavior: "smooth"
+    });
   };
   const handleNext = () => {
     setStep(step + 1);
     setExamplesTab(formResponses[categories[currentStep + 1]]);
+    window.scrollTo({
+      top: 120,
+      behavior: "smooth"
+    });
   };
   return (
     <ButtonGroup fullWidth>
