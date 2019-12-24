@@ -27,7 +27,7 @@ export default function HowToUse() {
           </Grid>
         </ListItem>
       ))}
-      <Link to="/" style={{ textDecoration: "none" }}>
+      <Link to="/createevent" style={{ textDecoration: "none" }}>
         <Button fullWidth variant="contained" color="secondary">
           Create Event Now!
         </Button>
