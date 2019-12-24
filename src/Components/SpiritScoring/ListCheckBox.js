@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItemIcon, ListItemText, ListItem } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
-import { SnackbarProvider, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 
 export default function ListCheckBox({
   examples,

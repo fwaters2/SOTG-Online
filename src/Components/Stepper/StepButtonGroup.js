@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonGroup, Button } from "@material-ui/core";
+import { ArrowForward, ArrowBack } from "@material-ui/icons";
 
 export default function StepButtonGroup({
   step,
@@ -34,10 +35,10 @@ export default function StepButtonGroup({
         onClick={handleBack}
         style={{ color: "black" }}
       >
-        {currentLanguage.general.back}
+        <ArrowBack />
       </Button>
       <Button variant="contained" color="primary" onClick={handleNext}>
-        {currentLanguage.general.next}
+        <ArrowForward />
       </Button>
     </ButtonGroup>
   );

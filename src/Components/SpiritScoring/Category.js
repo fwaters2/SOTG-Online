@@ -2,28 +2,20 @@ import React from "react";
 import {
   List,
   Grid,
-  IconButton,
   Button,
   Dialog,
   Slide,
-  DialogTitle,
-  FormControl,
-  InputBase,
   DialogContent,
   TextField,
-  DialogActions,
   Box,
-  Chip,
   Typography
 } from "@material-ui/core";
-import { Language } from "@material-ui/icons";
+import { PostAdd, Check } from "@material-ui/icons";
 import StyledFormLabel from "../StyledFormLabel.js";
-import FeedbackContainer from "./FeedbackContainer.js";
 import StepButtonGroup from "../Stepper/StepButtonGroup.js";
 import ListCheckBox from "./ListCheckBox.js";
 import NumberScore from "./NumberScore.js";
-import LangDialog from "./LangDialog.js";
-import { SnackbarProvider, useSnackbar } from "notistack";
+import { SnackbarProvider } from "notistack";
 import SwipeableViews from "react-swipeable-views";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -33,10 +25,8 @@ export default function Category({
   setStep,
   formResponses,
   setFormResponses,
-  currentLanguage,
-  setLang
+  currentLanguage
 }) {
-  const [isLangSelectOpen, toggleLangSelect] = React.useState(false);
   const [isDialogOpen, toggleDialog] = React.useState(false);
 
   const categories = Object.keys(currentLanguage).filter(x => x !== "general");
@@ -173,7 +163,7 @@ export default function Category({
         }
         onClick={handleOpen}
       >
-        Additional Feedback
+        <PostAdd />
       </Button>
       <Dialog
         fullWidth
@@ -200,12 +190,25 @@ export default function Category({
           />
 
           <Button
-            color="primary"
-            variant="contained"
+            color={
+              formResponses[categories[currentStep] + "Feedback"] === ""
+                ? "default"
+                : "primary"
+            }
+            variant={
+              formResponses[categories[currentStep] + "Feedback"] === ""
+                ? "outlined"
+                : "contained"
+            }
+            style={
+              formResponses[categories[currentStep] + "Feedback"] === ""
+                ? { color: "slategrey" }
+                : null
+            }
             onClick={handleClose}
             fullWidth
           >
-            Close
+            <Check />
           </Button>
         </DialogContent>
       </Dialog>

@@ -4,11 +4,9 @@ import Stepper from "../Stepper/Index";
 import SpiritScoreView from "./SpiritScoreView";
 
 import EnglishText from "../../Assets/Lang/enSpirit.json";
-const spiritTexts = { en: EnglishText };
-const lang = "en";
-const currentLanguage = spiritTexts[lang];
 
 export default function SpiritScoreState(props) {
+  const [lang, setLang] = React.useState("en");
   const [step, setStep] = React.useState(0);
   const [exists, setExists] = useState(true);
   const [eventData, setEventData] = useState({
@@ -38,7 +36,8 @@ export default function SpiritScoreState(props) {
     email: eventData.email
   });
   const [isDialogOpen, toggleDialog] = React.useState(false);
-
+  const spiritTexts = { en: EnglishText };
+  const currentLanguage = spiritTexts[lang];
   const handleSubmit = () => {
     eventData
       ? Firebase.firestore()
@@ -96,6 +95,9 @@ export default function SpiritScoreState(props) {
       step={step}
       formResponses={formResponses}
       setFormResponses={setFormResponses}
+      currentLanguage={currentLanguage}
+      lang={lang}
+      setLang={setLang}
       steps={[
         eventData.name,
         "Rules Knowledge and Use",

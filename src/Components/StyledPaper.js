@@ -33,7 +33,7 @@ export default function StyledPaper({
           marginBottom: 0
         }}
       >
-        <Grid container>
+        <Grid container alignItems="center">
           <Grid item xs>
             <Typography variant="h5">{title}</Typography>
           </Grid>

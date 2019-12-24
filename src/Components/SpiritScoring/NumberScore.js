@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  SvgIcon,
-  List,
-  ButtonGroup,
-  Button,
-  Tabs,
-  Tab,
-  makeStyles
-} from "@material-ui/core";
+import { SvgIcon, List, Tabs, Tab, makeStyles } from "@material-ui/core";
 import {
   SentimentVeryDissatisfied,
   SentimentDissatisfied,
@@ -52,21 +44,17 @@ export default function NumberScore({
           justifyContent: "space-around"
         }}
       >
-        <SvgIcon>
-          <SentimentVeryDissatisfied />
-        </SvgIcon>
-        <SvgIcon>
-          <SentimentDissatisfied />
-        </SvgIcon>
-        <SvgIcon>
-          <SentimentSatisfied />
-        </SvgIcon>
-        <SvgIcon>
-          <SentimentVerySatisfied />
-        </SvgIcon>
-        <SvgIcon>
+        {[
+          <SentimentVeryDissatisfied />,
+          <SentimentDissatisfied />,
+          <SentimentSatisfied />,
+          <SentimentVerySatisfied />,
           <Whatshot />
-        </SvgIcon>
+        ].map((icon, index) => (
+          <SvgIcon color={index === tempScore ? "primary" : "default"}>
+            {icon}
+          </SvgIcon>
+        ))}
       </List>
       <Tabs
         value={examplesTab}

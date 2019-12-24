@@ -27,7 +27,7 @@ export default function Summary({
     >
       <div
         style={{
-          margin: "3vh 0",
+          margin: "2em 0",
           flex: 1,
           display: "flex",
           flexDirection: "column"
@@ -37,7 +37,7 @@ export default function Summary({
 
         <Paper
           style={{
-            margin: "5px -2em 20px",
+            margin: "1em -2em 0em",
             borderRadius: 0
           }}
         >

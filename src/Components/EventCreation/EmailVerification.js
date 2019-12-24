@@ -27,6 +27,7 @@ export default function EmailVerification({
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be whitelisted in the Firebase Console.
     url:
+      //"http://localhost:3000/verfied?slug=" +
       "http://sotg.online/verified?slug=" +
       string_to_slug(formResponses.eventName) +
       "&eventName=" +
@@ -95,7 +96,7 @@ export default function EmailVerification({
       <StyledTextField
         type="email"
         placeholder="Email"
-        label="Email"
+        label="Account Creation"
         stateKey="email"
         formResponses={formResponses}
         setFormResponses={setFormResponses}
@@ -111,7 +112,7 @@ export default function EmailVerification({
         open={emailSent}
         onClose={() => alert("attempting to close")}
       >
-        <CheckEmail />
+        <CheckEmail email={formResponses.email} />
       </Dialog>
     </React.Fragment>
   );

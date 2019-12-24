@@ -2,7 +2,7 @@ import React from "react";
 import { SvgIcon, Typography, Grid } from "@material-ui/core";
 import { Email } from "@material-ui/icons";
 
-export default function CheckEmail() {
+export default function CheckEmail({ email }) {
   return (
     <Grid
       container
@@ -19,8 +19,8 @@ export default function CheckEmail() {
       </Grid>
       <Grid item>
         <Typography variant="h6" align="center">
-          Please check your email and follow the link to finish setting up your
-          event!
+          Verification email sent to {email}. Please follow the link to finish
+          setting up your event!
         </Typography>
       </Grid>
 

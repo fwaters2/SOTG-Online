@@ -8,6 +8,7 @@ import SpiritScore from "./Components/SpiritScoring/Index";
 import EventCreation from "./Components/EventCreation/Index";
 import PlayerDemo from "./Components/Pages/PlayerDemo";
 import Testing from "./Testing";
+import Login from "./Components/Login/Login";
 
 export default function Routes() {
   return (
@@ -19,7 +20,9 @@ export default function Routes() {
       <Route exact path="/verified" component={PlayerDemo} />
       <Route exact path="/demo" component={PlayerDemo} />
       <Route exact path="/testing" component={Testing} />
-      <Route path="/:event" component={PlayerDemo} />
+      <Route exact path="/createevent" component={EventCreation} />
+      <Route exact path="/login" component={Login} />
+      <Route path="/:event" component={SpiritScore} />
     </Switch>
   );
 }

@@ -1,41 +1,28 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  CardHeader,
-  CardMedia,
-  Paper,
-  Button
-} from "@material-ui/core";
-import { Check } from "@material-ui/icons";
+import { Card, CardHeader, CardMedia, Button } from "@material-ui/core";
 import scoreSheet from "../../Assets/photos/SpiritScoresheet-min.JPG";
 import { Link } from "react-router-dom";
 
-const StyledCard = props => {
-  return (
-    <Card style={{ margin: "1em 0" }}>
-      <CardHeader title={props.title} subheader={props.body} />
-      <CardContent>{props.children}</CardContent>
-    </Card>
-  );
-};
-const playerBenefits = [
-  "Examples: WFDF examples next to every possible score for more confident assessments",
-  "Convenience: available on any device",
-  "Save the planet! (paperless)",
-  "Multilingual (Under Development)"
-];
-const organizerBenefits = [
-  "Easy to setup: Just need the of your event, team names, and an email",
-  "More accurate spirit scores: Providing WFDF examples to players, with each score will standardize your events results",
-  "No commitment: You can still offer players the normal paper option",
-  "Less Mess: Scores arrive to your inbox and can be easily copy/pasted to your favorite spreadsheet"
-];
+// const StyledCard = props => {
+//   return (
+//     <Card style={{ margin: "1em 0" }}>
+//       <CardHeader title={props.title} subheader={props.body} />
+//       <CardContent>{props.children}</CardContent>
+//     </Card>
+//   );
+// };
+// const playerBenefits = [
+//   "Examples: WFDF examples next to every possible score for more confident assessments",
+//   "Convenience: available on any device",
+//   "Save the planet! (paperless)",
+//   "Multilingual (Under Development)"
+// ];
+// const organizerBenefits = [
+//   "Easy to setup: Just need the of your event, team names, and an email",
+//   "More accurate spirit scores: Providing WFDF examples to players, with each score will standardize your events results",
+//   "No commitment: You can still offer players the normal paper option",
+//   "Less Mess: Scores arrive to your inbox and can be easily copy/pasted to your favorite spreadsheet"
+//];
 
 export default function InfoLayout() {
   return (

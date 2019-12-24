@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { Strings as Languages } from "../../Assets/Lang/Languages";
 
 export default function PlayerDemo() {
-  const [step, setStep] = React.useState(1);
+  const [step, setStep] = React.useState(0);
   const [lang, setLang] = React.useState("en");
   const [formResponses, setFormResponses] = React.useState({
     myTeam: "Select",

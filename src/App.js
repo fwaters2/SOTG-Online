@@ -49,7 +49,7 @@ const theme = createMuiTheme({
     },
     MuiInput: {
       root: {
-        background: "red"
+        //background: "red"
       }
     }
   }
