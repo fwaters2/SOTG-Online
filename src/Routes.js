@@ -17,7 +17,7 @@ export default function Routes() {
       <Route exact path="/howtouse" component={HowToUse} />
       <Route exact path="/about" component={About} />
       <Route exact path="/contact" component={Contact} />
-      <Route exact path="/verified" component={PlayerDemo} />
+      <Route exact path="/verified" component={Verified} />
       <Route exact path="/demo" component={PlayerDemo} />
       <Route exact path="/testing" component={Testing} />
       <Route exact path="/createevent" component={EventCreation} />
