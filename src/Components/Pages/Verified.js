@@ -14,7 +14,7 @@ export default function Verified(props) {
       // Get the email if available. This should be available if the user completes
       // the flow on the same device where they started it.
       var email = window.localStorage.getItem("emailForSignIn");
-      console.log(email);
+
       setMessage("Email retrieved from storage");
       if (!email) {
         // User opened the link on a different device. To prevent session fixation
@@ -53,7 +53,6 @@ export default function Verified(props) {
             .catch(error => {
               console.error("Error adding document: ", error);
             });
-
           console.log(result);
         })
         .catch(function(error) {

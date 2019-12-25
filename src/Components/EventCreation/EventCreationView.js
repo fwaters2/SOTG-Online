@@ -32,6 +32,7 @@ export default function EventCreationView({
       return (
         <React.Fragment>
           <StyledTextField
+            autoFocus={true}
             type="text"
             placeholder="Event Name"
             label="Event Name"

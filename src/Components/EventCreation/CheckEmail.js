@@ -19,8 +19,7 @@ export default function CheckEmail({ email }) {
       </Grid>
       <Grid item>
         <Typography variant="h6" align="center">
-          Verification email sent to {email}. Please follow the link to finish
-          setting up your event!
+          Verification email sent to {email}. Check junk mail folder!
         </Typography>
       </Grid>
 
