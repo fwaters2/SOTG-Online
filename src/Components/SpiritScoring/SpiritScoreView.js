@@ -57,7 +57,7 @@ export default function SpiritScoreView({
             handleSubmit={handleFormSubmit}
             label="Submit"
           />
-          <Dialog open={isDialogOpen} onClose={() => setStep(0)}>
+          <Dialog open={isDialogOpen} onClose={() => window.location.reload()}>
             <DialogTitle>Thanks for Scoring!</DialogTitle>
           </Dialog>
         </React.Fragment>

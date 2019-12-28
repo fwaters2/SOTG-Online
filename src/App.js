@@ -4,6 +4,8 @@ import Routes from "./Routes";
 import Signature from "./Components/Signature";
 import StyledHeader from "./Components/StyledHeader";
 import { createMuiTheme, ThemeProvider, Container } from "@material-ui/core";
+import Firebase from "./Firebase";
+import Preloader from "./Assets/Loader/Preloader";
 
 const myBlue = "#0C61E1";
 const myGreen = "#8FDE58";
@@ -55,25 +57,43 @@ const theme = createMuiTheme({
   }
 });
 function App() {
+  const [userEmail, setUserEmail] = React.useState("");
+  const [isLoading, toggleLoading] = React.useState(true);
+  const handleUser = email => {
+    setUserEmail(email);
+    toggleLoading(false);
+  };
+
+  function setupListener() {
+    Firebase.auth().onAuthStateChanged(user =>
+      user ? handleUser(user.email) : toggleLoading(false)
+    );
+  }
+
   return (
     <div id="root">
       <ThemeProvider theme={theme}>
         <Router>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh"
-            }}
-          >
-            <StyledHeader />
-            <div style={{ display: "flex", flex: 1 }}>
-              <Container maxWidth="xs" style={{ flex: 1 }}>
-                <Routes />
-              </Container>
+          {setupListener()}
+          {isLoading ? (
+            <Preloader />
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh"
+              }}
+            >
+              <StyledHeader userEmail={userEmail} />
+              <div style={{ display: "flex", flex: 1 }}>
+                <Container maxWidth="xs" style={{ flex: 1 }}>
+                  <Routes userEmail={userEmail} />
+                </Container>
+              </div>
+              <Signature />
             </div>
-            <Signature />
-          </div>
+          )}
         </Router>
       </ThemeProvider>
     </div>

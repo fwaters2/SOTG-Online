@@ -15,14 +15,8 @@ export default function EventCreationState() {
   const { eventName } = formResponses;
   const [step, setStep] = React.useState(0);
   const currentLanguage = Languages(lang);
+
   return (
-    // <Stepper
-    //   step={step}
-    //   steps={["Create Event", "Add Teams", "Email Verification"]}
-    //   currentLanguage={currentLanguage}
-    //   lang={lang}
-    //   setLang={setLang}
-    //   stepContent={
     <StyledPaper
       title="Create Event"
       setLang={setLang}
@@ -40,7 +34,5 @@ export default function EventCreationState() {
         />
       </div>
     </StyledPaper>
-    // }
-    // />
   );
 }

@@ -6,16 +6,6 @@ import string_to_slug from "../../slugify";
 import { Dialog } from "@material-ui/core";
 import CheckEmail from "./CheckEmail";
 
-// var actionCodeSettings = {
-//   // URL you want to redirect back to. The domain (www.example.com) for this
-//   // URL must be whitelisted in the Firebase Console.
-//   url: "http://localhost:3000/verified",
-//   // This must be true.
-//   handleCodeInApp: true
-
-//   //dynamicLinkDomain: 'example.page.link'
-// };
-
 export default function EmailVerification({
   formResponses,
   setFormResponses,
@@ -27,11 +17,11 @@ export default function EmailVerification({
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be whitelisted in the Firebase Console.
     url:
-      //"http://localhost:3000/verified?slug=" +
-      "http://sotg.online/verified?slug=" +
+      "http://localhost:3000/verified?slug=" +
+      //"http://sotg.online/verified?slug=" +
       string_to_slug(formResponses.eventName) +
       "&eventName=" +
-      string_to_slug(formResponses.eventName) +
+      formResponses.eventName +
       "&teams=" +
       formResponses.teams
         //.map(team => string_to_slug(team))
@@ -83,7 +73,7 @@ export default function EmailVerification({
         // Save the email locally so you don't need to ask the user for it again
         // if they open the link on the same device.
         window.localStorage.setItem("emailForSignIn", formResponses.email);
-        console.log("email was actually sent");
+        console.log("email was sent");
       })
       .catch(function(error) {
         // Some error occurred, you can inspect the code: error.code
@@ -95,8 +85,6 @@ export default function EmailVerification({
     <div>Congrats you are signed in</div>
   ) : (
     <React.Fragment>
-      {"&teams=" +
-        formResponses.teams.map(team => string_to_slug(team)).join("+")}
       <StyledTextField
         type="email"
         placeholder="Email"

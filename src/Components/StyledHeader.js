@@ -14,6 +14,7 @@ import {
 import { Menu, Close } from "@material-ui/icons";
 import { ReactComponent as SOTGLogo } from "../Assets/Logos/SOTG_Full.svg";
 import { Link as RouterLink } from "react-router-dom";
+import Firebase from "../Firebase";
 
 const myBlue = "#0C61E1";
 const myPurple = "#E82178";
@@ -37,8 +38,13 @@ const StyledExpansionPanelSummary = withStyles({
   expanded: {}
 })(ExpansionPanelSummary);
 
-export default function StyledHeader() {
+export default function StyledHeader({ userEmail }) {
   const [expanded, toggleExpanded] = React.useState(false);
+
+  const handleLogout = () => {
+    Firebase.auth().signOut();
+    window.location.reload();
+  };
   return (
     <div>
       <StyledExpansionPanel elevation={0} expanded={expanded}>
@@ -95,9 +101,49 @@ export default function StyledHeader() {
                     }
                   />
                 </ListItem>
-                {index === links.length - 1 ? null : <Divider />}
+                {/* {index === links.length - 1 ? null : <Divider />} */}
+                <Divider />
               </RouterLink>
             ))}
+            {userEmail ? (
+              <ListItem button onClick={handleLogout}>
+                <ListItemText
+                  primary={
+                    <Typography
+                      variant="h5"
+                      style={{
+                        fontWeight: "bold",
+                        color: "grey"
+                      }}
+                    >
+                      Logout
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            ) : (
+              <RouterLink
+                to="/login"
+                onClick={e => toggleExpanded(!expanded)}
+                style={{ textDecoration: "none" }}
+              >
+                <ListItem button>
+                  <ListItemText
+                    primary={
+                      <Typography
+                        variant="h5"
+                        style={{
+                          fontWeight: "bold",
+                          color: "grey"
+                        }}
+                      >
+                        Login
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </RouterLink>
+            )}
           </List>
         </ExpansionPanelDetails>
       </StyledExpansionPanel>

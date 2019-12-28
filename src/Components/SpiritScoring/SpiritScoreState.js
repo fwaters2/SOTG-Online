@@ -43,6 +43,7 @@ export default function SpiritScoreState(props) {
       ? Firebase.firestore()
           .collection("spiritscores")
           .add({
+            eventName: eventData.name,
             email: eventData.email,
             myTeam: formResponses.myTeam,
             opponent: formResponses.opponent,
@@ -53,7 +54,18 @@ export default function SpiritScoreState(props) {
             communication: formResponses.communication,
             feedback: formResponses.feedback
           })
-      : alert("spiritscore has been submitted");
+      : console.log("error, no event data:", {
+          eventName: eventData.name,
+          email: eventData.email,
+          myTeam: formResponses.myTeam,
+          opponent: formResponses.opponent,
+          rules: formResponses.rules,
+          fouls: formResponses.fouls,
+          fairness: formResponses.fairness,
+          attitude: formResponses.attitude,
+          communication: formResponses.communication,
+          feedback: formResponses.feedback
+        });
   };
   const handleFormSubmit = () => {
     toggleDialog(true);
