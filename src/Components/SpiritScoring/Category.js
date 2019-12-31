@@ -111,6 +111,7 @@ export default function Category({
           >
             {[0, 1, 2, 3, 4].map(page => (
               <List
+                key={page}
                 dense
                 // style={
                 //   page === 4

@@ -1,0 +1,28 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  height: 8vh;
+  width: 8vh;
+
+  border-radius: 100%;
+  animation: rotation 1s infinite linear 0.25s;
+
+  /* the opacity is used to lazyload the spinner, see animation delay */
+  /* this avoid the spinner to be displayed when visible for a very short period of time */
+  opacity: 0;
+}
+
+@keyframes rotation {
+  from {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(359deg);
+  }
+}

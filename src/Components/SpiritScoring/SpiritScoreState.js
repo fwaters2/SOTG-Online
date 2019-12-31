@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Firebase from "../../Firebase";
 import Stepper from "../Stepper/Index";
 import SpiritScoreView from "./SpiritScoreView";
-
 import EnglishText from "../../Assets/Lang/enSpirit.json";
 
 export default function SpiritScoreState(props) {
@@ -39,33 +38,51 @@ export default function SpiritScoreState(props) {
   const spiritTexts = { en: EnglishText };
   const currentLanguage = spiritTexts[lang];
   const handleSubmit = () => {
+    const {
+      myTeam,
+      opponent,
+      rules,
+      rulesFeedback,
+      rulesExamples,
+      fouls,
+      foulsExamples,
+      fairness,
+      fairnessExamples,
+      fairnessFeedback,
+      attitude,
+      attitudeExamples,
+      attitudeFeedback,
+      communication,
+      communicationExamples,
+      communicationFeedback,
+      feedback
+    } = formResponses;
     eventData
       ? Firebase.firestore()
           .collection("spiritscores")
           .add({
             eventName: eventData.name,
             email: eventData.email,
-            myTeam: formResponses.myTeam,
-            opponent: formResponses.opponent,
-            rules: formResponses.rules,
-            fouls: formResponses.fouls,
-            fairness: formResponses.fairness,
-            attitude: formResponses.attitude,
-            communication: formResponses.communication,
-            feedback: formResponses.feedback
+            myTeam,
+            opponent,
+            rules,
+            rulesFeedback,
+            rulesExamples,
+            fouls,
+            foulsExamples,
+            fairness,
+            fairnessExamples,
+            fairnessFeedback,
+            attitude,
+            attitudeExamples,
+            attitudeFeedback,
+            communication,
+            communicationExamples,
+            communicationFeedback,
+            feedback,
+            created: Firebase.database.ServerValue.TIMESTAMP
           })
-      : console.log("error, no event data:", {
-          eventName: eventData.name,
-          email: eventData.email,
-          myTeam: formResponses.myTeam,
-          opponent: formResponses.opponent,
-          rules: formResponses.rules,
-          fouls: formResponses.fouls,
-          fairness: formResponses.fairness,
-          attitude: formResponses.attitude,
-          communication: formResponses.communication,
-          feedback: formResponses.feedback
-        });
+      : console.log("Event Data returned false");
   };
   const handleFormSubmit = () => {
     toggleDialog(true);
@@ -78,7 +95,7 @@ export default function SpiritScoreState(props) {
       .collection("events")
       .where("slug", "==", event);
     //attempt with get
-    eventRef
+    const unsubscribe = eventRef
       .get()
       .then(doc => {
         //see if it exists
@@ -100,6 +117,7 @@ export default function SpiritScoreState(props) {
       .catch(function(error) {
         console.log("Error getting event:", error);
       });
+    return () => unsubscribe;
   }, [event]);
 
   return exists ? (

@@ -1,8 +1,17 @@
 import React from "react";
 import StyledTextField from "../StyledTextField";
 import AddTeam from "./AddTeam";
-import EmailVerification from "./EmailVerification";
-import { Button, ButtonGroup } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  Box,
+  FormControl,
+  InputBase,
+  TextField
+} from "@material-ui/core";
+import Summary from "./Summary";
+import StyledFormLabel from "../StyledFormLabel";
+import string_to_slug from "../../slugify";
 
 export default function EventCreationView({
   step,
@@ -13,15 +22,33 @@ export default function EventCreationView({
 }) {
   const handleBack = () => {
     setStep(step - 1);
-    //setExamplesTab(formResponses[categories[currentStep - 1]]);
+
     window.scrollTo({
       top: 120,
       behavior: "smooth"
     });
   };
+
+  function isBlank(input) {
+    return input === "";
+  }
+  const handleEventNameCreate = e => {
+    e.preventDefault();
+    function actions() {
+      setFormResponses({
+        ...formResponses,
+        slug: string_to_slug(formResponses.eventName)
+      });
+      setStep(step + 1);
+    }
+    isBlank(formResponses.eventName)
+      ? alert("Please Create a Name for your Event")
+      : actions();
+  };
   const handleNext = () => {
-    setStep(step + 1);
-    //setExamplesTab(formResponses[categories[currentStep + 1]]);
+    formResponses.teams.length < 2
+      ? alert("Please create at least 2 teams to continue")
+      : setStep(step + 1);
     window.scrollTo({
       top: 120,
       behavior: "smooth"
@@ -31,21 +58,31 @@ export default function EventCreationView({
     case 0:
       return (
         <React.Fragment>
-          <StyledTextField
-            autoFocus={true}
-            type="text"
-            placeholder="Event Name"
-            label="Event Name"
-            stateKey="eventName"
-            formResponses={formResponses}
-            setFormResponses={setFormResponses}
-            currentLanguage={currentLanguage}
-          />
+          <Box mt={2} mb={2}>
+            <form onSubmit={handleEventNameCreate}>
+              <StyledFormLabel>Event Name</StyledFormLabel>
+              <FormControl variant="outlined" color="secondary">
+                <InputBase
+                  error
+                  style={{ padding: ".5em 1em" }}
+                  type="text"
+                  placeholder="Event Name"
+                  value={formResponses.eventName}
+                  onChange={e =>
+                    setFormResponses({
+                      ...formResponses,
+                      eventName: e.target.value
+                    })
+                  }
+                />
+              </FormControl>
+            </form>
+          </Box>
           <Button
             fullWidth
             variant="contained"
             color="primary"
-            onClick={() => setStep(step + 1)}
+            onClick={handleEventNameCreate}
           >
             Create
           </Button>
@@ -75,15 +112,14 @@ export default function EventCreationView({
       );
     case 2:
       return (
-        <React.Fragment>
-          <EmailVerification
-            formResponses={formResponses}
-            setFormResponses={setFormResponses}
-            step={step}
-            setStep={setStep}
-          />
-        </React.Fragment>
+        <Summary
+          formResponses={formResponses}
+          setFormResponses={setFormResponses}
+          step={step}
+          setStep={setStep}
+        />
       );
+
     default:
       return <div>Step Not Found</div>;
   }

@@ -21,7 +21,7 @@ const myPurple = "#E82178";
 const links = [
   { text: "Home", extension: "" },
   { text: "How To Use", extension: "howtouse" },
-  { text: "Demo", extension: "demo" },
+  { text: "Demo", extension: "playerdemo" },
   { text: "About", extension: "about" },
   { text: "Contact", extension: "contact" }
 ];

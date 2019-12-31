@@ -48,11 +48,6 @@ const theme = createMuiTheme({
       multiline: {
         padding: "1em"
       }
-    },
-    MuiInput: {
-      root: {
-        //background: "red"
-      }
     }
   }
 });

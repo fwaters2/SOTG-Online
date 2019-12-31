@@ -9,13 +9,15 @@ export default function StyledTextField({
   type,
   placeholder,
   formResponses,
-  setFormResponses
+  setFormResponses,
+  ref
 }) {
   return (
     <Box mt={2} mb={2}>
       <StyledFormLabel>{label}</StyledFormLabel>
       <FormControl variant="outlined">
         <InputBase
+          ref={ref}
           autoFocus={autoFocus}
           required
           style={{ padding: ".5em 1em" }}

@@ -8,105 +8,86 @@ import {
   ListItem,
   Button,
   Menu,
-  MenuItem
+  MenuItem,
+  Paper
 } from "@material-ui/core";
-import { Add, Settings } from "@material-ui/icons";
-import Firebase from "../../Firebase";
-import Standings from "./Standings";
-import { Link } from "react-router-dom";
-import DeleteDialog from "./DeleteDialog";
-import EditTeams from "./EditTeams";
-import ShareDialog from "./ShareDialog";
+import { Settings } from "@material-ui/icons";
+import Standings from "./Standings/Standings";
+import DeleteDialog from "./Dialogs/DeleteDialog";
+import EditTeams from "./Dialogs/EditTeams";
+import ShareDialog from "./Dialogs/ShareDialog";
 import Logo from "../../Assets/Loader/Spinner/Logo";
 
-export default function Events() {
-  const [isLoading, setLoading] = React.useState(true);
-  const [events, setEvents] = React.useState([]);
-  const [email, setEmail] = React.useState("");
-  const [spiritScores, setSpiritScores] = React.useState([]);
+export default function OrganizerView({
+  events,
+  spiritScores,
+  email,
+  handleDelete,
+  isLoading
+}) {
   const [isViewingEvent, toggleEventView] = React.useState(false);
   const [currentEventInfo, setCurrentEventInfo] = React.useState({});
   const [currentScores, setCurrentScores] = React.useState([]);
+  const [currentEvent, setCurrentEvent] = React.useState();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  //Dialogs
   const [isShareDialogOpen, toggleShareDialog] = React.useState(false);
   const [isTeamDialogOpen, toggleTeamDialog] = React.useState(false);
   const [isDeleteDialogOpen, toggleDeleteDialog] = React.useState(false);
 
+  React.useEffect(() => {
+    setCurrentScores(
+      spiritScores.filter(score => score.eventName === currentEvent)
+    );
+  }, [spiritScores, currentEvent]);
+
   const handleSettings = (id, event) => e => {
     setAnchorEl(e.currentTarget);
   };
-  React.useEffect(() => {
-    setEmail(Firebase.auth().currentUser.email);
-    // Firebase.auth().onAuthStateChanged(user =>
-    //   user ? setEmail(user.email) : alert("error finding events")
-    // );
-    //console.log(Firebase.auth().currentUser.email);
-    //console.log(email);
-  }, []);
-  React.useEffect(() => {
-    const unsubscribe = Firebase.firestore()
-      .collection("events")
-      .where("email", "==", email)
-      .onSnapshot(snapshot => {
-        const events = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setEvents(events);
-      });
-    return () => unsubscribe;
-  }, [email]);
-  React.useEffect(() => {
-    const unsubscribe = Firebase.firestore()
-      .collection("spiritscores")
-      .where("email", "==", email)
-      .onSnapshot(snapshot => {
-        const spiritScores = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setSpiritScores(spiritScores);
-        setLoading(false);
-      });
-    return () => unsubscribe;
-  }, [email]);
+
   const handleClick = eventInfo => () => {
     setCurrentEventInfo(eventInfo);
+    setCurrentEvent(eventInfo.name);
     setCurrentScores(
       spiritScores.filter(score => score.eventName === eventInfo.name)
     );
     toggleEventView(true);
   };
   const handleMenuDelete = id => () => {
-    console.log("id", id);
-    Firebase.firestore()
-      .collection("events")
-      .doc(id)
-      .delete();
-    //toggleDeleteDialog(true);
+    //handleDelete(id)
+    toggleDeleteDialog(true);
   };
   return (
     <Container maxWidth="xs">
-      <Typography variant="h6">{email}</Typography>
+      <Grid container alignItems="center" justify="space-between">
+        <Typography variant="h6">Organizer: </Typography>
+        <Typography variant="subtitle2">{email}</Typography>
+      </Grid>
       {isViewingEvent ? (
         <Button
           color="secondary"
+          variant="outlined"
           fullWidth
           onClick={() => toggleEventView(false)}
         >
-          Back
+          Back to Events
         </Button>
       ) : null}
       {isViewingEvent ? (
         <Standings eventInfo={currentEventInfo} scores={currentScores} />
       ) : (
         <List>
-          <Typography variant="h6">Tournaments:</Typography>
+          <Typography variant="h6">Select Event:</Typography>
           {isLoading ? (
             <Logo />
           ) : (
             events.map(event => (
-              <React.Fragment key={event.name}>
+              <Paper
+                style={{
+                  backgroundColor: "#8FDE58"
+                }}
+                key={event.name}
+              >
                 <div
                   style={{
                     position: "absolute",
@@ -162,23 +143,9 @@ export default function Events() {
                     </Grid>
                   </Grid>
                 </ListItem>
-              </React.Fragment>
+              </Paper>
             ))
           )}
-          <ListItem>
-            <Grid container justify="center">
-              <Grid item>
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="/createevent"
-                >
-                  <IconButton color="primary">
-                    <Add />
-                  </IconButton>
-                </Link>
-              </Grid>
-            </Grid>
-          </ListItem>
         </List>
       )}
       <ShareDialog

@@ -59,7 +59,10 @@ export default function InfoLayout() {
         </CardMedia>
       </Card>
       <Button fullWidth variant="contained" color="primary">
-        <Link to="/demo" style={{ color: "inherit", textDecoration: "none" }}>
+        <Link
+          to="/playerdemo"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
           Check Out Demo
         </Link>
       </Button>

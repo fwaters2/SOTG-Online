@@ -1,8 +1,8 @@
 import React from "react";
 import Stepper from "../Stepper/Index";
-import Summary from "../SpiritScoring/Summary";
-import Category from "../SpiritScoring/Category";
-import TeamSelection from "../SpiritScoring/TeamSelection";
+import Summary from "./Summary";
+import Category from "./Category";
+import TeamSelection from "./TeamSelection";
 import LastButtons from "../Stepper/LastButtons";
 import {
   Dialog,
@@ -13,32 +13,33 @@ import {
   ButtonGroup
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
 import { Strings as Languages } from "../../Assets/Lang/Languages";
+
+const initialState = {
+  myTeam: "Select",
+  opponent: "Select",
+  rules: 2,
+  rulesFeedback: "",
+  rulesExamples: [],
+  fouls: 2,
+  foulsFeedback: "",
+  foulsExamples: [],
+  fairness: 2,
+  fairnessFeedback: "",
+  fairnessExamples: [],
+  attitude: 2,
+  attitudeFeedback: "",
+  attitudeExamples: [],
+  communication: 2,
+  communicationFeedback: "",
+  communicationExamples: [],
+  feedback: ""
+};
 
 export default function PlayerDemo() {
   const [step, setStep] = React.useState(0);
   const [lang, setLang] = React.useState("en");
-  const [formResponses, setFormResponses] = React.useState({
-    myTeam: "Select",
-    opponent: "Select",
-    rules: 2,
-    rulesFeedback: "",
-    rulesExamples: [],
-    fouls: 2,
-    foulsFeedback: "",
-    foulsExamples: [],
-    fairness: 2,
-    fairnessFeedback: "",
-    fairnessExamples: [],
-    attitude: 2,
-    attitudeFeedback: "",
-    attitudeExamples: [],
-    communication: 2,
-    communicationFeedback: "",
-    communicationExamples: [],
-    feedback: ""
-  });
+  const [formResponses, setFormResponses] = React.useState(initialState);
   const [isDialogOpen, toggleDialog] = React.useState(false);
 
   const currentLanguage = Languages(lang);

@@ -7,10 +7,13 @@ import {
   Typography,
   Dialog,
   DialogTitle,
-  DialogContent
+  DialogContent,
+  IconButton
 } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import ScoreSummary from "./ScoreSummary";
 import ScoreExpanded from "./ScoreExpanded";
+import { Link } from "react-router-dom";
 
 const defaultScores = [-1, -1, -1, -1, -1];
 
@@ -111,7 +114,7 @@ export default function Standings({ eventInfo, scores }) {
           </Grid>
           <Grid item xs container justify="space-between">
             {categories.map(cat => (
-              <Grid item xs>
+              <Grid item xs key={cat}>
                 <Typography style={{ fontSize: "6pt" }}>{cat}</Typography>
               </Grid>
             ))}
@@ -121,7 +124,7 @@ export default function Standings({ eventInfo, scores }) {
       </div>
       <div style={{ margin: "0 -1em" }}>
         {fbData.sort(sortData).map((data, index) => (
-          <ExpansionPanel>
+          <ExpansionPanel key={data.team}>
             <ExpansionPanelSummary>
               {
                 <ScoreSummary
@@ -148,8 +151,20 @@ export default function Standings({ eventInfo, scores }) {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}
+        <Grid container justify="center">
+          <Grid item>
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to={"/" + eventInfo.slug}
+            >
+              <IconButton color="primary">
+                <Add />
+              </IconButton>
+            </Link>
+          </Grid>
+        </Grid>
       </div>
-      <Dialog open={isDialogOpen} onClose={() => toggleDialog(false)} maxWidth>
+      <Dialog open={isDialogOpen} onClose={() => toggleDialog(false)}>
         <DialogTitle>Feedback</DialogTitle>
         <DialogContent>{currentFeedback}</DialogContent>
       </Dialog>

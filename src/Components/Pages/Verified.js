@@ -45,7 +45,8 @@ export default function Verified(props) {
               teams: new URLSearchParams(props.location.search)
                 .get("teams")
                 .split(","),
-              slug: new URLSearchParams(props.location.search).get("slug")
+              slug: new URLSearchParams(props.location.search).get("slug"),
+              created: Firebase.database.ServerValue.TIMESTAMP
             })
             .then(docRef => {
               console.log("Document written with ID: ", docRef.id);
