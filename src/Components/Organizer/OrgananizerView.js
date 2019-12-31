@@ -111,10 +111,23 @@ export default function OrganizerView({
                     <MenuItem onClick={() => toggleShareDialog(true)}>
                       Copy Link
                     </MenuItem>
-                    <MenuItem onClick={() => toggleTeamDialog(true)}>
+                    <MenuItem
+                      onClick={
+                        () => alert("Not yet functional")
+                        //toggleTeamDialog(true)
+                      }
+                    >
                       Update Teams
                     </MenuItem>
-                    <MenuItem onClick={handleMenuDelete(event.id)}>
+                    <MenuItem
+                      onClick={
+                        () =>
+                          alert(
+                            "How could you delete my demo tourney! j/k it's fine"
+                          )
+                        //handleMenuDelete(event.id)
+                      }
+                    >
                       Delete
                     </MenuItem>
                   </Menu>

@@ -26,7 +26,7 @@ export default function ShareDialog({ open, onClose }) {
       <DialogContent>
         <Grid container>
           <Grid item xs>
-            <input ref={linkRef} value="http://sotg.online/myevent" />
+            <input ref={linkRef} value="http://sotg.online/organizerdemo" />
           </Grid>
           <Grid item>
             <button onClick={copyToClipboard}>{copySuccess}</button>

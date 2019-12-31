@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { Add, Replay } from "@material-ui/icons";
 import langStrings from "../../Assets/Lang/enSpirit2019.json";
+import { Link } from "react-router-dom";
 
 const initialEvents = [
   {
@@ -153,16 +154,39 @@ export default function OrganizerDemo() {
       <AppBar position="static" color="secondary">
         <Toolbar>
           <Grid container alignItems="center">
-            <Grid item xs>
+            <Grid item xs={3}>
               <Typography>Demo Tools</Typography>
             </Grid>
-            <IconButton onClick={handleDemoAdd}>
-              <Add />
-            </IconButton>
-            <Typography variant="caption">Scores</Typography>
-            <IconButton onClick={() => setSpiritScores(initialScores)}>
-              <Replay />
-            </IconButton>
+            <Grid
+              item
+              xs={9}
+              container
+              spacing={1}
+              alignItems="center"
+              justify="flex-end"
+            >
+              <Grid item>
+                <IconButton
+                  onClick={handleDemoAdd}
+                  color="primary"
+                  style={{ background: "white" }}
+                >
+                  <Add />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <Typography variant="caption">Scores</Typography>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  color="secondary"
+                  style={{ background: "white" }}
+                  onClick={() => setSpiritScores(initialScores)}
+                >
+                  <Replay />
+                </IconButton>
+              </Grid>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -176,12 +200,11 @@ export default function OrganizerDemo() {
 
       <Grid container justify="center">
         <Grid item>
-          <IconButton
-            color="primary"
-            onClick={() => alert("Unavailable in Demo")}
-          >
-            <Add />
-          </IconButton>
+          <Link to="/createevent">
+            <IconButton color="primary">
+              <Add />
+            </IconButton>
+          </Link>
         </Grid>
       </Grid>
     </div>
