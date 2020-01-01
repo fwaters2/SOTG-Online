@@ -7,7 +7,7 @@ import {
   IconButton
 } from "@material-ui/core";
 import BoxScores from "./BoxScores";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore, ExpandLess } from "@material-ui/icons";
 
 export default function ScoreSummary({
   index,
@@ -124,7 +124,7 @@ export default function ScoreSummary({
             onClick={() => toggleExpanded(!isExpanded)}
           >
             <Typography>{"(" + submissions + ")"}</Typography>
-            <ExpandMore />
+            {isExpanded ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
         </Grid>
       </Grid>
