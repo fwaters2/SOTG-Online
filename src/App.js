@@ -52,24 +52,49 @@ const theme = createMuiTheme({
   }
 });
 function App() {
-  const [userEmail, setUserEmail] = React.useState("");
+  const [user, updateUser] = React.useState(null);
   const [isLoading, toggleLoading] = React.useState(true);
-  const handleUser = email => {
-    setUserEmail(email);
-    toggleLoading(false);
-  };
 
-  function setupListener() {
-    Firebase.auth().onAuthStateChanged(user =>
-      user ? handleUser(user.email) : toggleLoading(false)
-    );
-  }
+  React.useEffect(() => {
+    const unsubscribe = Firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        //var emailVerified = user.emailVerified;
+        //var photoURL = user.photoURL;
+        updateUser({ displayName, email });
+
+        //Get the data stored for this user Later!
+        // firebase
+        //   .firestore()
+        //   .collection("users")
+        //   .where("email", "==", email)
+        //   .get()
+        //   .then(function(querySnapshot) {
+        //     querySnapshot.forEach(function(doc) {
+        //       // doc.data() is never undefined for query doc snapshots
+        //       setValues(doc.data());
+        //     toggleLoading(false)
+        //   })
+        //   .catch(function(error) {
+        //     console.log("Error getting documents: ", error);
+        //   });
+      } else {
+        // User is signed out.
+        // ...
+        updateUser(false);
+        toggleLoading(false);
+      }
+    });
+
+    return () => unsubscribe;
+  }, []);
 
   return (
     <div id="root">
       <ThemeProvider theme={theme}>
         <Router>
-          {setupListener()}
           {isLoading ? (
             <Preloader />
           ) : (
@@ -80,10 +105,10 @@ function App() {
                 minHeight: "100vh"
               }}
             >
-              <StyledHeader userEmail={userEmail} />
+              <StyledHeader user={user} />
               <div style={{ display: "flex", flex: 1 }}>
                 <Container maxWidth="xs" style={{ flex: 1 }}>
-                  <Routes userEmail={userEmail} />
+                  <Routes user={user} />
                 </Container>
               </div>
               <Signature />

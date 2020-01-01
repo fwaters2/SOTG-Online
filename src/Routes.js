@@ -13,11 +13,11 @@ import HomeUser from "./Components/Organizer/Index.js";
 import LoginAttempt from "./Components/Login/LoginAttempt";
 import OrganizerDemo from "./Components/Organizer/OrganizerDemo.js";
 
-export default function Routes({ userEmail }) {
+export default function Routes({ user }) {
   return (
     <Switch>
-      <Route exact path="/" component={userEmail ? HomeUser : HomeNoUser} />
-      <Route path="/home" component={userEmail ? HomeUser : HomeNoUser} />
+      <Route exact path="/" component={user ? HomeUser : HomeNoUser} />
+      <Route path="/home" component={user ? HomeUser : HomeNoUser} />
       <Route path="/loginAttempt" component={LoginAttempt} />
       <Route exact path="/howtouse" component={HowToUse} />
       <Route exact path="/about" component={About} />

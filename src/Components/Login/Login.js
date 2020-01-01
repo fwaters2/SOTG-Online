@@ -14,15 +14,14 @@ import Firebase from "../../Firebase";
 export default function Login() {
   const [isEmailSent, toggleEmailSent] = React.useState(false);
   const [formResponses, setFormResponses] = React.useState({
-    email: "",
-    password: ""
+    email: ""
   });
   const [lang, setLang] = React.useState("en");
   const currentLanguage = Languages(lang);
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be whitelisted in the Firebase Console.
-    url: "http://localhost:3000/loginAttempt",
+    url: "http://sotg.online/loginAttempt",
     //"http://sotg.online/home",
     // This must be true.
     handleCodeInApp: true

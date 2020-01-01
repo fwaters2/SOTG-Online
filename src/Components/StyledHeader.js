@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { Menu, Close } from "@material-ui/icons";
 import { ReactComponent as SOTGLogo } from "../Assets/Logos/SOTG_Full.svg";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Link } from "react-router-dom";
 import Firebase from "../Firebase";
 
 const myBlue = "#0C61E1";
@@ -38,7 +38,7 @@ const StyledExpansionPanelSummary = withStyles({
   expanded: {}
 })(ExpansionPanelSummary);
 
-export default function StyledHeader({ userEmail }) {
+export default function StyledHeader({ user }) {
   const [expanded, toggleExpanded] = React.useState(false);
 
   const handleLogout = () => {
@@ -70,12 +70,14 @@ export default function StyledHeader({ userEmail }) {
             )
           }
         >
-          <SOTGLogo
-            style={{
-              height: "2.5em",
-              margin: "2em 1em"
-            }}
-          />
+          <Link to="/">
+            <SOTGLogo
+              style={{
+                height: "2.5em",
+                margin: "2em 1em"
+              }}
+            />
+          </Link>
         </StyledExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List style={{ width: "100%" }}>
@@ -105,7 +107,7 @@ export default function StyledHeader({ userEmail }) {
                 <Divider />
               </RouterLink>
             ))}
-            {userEmail ? (
+            {user ? (
               <ListItem button onClick={handleLogout}>
                 <ListItemText
                   primary={
