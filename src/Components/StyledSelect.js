@@ -32,7 +32,7 @@ const MatusInput = withStyles(theme => ({
 const useStyles = makeStyles(theme => ({
   formControl: {
     background: "white",
-    margin: "0.5em 0 0",
+    margin: 0,
     padding: 0
   }
 }));
