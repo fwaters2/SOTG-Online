@@ -3,10 +3,12 @@ import Firebase from "../../Firebase";
 import ConfirmationDialog from "./ConfirmationDialog";
 import { Button, Typography } from "@material-ui/core";
 
-export default function AlreadySignedIn({ formResponses, email }) {
+export default function AlreadySignedIn({ formResponses, email, createEvent }) {
   const [isConfirmDialogOpen, toggleConfirmDialog] = React.useState(false);
   const handleCreate = () => {
     toggleConfirmDialog(true);
+    console.log("handled event creation");
+    createEvent();
     // Firebase.firestore()
     //   .collection("events")
     //   .add({
@@ -44,6 +46,7 @@ export default function AlreadySignedIn({ formResponses, email }) {
         Go Online!
       </Button>
       <ConfirmationDialog
+        slug={formResponses.slug}
         open={isConfirmDialogOpen}
         onClose={() => toggleConfirmDialog(false)}
       />

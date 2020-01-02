@@ -3,7 +3,14 @@ import AlreadySignedIn from "./AlreadySignedIn";
 import EmailVerification from "./EmailVerification";
 
 export default function Summary(props) {
-  const { formResponses, setFormResponses, step, setStep } = props;
+  const {
+    formResponses,
+    setFormResponses,
+    step,
+    setStep,
+    user,
+    createEvent
+  } = props;
 
   const email = "forrest";
   //   React.useEffect(() => {
@@ -15,16 +22,11 @@ export default function Summary(props) {
   //   }, []);
   return (
     <React.Fragment>
-      {email ? (
-        <AlreadySignedIn formResponses={formResponses} email={email} />
-      ) : (
-        <EmailVerification
-          formResponses={formResponses}
-          setFormResponses={setFormResponses}
-          step={step}
-          setStep={setStep}
-        />
-      )}
+      <AlreadySignedIn
+        formResponses={formResponses}
+        email={email}
+        createEvent={createEvent}
+      />
     </React.Fragment>
   );
 }

@@ -3,18 +3,97 @@ import EventCreationView from "./EventCreationView";
 import { Strings as Languages } from "../../Assets/Lang/Languages";
 import StyledPaper from "../StyledPaper";
 
-export default function EventCreationState() {
+import Firebase from "../../Firebase";
+import { Typography } from "@material-ui/core";
+import NavLink from "../NavLink";
+
+export default function EventCreationState(props) {
+  const { user } = props;
   const [formResponses, setFormResponses] = React.useState({
     email: "",
     eventName: "",
     teams: [],
     slug: ""
   });
-
   const [lang, setLang] = React.useState("en");
   const { eventName } = formResponses;
   const [step, setStep] = React.useState(0);
   const currentLanguage = Languages(lang);
+
+  React.useEffect(() => {
+    // Confirm the link is a sign-in with email link.
+    if (Firebase.auth().isSignInWithEmailLink(window.location.href)) {
+      //Go to Summary page
+      setStep(2);
+      // Additional state parameters can also be passed via URL.
+      // This can be used to continue the user's intended action before triggering
+      // the sign-in operation.
+      // Get the email if available. This should be available if the user completes
+      // the flow on the same device where they started it.
+      var email = window.localStorage.getItem("emailForSignIn");
+
+      //setMessage("Email retrieved from storage");
+      if (!email) {
+        // User opened the link on a different device. To prevent session fixation
+        // attacks, ask the user to provide the associated email again. For example:
+        email = window.prompt("Please provide your email for confirmation");
+        // setMessage(
+        //   "No email in local storage so must have logged in from another device/browser"
+        // );
+      }
+      // The client SDK will parse the code from the link for you.
+      Firebase.auth()
+        .signInWithEmailLink(email, window.location.href)
+        .then(function(result) {
+          // Clear email from storage.
+          window.localStorage.removeItem("emailForSignIn");
+          // You can access the new user via result.user
+          // Additional user info profile not available via:
+          // result.additionalUserInfo.profile == null
+          // You can check if the user is new or existing:
+          // result.additionalUserInfo.isNewUser
+          //setMessage(message.concat(". AND the result is in the console log"));
+          setFormResponses({
+            email: result.user.email,
+            eventName: new URLSearchParams(props.location.search).get(
+              "eventName"
+            ),
+            teams: new URLSearchParams(props.location.search)
+              .get("teams")
+              .split(","),
+            slug: new URLSearchParams(props.location.search).get("slug")
+          });
+
+          //This will ACTUALLY CREATE THE EVENT
+
+          console.log(result);
+        })
+        .catch(function(error) {
+          // Some error occurred, you can inspect the code: error.code
+          // Common errors could be invalid email and invalid or expired OTPs.
+          console.log(error);
+        });
+    } else {
+      //Set the email from user data
+      setFormResponses({ ...formResponses, email: user.email });
+      //setMessage("The link is NOT a sign-in with email link");
+    }
+  }, []);
+
+  const createEvent = () => {
+    Firebase.firestore()
+      .collection("events")
+      .add({
+        ...formResponses,
+        created: Firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(docRef => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(error => {
+        console.error("Error adding document: ", error);
+      });
+  };
 
   return (
     <StyledPaper
@@ -31,6 +110,8 @@ export default function EventCreationState() {
           formResponses={formResponses}
           setFormResponses={setFormResponses}
           currentLanguage={currentLanguage}
+          user={user}
+          createEvent={createEvent}
         />
       </div>
     </StyledPaper>

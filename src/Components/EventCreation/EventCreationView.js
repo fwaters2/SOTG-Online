@@ -12,13 +12,16 @@ import {
 import Summary from "./Summary";
 import StyledFormLabel from "../StyledFormLabel";
 import string_to_slug from "../../slugify";
+import EmailVerification from "./EmailVerification";
 
 export default function EventCreationView({
   step,
   setStep,
   formResponses,
   setFormResponses,
-  currentLanguage
+  currentLanguage,
+  user,
+  createEvent
 }) {
   const handleBack = () => {
     setStep(step - 1);
@@ -111,8 +114,17 @@ export default function EventCreationView({
         </React.Fragment>
       );
     case 2:
-      return (
+      return user ? (
         <Summary
+          formResponses={formResponses}
+          setFormResponses={setFormResponses}
+          step={step}
+          setStep={setStep}
+          user={user}
+          createEvent={createEvent}
+        />
+      ) : (
+        <EmailVerification
           formResponses={formResponses}
           setFormResponses={setFormResponses}
           step={step}

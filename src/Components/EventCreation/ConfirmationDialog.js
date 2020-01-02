@@ -1,15 +1,44 @@
 import React from "react";
-import { Dialog, DialogTitle, DialogContent } from "@material-ui/core";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Grid,
+  DialogActions,
+  Button
+} from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-export default function ConfirmationDialog({ open, onClose }) {
+export default function ConfirmationDialog({ open, onClose, slug }) {
+  const [copySuccess, setCopySuccess] = React.useState("Copy");
+  const linkRef = React.useRef(null);
+  function copyToClipboard(e) {
+    linkRef.current.select();
+    document.execCommand("copy");
+    // This is just personal preference.
+    // I prefer to not show the the whole text area selected.
+    //e.target.focus();
+    setCopySuccess("Copied!");
+  }
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Still in Development!</DialogTitle>
+      <DialogTitle>Event Created!</DialogTitle>
       <DialogContent>
-        But Check out the <Link to="/organizerdemo">Organizer Demo</Link> to get
-        the idea of how it will work
+        Share your event's link to players submitting spirit scores!
+        <Grid container>
+          <Grid item xs>
+            <input ref={linkRef} value={"http://sotg.online/" + slug} />
+          </Grid>
+          <Grid item>
+            <button onClick={copyToClipboard}>{copySuccess}</button>
+          </Grid>
+        </Grid>
       </DialogContent>
+      <DialogActions>
+        <Button component={Link} to="/">
+          Dashboard
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }

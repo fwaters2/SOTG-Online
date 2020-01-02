@@ -103,7 +103,7 @@ export default function SpiritScoreState(props) {
         if (eventExists) {
           const event = doc.docs[0].data();
           setEventData({
-            name: event.name,
+            name: event.eventName,
             email: event.email,
             teams: event.teams
           });

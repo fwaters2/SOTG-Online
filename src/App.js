@@ -65,6 +65,7 @@ function App() {
         //var photoURL = user.photoURL;
         updateUser({ displayName, email });
 
+        toggleLoading(false);
         //Get the data stored for this user Later!
         // firebase
         //   .firestore()

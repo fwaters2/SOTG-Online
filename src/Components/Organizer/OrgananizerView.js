@@ -57,6 +57,15 @@ export default function OrganizerView({
     //handleDelete(id)
     toggleDeleteDialog(true);
   };
+  function copyToClipboard(e) {
+    //   linkRef.current.select();
+    //   document.execCommand("copy");
+    //   // This is just personal preference.
+    //   // I prefer to not show the the whole text area selected.
+    //   //e.target.focus();
+    //   setCopySuccess("Copied!");
+  }
+  const handleCopy = () => {};
   return (
     <Container maxWidth="xs">
       <Grid container alignItems="center" justify="space-between">
@@ -86,7 +95,7 @@ export default function OrganizerView({
                 style={{
                   backgroundColor: "#8FDE58"
                 }}
-                key={event.name}
+                key={event.eventName}
               >
                 <div
                   style={{
@@ -98,7 +107,7 @@ export default function OrganizerView({
                 >
                   <IconButton
                     size="small"
-                    onClick={handleSettings(event.id, event.name)}
+                    onClick={handleSettings(event.id, event.eventName)}
                   >
                     <Settings />
                   </IconButton>
@@ -113,7 +122,7 @@ export default function OrganizerView({
                     </MenuItem>
                     <MenuItem
                       onClick={
-                        () => alert("Not yet functional")
+                        handleCopy
                         //toggleTeamDialog(true)
                       }
                     >
@@ -136,7 +145,7 @@ export default function OrganizerView({
                   <Grid container direction="column">
                     <Grid item container>
                       <Grid item xs>
-                        <Typography>{event.name}</Typography>
+                        <Typography>{event.eventName}</Typography>
                       </Grid>
                     </Grid>
                     <Grid item container>
@@ -148,7 +157,7 @@ export default function OrganizerView({
                           Spirit Scores:{" "}
                           {
                             spiritScores.filter(
-                              score => score.eventName === event.name
+                              score => score.eventName === event.eventName
                             ).length
                           }
                         </Typography>

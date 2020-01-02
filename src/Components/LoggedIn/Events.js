@@ -106,7 +106,7 @@ export default function Events() {
             <Logo />
           ) : (
             events.map(event => (
-              <React.Fragment key={event.name}>
+              <React.Fragment key={event.eventName}>
                 <div
                   style={{
                     position: "absolute",
@@ -117,7 +117,7 @@ export default function Events() {
                 >
                   <IconButton
                     size="small"
-                    onClick={handleSettings(event.id, event.name)}
+                    onClick={handleSettings(event.id, event.eventName)}
                   >
                     <Settings />
                   </IconButton>
@@ -142,7 +142,7 @@ export default function Events() {
                   <Grid container direction="column">
                     <Grid item container>
                       <Grid item xs>
-                        <Typography>{event.name}</Typography>
+                        <Typography>{event.eventName}</Typography>
                       </Grid>
                     </Grid>
                     <Grid item container>
@@ -154,7 +154,7 @@ export default function Events() {
                           Spirit Scores:{" "}
                           {
                             spiritScores.filter(
-                              score => score.eventName === event.name
+                              score => score.eventName === event.eventName
                             ).length
                           }
                         </Typography>
