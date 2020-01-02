@@ -34,9 +34,11 @@ export default function OrganizerView({
   const [isShareDialogOpen, toggleShareDialog] = React.useState(false);
   const [isTeamDialogOpen, toggleTeamDialog] = React.useState(false);
   const [isDeleteDialogOpen, toggleDeleteDialog] = React.useState(false);
-  const [deleteInfo, setDeleteInfo] = React.useState({
-    name: "a",
-    id: "b"
+  const [settingsInfo, setSettingsInfo] = React.useState({
+    name: "",
+    id: "",
+    teams: [],
+    slug: ""
   });
 
   React.useEffect(() => {
@@ -45,9 +47,9 @@ export default function OrganizerView({
     );
   }, [spiritScores, currentEvent]);
 
-  const handleSettings = (id, name) => e => {
+  const handleSettings = info => e => {
     setAnchorEl(e.currentTarget);
-    setDeleteInfo({ id, name });
+    setSettingsInfo(info);
   };
 
   const handleClick = eventInfo => () => {
@@ -58,8 +60,18 @@ export default function OrganizerView({
     );
     toggleEventView(true);
   };
+
   const handleMenuDelete = () => {
+    setAnchorEl(null);
     toggleDeleteDialog(true);
+  };
+  const handleMenuTeams = () => {
+    setAnchorEl(null);
+    toggleTeamDialog(true);
+  };
+  const handleMenuCopy = x => {
+    setAnchorEl(null);
+    alert("http://SOTG.online/" + settingsInfo.slug);
   };
 
   return (
@@ -87,12 +99,12 @@ export default function OrganizerView({
           {isLoading ? (
             <Logo />
           ) : (
-            events.map(event => (
+            events.map(x => (
               <Paper
                 style={{
                   backgroundColor: "#8FDE58"
                 }}
-                key={event.eventName}
+                key={x.eventName}
               >
                 <div
                   style={{
@@ -102,10 +114,7 @@ export default function OrganizerView({
                     zIndex: 10
                   }}
                 >
-                  <IconButton
-                    size="small"
-                    onClick={handleSettings(event.id, event.eventName)}
-                  >
+                  <IconButton size="small" onClick={handleSettings(x)}>
                     <Settings />
                   </IconButton>
                   <Menu
@@ -114,34 +123,28 @@ export default function OrganizerView({
                     open={Boolean(anchorEl)}
                     onClose={() => setAnchorEl(null)}
                   >
-                    <MenuItem
-                      onClick={() => alert("http://SOTG.online/" + event.slug)}
-                    >
-                      Copy Link
-                    </MenuItem>
-                    <MenuItem onClick={() => toggleTeamDialog(true)}>
-                      Update Teams
-                    </MenuItem>
+                    <MenuItem onClick={handleMenuCopy}>Copy Link</MenuItem>
+                    <MenuItem onClick={handleMenuTeams}>Update Teams</MenuItem>
                     <MenuItem onClick={handleMenuDelete}>Delete</MenuItem>
                   </Menu>
                 </div>
-                <ListItem button divider onClick={handleClick(event)}>
+                <ListItem button divider onClick={handleClick(x)}>
                   <Grid container direction="column">
                     <Grid item container>
                       <Grid item xs>
-                        <Typography>{event.eventName}</Typography>
+                        <Typography>{x.eventName}</Typography>
                       </Grid>
                     </Grid>
                     <Grid item container>
                       <Grid item xs>
-                        <Typography>Teams: {event.teams.length}</Typography>
+                        <Typography>Teams: {x.teams.length}</Typography>
                       </Grid>
                       <Grid item>
                         <Typography>
                           Spirit Scores:{" "}
                           {
                             spiritScores.filter(
-                              score => score.eventName === event.eventName
+                              score => score.eventName === x.eventName
                             ).length
                           }
                         </Typography>
@@ -158,12 +161,14 @@ export default function OrganizerView({
         open={isShareDialogOpen}
         onClose={() => toggleShareDialog(false)}
       /> */}
+      {console.log("firing")}
       <EditTeams
+        settingsInfo={settingsInfo}
         open={isTeamDialogOpen}
         onClose={() => toggleTeamDialog(false)}
       />
       <DeleteDialog
-        deleteInfo={deleteInfo}
+        settingsInfo={settingsInfo}
         open={isDeleteDialogOpen}
         onClose={() => toggleDeleteDialog(false)}
       />

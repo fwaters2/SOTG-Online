@@ -8,11 +8,17 @@ import {
   DialogActions,
   DialogContentText
 } from "@material-ui/core";
+import Firebase from "../../../Firebase";
 
-export default function DeleteDialog({ open, onClose, eventId, deleteInfo }) {
+export default function DeleteDialog({ open, onClose, eventId, settingsInfo }) {
   const [name, setName] = React.useState("");
   const handleDelete = () => {
+    Firebase.firestore()
+      .collection("events")
+      .doc(settingsInfo.id)
+      .delete();
     onClose();
+    //console.log("delete is firing");
   };
   return (
     <Dialog open={open} onClose={onClose}>
@@ -23,7 +29,7 @@ export default function DeleteDialog({ open, onClose, eventId, deleteInfo }) {
         </DialogContentText>
         <TextField
           label="Event Name"
-          placeholder={deleteInfo.name}
+          placeholder={settingsInfo.name}
           value={name}
           onChange={e => setName(e.target.value)}
         />
@@ -35,7 +41,7 @@ export default function DeleteDialog({ open, onClose, eventId, deleteInfo }) {
         <Button
           color="secondary"
           onClick={handleDelete}
-          disabled={name !== deleteInfo.name}
+          disabled={name !== settingsInfo.name}
         >
           Confirm
         </Button>

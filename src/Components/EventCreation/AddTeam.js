@@ -48,6 +48,7 @@ export default function AddTeam({ formResponses, setFormResponses }) {
   return (
     <React.Fragment>
       <Box mt={2}>
+        {console.log("formResponses inside AddTeam", formResponses)}
         <StyledFormLabel>Add Teams</StyledFormLabel>
         <form onSubmit={handleAdd}>
           <FormControl variant="outlined" className={classes.formControl}>
