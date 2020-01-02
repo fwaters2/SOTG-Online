@@ -67,93 +67,74 @@ export default function Category({
         setLang={setLang}
         currentLanguage={currentLanguage}
       /> */}
-      <Box mt=".5em" mb="0.5em">
-        {/* <Typography align="right" style={{ fontSize: "10px" }}>
-          Swipe for more examples
-        </Typography> */}
-
-        <Grid container alignItems="center">
-          <Grid item xs>
-            <StyledFormLabel>
-              {currentLanguage.general.feedback}:
-            </StyledFormLabel>
-          </Grid>
-          {/* <Grid item>
-          <IconButton
-            onClick={() => toggleLangSelect(!isLangSelectOpen)}
-            style={{
-              color: "#0038ae",
-
-              padding: 0
-            }}
-            size="small"
-          >
-            <Language />
-          </IconButton>
-        </Grid> */}
-        </Grid>
+      <Box my="1em">
+        <StyledFormLabel>{currentLanguage.general.feedback}:</StyledFormLabel>
+        <div
+          style={{
+            background: "#0038ae",
+            margin: "0 -2em",
+            boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
+            //height: "30vh",
+            //overflow: "auto"
+          }}
+        >
+          <SnackbarProvider maxSnack={3}>
+            <SwipeableViews
+              animateHeight
+              resistance
+              index={examplesTab}
+              onChangeIndex={e => setExamplesTab(e)}
+            >
+              {[0, 1, 2, 3, 4].map(page => (
+                <List
+                  key={page}
+                  dense
+                  // style={
+                  //   page === 4
+                  //     ? { borderRight: "#E82178 2px solid" }
+                  //     : page === 0
+                  //     ? { borderLeft: "#E82178 2px solid" }
+                  //     : null
+                  // }
+                >
+                  {examples[page].map((x, index) => (
+                    <ListCheckBox
+                      key={x}
+                      examples={categories[currentStep] + "Examples"}
+                      formResponses={formResponses}
+                      setFormResponses={setFormResponses}
+                      example={x}
+                      isLastListItem={examples[page].length === index + 1}
+                      //For storing of the example
+                      category={categories[currentStep]}
+                      categoryScore={page}
+                      index={index}
+                    />
+                  ))}
+                </List>
+              ))}
+            </SwipeableViews>
+          </SnackbarProvider>
+        </div>
       </Box>
-      <div
-        style={{
-          background: "#0038ae",
-          margin: "0px -2em",
-          boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
-          //height: "30vh",
-          //overflow: "auto"
-        }}
-      >
-        <SnackbarProvider maxSnack={3}>
-          <SwipeableViews
-            animateHeight
-            resistance
-            index={examplesTab}
-            onChangeIndex={e => setExamplesTab(e)}
-          >
-            {[0, 1, 2, 3, 4].map(page => (
-              <List
-                key={page}
-                dense
-                // style={
-                //   page === 4
-                //     ? { borderRight: "#E82178 2px solid" }
-                //     : page === 0
-                //     ? { borderLeft: "#E82178 2px solid" }
-                //     : null
-                // }
-              >
-                {examples[page].map((x, index) => (
-                  <ListCheckBox
-                    key={x}
-                    examples={categories[currentStep] + "Examples"}
-                    formResponses={formResponses}
-                    setFormResponses={setFormResponses}
-                    example={x}
-                    isLastListItem={examples[page].length === index + 1}
-                    //For storing of the example
-                    category={categories[currentStep]}
-                    categoryScore={page}
-                    index={index}
-                  />
-                ))}
-              </List>
-            ))}
-          </SwipeableViews>
-        </SnackbarProvider>
-      </div>
 
-      <Box>
-        <Typography variant="caption">
-          {formResponses[categories[currentStep] + "Examples"]
-            .map(
-              example =>
-                currentLanguage[example.category].examples[
-                  example.categoryScore
-                ][example.index]
-            )
-            .map(feedback => feedback)
-            .join(" ")}
-        </Typography>
-      </Box>
+      {formResponses[categories[currentStep] + "Examples"].length > 0 && (
+        <Box my="0.5em">
+          <Typography variant="caption">
+            {formResponses[categories[currentStep] + "Examples"]
+              .map(
+                example =>
+                  currentLanguage[example.category].examples[
+                    example.categoryScore
+                  ][example.index]
+              )
+              .map(feedback => feedback)
+              .join(" ")}
+          </Typography>
+        </Box>
+      )}
+
+      <Box mb="0.5em">
       <Button
         fullWidth
         variant="outlined"
@@ -166,6 +147,7 @@ export default function Category({
       >
         <PostAdd />
       </Button>
+      </Box>
       <Dialog
         fullWidth
         open={isDialogOpen}
