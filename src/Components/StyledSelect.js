@@ -21,13 +21,18 @@ const exampleTeams = [
 ];
 
 const MatusInput = withStyles(theme => ({
-  input: { padding: "1em" }
+  input: {
+    padding: "0.5em",
+    "&:focus": {
+      background: "none"
+    }
+  }
 }))(InputBase);
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     background: "white",
-    margin: "1em 0",
+    margin: "0.5em 0 0",
     padding: 0
   }
 }));
@@ -42,7 +47,7 @@ export default function StyledSelect({
   const classes = useStyles();
 
   return (
-    <Box mt={2} mb={2}>
+    <Box my={2}>
       <StyledFormLabel>{label}</StyledFormLabel>
       <FormControl variant="outlined" fullWidth className={classes.formControl}>
         <Select
