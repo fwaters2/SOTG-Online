@@ -34,6 +34,10 @@ export default function OrganizerView({
   const [isShareDialogOpen, toggleShareDialog] = React.useState(false);
   const [isTeamDialogOpen, toggleTeamDialog] = React.useState(false);
   const [isDeleteDialogOpen, toggleDeleteDialog] = React.useState(false);
+  const [deleteInfo, setDeleteInfo] = React.useState({
+    name: "a",
+    id: "b"
+  });
 
   React.useEffect(() => {
     setCurrentScores(
@@ -41,8 +45,9 @@ export default function OrganizerView({
     );
   }, [spiritScores, currentEvent]);
 
-  const handleSettings = (id, event) => e => {
+  const handleSettings = (id, name) => e => {
     setAnchorEl(e.currentTarget);
+    setDeleteInfo({ id, name });
   };
 
   const handleClick = eventInfo => () => {
@@ -53,25 +58,17 @@ export default function OrganizerView({
     );
     toggleEventView(true);
   };
-  const handleMenuDelete = id => () => {
-    //handleDelete(id)
+  const handleMenuDelete = () => {
     toggleDeleteDialog(true);
   };
-  function copyToClipboard(e) {
-    //   linkRef.current.select();
-    //   document.execCommand("copy");
-    //   // This is just personal preference.
-    //   // I prefer to not show the the whole text area selected.
-    //   //e.target.focus();
-    //   setCopySuccess("Copied!");
-  }
-  const handleCopy = () => {};
+
   return (
     <Container maxWidth="xs">
       <Grid container alignItems="center" justify="space-between">
         <Typography variant="h6">Organizer: </Typography>
         <Typography variant="subtitle2">{email}</Typography>
       </Grid>
+
       {isViewingEvent ? (
         <Button
           color="secondary"
@@ -117,28 +114,15 @@ export default function OrganizerView({
                     open={Boolean(anchorEl)}
                     onClose={() => setAnchorEl(null)}
                   >
-                    <MenuItem onClick={() => toggleShareDialog(true)}>
+                    <MenuItem
+                      onClick={() => alert("http://SOTG.online/" + event.slug)}
+                    >
                       Copy Link
                     </MenuItem>
-                    <MenuItem
-                      onClick={
-                        handleCopy
-                        //toggleTeamDialog(true)
-                      }
-                    >
+                    <MenuItem onClick={() => toggleTeamDialog(true)}>
                       Update Teams
                     </MenuItem>
-                    <MenuItem
-                      onClick={
-                        () =>
-                          alert(
-                            "How could you delete my demo tourney! j/k it's fine"
-                          )
-                        //handleMenuDelete(event.id)
-                      }
-                    >
-                      Delete
-                    </MenuItem>
+                    <MenuItem onClick={handleMenuDelete}>Delete</MenuItem>
                   </Menu>
                 </div>
                 <ListItem button divider onClick={handleClick(event)}>
@@ -170,15 +154,16 @@ export default function OrganizerView({
           )}
         </List>
       )}
-      <ShareDialog
+      {/* <ShareDialog
         open={isShareDialogOpen}
         onClose={() => toggleShareDialog(false)}
-      />
+      /> */}
       <EditTeams
         open={isTeamDialogOpen}
         onClose={() => toggleTeamDialog(false)}
       />
       <DeleteDialog
+        deleteInfo={deleteInfo}
         open={isDeleteDialogOpen}
         onClose={() => toggleDeleteDialog(false)}
       />

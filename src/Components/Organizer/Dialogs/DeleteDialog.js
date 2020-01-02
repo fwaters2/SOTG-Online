@@ -5,24 +5,38 @@ import {
   TextField,
   Button,
   DialogContent,
-  DialogActions
+  DialogActions,
+  DialogContentText
 } from "@material-ui/core";
 
-export default function DeleteDialog({ open, onClose, eventId }) {
+export default function DeleteDialog({ open, onClose, eventId, deleteInfo }) {
+  const [name, setName] = React.useState("");
   const handleDelete = () => {
     onClose();
   };
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>DELETE EVENT</DialogTitle>
+      <DialogTitle>Are you sure?</DialogTitle>
       <DialogContent>
-        <TextField label="Event Name" />
+        <DialogContentText>
+          Please re-type the event name to confirm!
+        </DialogContentText>
+        <TextField
+          label="Event Name"
+          placeholder={deleteInfo.name}
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={onClose}>
           Back
         </Button>
-        <Button color="secondary" onClick={handleDelete}>
+        <Button
+          color="secondary"
+          onClick={handleDelete}
+          disabled={name !== deleteInfo.name}
+        >
           Confirm
         </Button>
       </DialogActions>

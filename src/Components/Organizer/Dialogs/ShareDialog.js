@@ -34,7 +34,12 @@ export default function ShareDialog({ open, onClose }) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button fullWidth variant="contained" onClick={onClose}>
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={onClose}
+          color="secondary"
+        >
           Back
         </Button>
       </DialogActions>

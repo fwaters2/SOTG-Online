@@ -31,6 +31,7 @@ export default function Routes({ user }) {
         path="/createevent"
         render={props => <EventCreation {...props} user={user} />}
       />
+
       {/* <Route exact path="/createevent" component={EventCreation} /> */}
       <Route path="/:event" component={SpiritScore} />
     </Switch>

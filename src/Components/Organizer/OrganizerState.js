@@ -28,6 +28,7 @@ export default function OrganizerState() {
           id: doc.id,
           ...doc.data()
         }));
+        setLoading(false);
         setEvents(events);
       });
     return () => unsubscribe;

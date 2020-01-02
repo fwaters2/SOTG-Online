@@ -26,7 +26,10 @@ export default function Login() {
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be whitelisted in the Firebase Console.
-    url: "http://sotg.online/loginAttempt",
+    url:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/loginAttempt"
+        : "http://sotg.online/loginAttempt",
     //"http://sotg.online/home",
     // This must be true.
     handleCodeInApp: true
