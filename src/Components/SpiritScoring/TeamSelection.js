@@ -11,7 +11,7 @@ export default function TeamSelection({
 }) {
   return (
     <React.Fragment>
-      <Box mt={8} mb={8}>
+      <Box my={4}>
         <StyledSelect
           stateKey="myTeam"
           formResponses={formResponses}
