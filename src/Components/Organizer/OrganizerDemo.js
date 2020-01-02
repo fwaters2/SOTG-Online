@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const initialEvents = [
   {
     email: "demo@demo.com",
-    name: "Demo Tourney",
+    eventName: "Demo Tourney",
     slug: "demotourney",
     teams: [
       "Big Dumps",
