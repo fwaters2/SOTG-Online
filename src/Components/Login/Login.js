@@ -111,6 +111,7 @@ export default function Login() {
           placeholder="Email"
           label="Email"
           stateKey="email"
+          type="email"
           formResponses={formResponses}
           setFormResponses={setFormResponses}
           currentLanguage={currentLanguage}

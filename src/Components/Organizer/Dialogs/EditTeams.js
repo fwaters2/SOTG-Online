@@ -20,12 +20,6 @@ export default function EditTeams({ open, onClose, settingsInfo }) {
           formResponses={formResponses}
           setFormResponse={setFormResponses}
         />
-        {console.log(
-          "settingsInfo Inside EditTeams",
-          settingsInfo,
-          "formResponses",
-          formResponses
-        )}
         <Button fullWidth variant="contained" onClick={onClose}>
           Back
         </Button>

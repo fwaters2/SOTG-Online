@@ -54,9 +54,9 @@ export default function OrganizerView({
 
   const handleClick = eventInfo => () => {
     setCurrentEventInfo(eventInfo);
-    setCurrentEvent(eventInfo.name);
+    setCurrentEvent(eventInfo.eventName);
     setCurrentScores(
-      spiritScores.filter(score => score.eventName === eventInfo.name)
+      spiritScores.filter(score => score.eventName === eventInfo.eventName)
     );
     toggleEventView(true);
   };
@@ -161,7 +161,6 @@ export default function OrganizerView({
         open={isShareDialogOpen}
         onClose={() => toggleShareDialog(false)}
       /> */}
-      {console.log("firing")}
       <EditTeams
         settingsInfo={settingsInfo}
         open={isTeamDialogOpen}

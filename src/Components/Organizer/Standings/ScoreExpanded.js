@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Box, Button } from "@material-ui/core";
+import { Grid, Typography, Box } from "@material-ui/core";
 import BoxScores from "./BoxScores";
 
 export default function ScoreExpanded({

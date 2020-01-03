@@ -190,6 +190,7 @@ export default function OrganizerDemo() {
           </Grid>
         </Toolbar>
       </AppBar>
+
       <OrganizerView
         events={events}
         spiritScores={spiritScores}

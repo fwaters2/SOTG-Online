@@ -21,6 +21,7 @@ export default function StandingsExpansionPanel({ data, index, handleClick }) {
         margin: "1em 0"
       }}
     >
+      {console.log("data", data)}
       <ExpansionPanelSummary>
         <ScoreSummary
           index={index}
