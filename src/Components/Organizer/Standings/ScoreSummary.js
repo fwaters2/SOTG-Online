@@ -4,10 +4,11 @@ import {
   Typography,
   Box,
   ExpansionPanelActions,
-  IconButton
+  IconButton,
+  Icon
 } from "@material-ui/core";
 import BoxScores from "./BoxScores";
-import { ExpandMore, ExpandLess } from "@material-ui/icons";
+import { ExpandMore, ExpandLess, EmojiEvents } from "@material-ui/icons";
 
 export default function ScoreSummary({
   index,
@@ -53,11 +54,11 @@ export default function ScoreSummary({
     <Grid container spacing={1}>
       <Grid item xs={10} container direction="column" spacing={1}>
         <Grid item container alignItems="center" spacing={1}>
-          <Grid item>
+          {/* <Grid item>
             <Typography color="white" variant="body2">
               #
             </Typography>
-          </Grid>
+          </Grid> */}
           <Grid item>
             <Box
               style={{
@@ -70,14 +71,28 @@ export default function ScoreSummary({
                 borderRadius: "8px"
               }}
             >
-              <Typography
-                variant="body1"
-                align="center"
+              {index <= 2 ? (
+                <Icon
+                  style={
+                    index === 0
+                      ? { color: "#ffd890" }
+                      : index === 1
+                      ? { color: "#E6E8FA" }
+                      : { color: "#ff8a6d" }
+                  }
+                >
+                  <EmojiEvents />
+                </Icon>
+              ) : (
+                <Typography
+                  variant="body1"
+                  align="center"
 
-                //style={{ height: "100%" }}
-              >
-                {index + 1}
-              </Typography>
+                  //style={{ height: "100%" }}
+                >
+                  {index + 1}
+                </Typography>
+              )}
             </Box>
           </Grid>
           <Grid item xs>
