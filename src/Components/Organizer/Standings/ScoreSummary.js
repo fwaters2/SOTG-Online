@@ -52,7 +52,15 @@ export default function ScoreSummary({
     //   </Grid>
     // </Grid>
     <Grid container spacing={1}>
-      <Grid item xs={10} container direction="column" spacing={1}>
+      <Grid
+        item
+        xs={10}
+        container
+        direction="column"
+        spacing={1}
+        //added this so double digits don't bump down to new line
+        style={{ margin: "-6px" }}
+      >
         <Grid item container alignItems="center" spacing={1}>
           {/* <Grid item>
             <Typography color="white" variant="body2">

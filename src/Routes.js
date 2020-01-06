@@ -12,6 +12,7 @@ import HomeNoUser from "./Components/HomeNoUser";
 import HomeUser from "./Components/Organizer/Index.js";
 import LoginAttempt from "./Components/Login/LoginAttempt";
 import OrganizerDemo from "./Components/Organizer/OrganizerDemo.js";
+import Player from "./Components/Player/Index.js";
 
 export default function Routes({ user }) {
   return (
@@ -23,6 +24,7 @@ export default function Routes({ user }) {
       <Route exact path="/about" component={About} />
       <Route exact path="/contact" component={Contact} />
       <Route path="/verified" component={Verified} />
+      <Route exact path="/development" component={Player} />
       <Route exact path="/playerdemo" component={PlayerDemo} />
       <Route exact path="/organizerdemo" component={OrganizerDemo} />
       <Route exact path="/login" component={Login} />
