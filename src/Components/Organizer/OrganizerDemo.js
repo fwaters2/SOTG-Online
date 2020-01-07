@@ -16,6 +16,23 @@ const initialEvents = [
     email: "demo@demo.com",
     eventName: "Demo Tourney",
     slug: "demotourney",
+    role: "Organizer",
+    teams: [
+      "Big Dumps",
+      "Huck Buddies",
+      "Kaohsiung Love",
+      "Galaxy",
+      "Team UFO",
+      "SanMa",
+      "Disc Combobulators",
+      "The Designated Drinkers"
+    ]
+  },
+  {
+    email: "demo@demo.com",
+    eventName: "Demo Tourney",
+    slug: "demotourney",
+    role: "Player",
     teams: [
       "Big Dumps",
       "Huck Buddies",

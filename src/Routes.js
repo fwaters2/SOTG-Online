@@ -12,7 +12,7 @@ import HomeNoUser from "./Components/HomeNoUser";
 import HomeUser from "./Components/Organizer/Index.js";
 import LoginAttempt from "./Components/Login/LoginAttempt";
 import OrganizerDemo from "./Components/Organizer/OrganizerDemo.js";
-import Player from "./Components/Player/Index.js";
+import Player from "./Components/SelectEvent/Index.js";
 
 export default function Routes({ user }) {
   return (

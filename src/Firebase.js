@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import "firebase/analytics";
+//import "firebase/analytics";
 import "firebase/functions";
 import "firebase/auth";
 import "firebase/database";
@@ -17,7 +17,7 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+//firebase.analytics();
 
 export default firebase;
 export const functions = firebase.functions;

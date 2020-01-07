@@ -77,7 +77,7 @@ export default function OrganizerView({
   return (
     <Container maxWidth="xs">
       <Grid container alignItems="center" justify="space-between">
-        <Typography variant="h6">Organizer: </Typography>
+        <Typography variant="h6">User: </Typography>
         <Typography variant="subtitle2">{email}</Typography>
       </Grid>
 
@@ -137,7 +137,7 @@ export default function OrganizerView({
                     </Grid>
                     <Grid item container>
                       <Grid item xs>
-                        <Typography>Teams: {x.teams.length}</Typography>
+                        <Typography>({x.role})</Typography>
                       </Grid>
                       <Grid item>
                         <Typography>

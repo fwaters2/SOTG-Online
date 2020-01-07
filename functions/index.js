@@ -2,15 +2,16 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 const functions = require("firebase-functions");
 const db = admin.firestore();
-const sgMail = require("@sendgrid/mail");
+//const sgMail = require("@sendgrid/mail");
 
-sgMail.setApiKey(functions.config().sendgrid.key);
+//sgMail.setApiKey(functions.config().sendgrid.key);
 
-exports.firestoreEmail = functions.firestore
+exports.handleMatches = functions.firestore
   .document("spiritscores/{spiritscore}")
   .onCreate(async (change, context) => {
     const scoreAll = change.data();
     const dataPretty = {
+      eventName: scoreAll.eventName,
       myTeam: scoreAll.myTeam,
       opponent: scoreAll.opponent,
       rules: scoreAll.rules,
@@ -26,18 +27,54 @@ exports.firestoreEmail = functions.firestore
         scoreAll.communication,
       feedback: scoreAll.feedback
     };
-    const msg = {
-      to: scoreAll.email,
-      from: "test@debugging.com",
-      subject: "SendGrid Tests",
-      text: `Here's your data! Team: ${dataPretty.myTeam}, Opponent: ${dataPretty.opponent}, Rules: ${dataPretty.rules}, Fairness: ${dataPretty.fairness}, Attitude: ${dataPretty.attitude}, Communication: ${dataPretty.communication}, Total:  ${dataPretty.total}, Feedback: ${dataPretty.feedback}`
-      //html: "<div>Hello<div>"
-      //SpiritScoreSubmissionTemplate(dataPretty)
-      //html: "<strong>and easy to do anywhere, even with Node.js</strong>"
-    };
-    return sgMail
-      .send(msg)
+    const matchStatus = db
+      .collection("matches")
+      //only grab matches from this tourney
+      .where("eventName", "==", dataPretty.eventName)
+      //only uncompleted matches
+      .where("completed", "==", false)
 
-      .then(() => console.log("email sent!"))
-      .catch(err => console.log(err));
+      .get()
+      .then(function(querySnapshot) {
+        const results = querySnapshot
+          .map(doc =>
+            // doc.data() is never undefined for query doc snapshots
+            ({ id: doc.id, ...doc.data() })
+          )
+          //only matches with the 2 relevant teams
+          .filter(
+            team =>
+              (team.team1 === dataPretty.myTeam ||
+                team.team1 === dataPretty.opponent) &&
+              (team.team2 === dataPretty.myTeam ||
+                team.team2 === dataPretty.opponent)
+          );
+        results.length === 0 ? "newMatch" : "updateMatch";
+      })
+      .catch(function(error) {
+        console.log("Error getting documents: ", error);
+      });
+
+    switch (matchStatus) {
+      case "newMatch":
+        console.log("this score will create a new match");
+      // return db.collection("matches").add({
+      //   eventName: dataPretty.eventName,
+      //   team1: dataPretty.myTeam,
+      //   team1Submitted: true,
+      //   team2: dataPretty.opponent,
+      //   team2Submitted: false,
+      //   completed: false
+      // });
+      case "completeMatch":
+        console.log("this score will update an existing match");
+      // return db.collection("matches").add({
+      //   eventName: dataPretty.eventName,
+      //   team1: dataPretty.myTeam,
+      //   team1Submitted: true,
+      //   team2: dataPretty.opponent,
+      //   team2Submitted: false,
+      //   completed: false
+      // });
+    }
   });
