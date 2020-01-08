@@ -1,10 +1,8 @@
 import React from "react";
-import { Grid, Typography, Box, IconButton } from "@material-ui/core";
-import { ExpandMore, ExpandLess } from "@material-ui/icons";
-import RankingIcon from "./RankingIcon";
+import { Grid, Box, Typography, IconButton } from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
-export default function ScoreSummary({
-  index,
+export default function SubmissionSummary({
   team,
   total,
   submissions,
@@ -13,18 +11,32 @@ export default function ScoreSummary({
 }) {
   return (
     <Grid container spacing={1} alignItems="center" direction="row">
-      <Grid item>
-        <RankingIcon>{index}</RankingIcon>
-      </Grid>
       <Grid item xs>
-        {team}
+        <Grid container direction="column">
+          <Box
+            style={{
+              width: "fit-content",
+              marginLeft: "-.5em",
+              padding: ".2em .5em",
+              border: "1px solid black",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "8px"
+            }}
+          >
+            <Typography style={{ fontSize: "8pt" }}>Opponent:</Typography>
+          </Box>
+
+          <Grid item>{team}</Grid>
+        </Grid>
       </Grid>
+
       <Grid item>
         <Box
           style={{
             minWidth: "2.2em",
             minHeight: "2.2em",
-            height: "100%",
             border: "1px solid black",
             padding: "0 .2em",
             display: "flex",
@@ -44,11 +56,6 @@ export default function ScoreSummary({
 
       <Grid item>
         <Grid container direction="column" alignItems="center">
-          <Grid item>
-            <Typography variant="subtitle2">
-              {"(" + submissions + ")"}
-            </Typography>
-          </Grid>
           {submissions === 0 ? null : (
             <Grid item>
               <IconButton

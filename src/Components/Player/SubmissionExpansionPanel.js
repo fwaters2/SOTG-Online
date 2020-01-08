@@ -5,11 +5,12 @@ import {
   ExpansionPanelDetails,
   Grid
 } from "@material-ui/core";
-import ScoreSummary from "./ScoreSummary";
-import ScoreExpanded from "./ScoreExpanded";
-export default function StandingsExpansionPanel({ data, index, handleClick }) {
-  const [isExpanded, toggleExpanded] = React.useState(false);
+import ScoreSummary from "../Organizer/Standings/ScoreSummary";
+import ScoreExpanded from "../Organizer/Standings/ScoreExpanded";
 
+export default function SubmissionExpansionPanel({ data, index, handleClick }) {
+  const [isExpanded, toggleExpanded] = React.useState(false);
+  //const myBlue = "#0C61E1";
   return (
     <ExpansionPanel
       key={data.team}
@@ -18,6 +19,8 @@ export default function StandingsExpansionPanel({ data, index, handleClick }) {
         isExpanded || data.individualGames.length === 0
           ? { borderRadius: "8px", margin: ".5em 1em" }
           : {
+              //background: myBlue,
+              //color: "white",
               borderRadius: "8px 8px 0px 0px",
               margin: ".5em 1em"
             }

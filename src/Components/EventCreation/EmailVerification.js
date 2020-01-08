@@ -29,7 +29,6 @@ export default function EmailVerification({
         .join(","),
     // This must be true.
     handleCodeInApp: true
-
     //dynamicLinkDomain: 'example.page.link'
   };
   React.useEffect(() => {

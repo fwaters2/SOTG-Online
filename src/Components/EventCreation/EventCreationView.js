@@ -1,13 +1,11 @@
 import React from "react";
-import StyledTextField from "../StyledTextField";
 import AddTeam from "./AddTeam";
 import {
   Button,
   ButtonGroup,
   Box,
   FormControl,
-  InputBase,
-  TextField
+  InputBase
 } from "@material-ui/core";
 import Summary from "./Summary";
 import StyledFormLabel from "../StyledFormLabel";

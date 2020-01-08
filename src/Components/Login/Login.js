@@ -10,6 +10,7 @@ import {
   DialogContent
 } from "@material-ui/core";
 import Firebase from "../../Firebase";
+import StyledTitle from "../StyledTitle";
 // import {
 //   GoogleLoginButton,
 //   FacebookLoginButton
@@ -100,12 +101,11 @@ export default function Login() {
 
   return (
     <StyledPaper
-      title="Organizer Login"
       setLang={setLang}
       currentLanguage={currentLanguage}
       lang={lang}
     >
-      {console.log(social)}
+      <StyledTitle>Organizer Login</StyledTitle>
       <div style={{ margin: "-2em 2em 0" }}>
         <StyledTextField
           placeholder="Email"

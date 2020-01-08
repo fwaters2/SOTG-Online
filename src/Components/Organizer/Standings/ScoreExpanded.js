@@ -14,8 +14,10 @@ export default function ScoreExpanded({
     <div
       style={{
         background: "#0038ae",
-        margin: "0px -1em",
-        boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
+        margin: ".1em -1em",
+        boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)",
+        color: "white",
+        borderRadius: "8px"
         //height: "30vh",
         //overflow: "auto"
       }}
@@ -67,7 +69,9 @@ export default function ScoreExpanded({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                borderRadius: "8px"
+                borderRadius: "8px",
+                background: "white",
+                color: "black"
               }}
             >
               <Typography variant="h5" align="right">

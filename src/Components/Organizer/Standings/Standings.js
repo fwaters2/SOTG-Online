@@ -1,29 +1,14 @@
 import React from "react";
-import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  Grid,
-  Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent
-} from "@material-ui/core";
-import ScoreSummary from "./ScoreSummary";
-import ScoreExpanded from "./ScoreExpanded";
+import { Dialog, DialogTitle, DialogContent } from "@material-ui/core";
 import builder from "./builder";
 import StandingsExpansionPanel from "./StandingsExpansionPanel";
+import OrganizerView from "../Organizer/OrganizerView";
+import MatchCard from "../Organizer/Matches/MatchCard";
 
-export default function Standings({ eventInfo, scores }) {
+export default function Standings({ eventInfo, scores, matches }) {
   const [isDialogOpen, toggleDialog] = React.useState(false);
   const [currentFeedback, setCurrentFeedback] = React.useState("");
-  const categories = [
-    "rules",
-    "fouls",
-    "fairness",
-    "attitude",
-    "communication"
-  ];
+  const [currentTab, setCurrentTab] = React.useState(0);
 
   const handleClick = x => () => {
     setCurrentFeedback(x);
@@ -32,44 +17,26 @@ export default function Standings({ eventInfo, scores }) {
 
   return (
     <div>
-      {/* <div style={{ margin: "0 .5em" }}>
-        <Grid container spacing={1} alignItems="center">
-          <Grid item>
-            <Typography variant="h5" align="left">
-              #
-            </Typography>
-          </Grid>
-          <Grid item xs container justify="space-between">
-            {categories.map(cat => (
-              <Grid item xs key={cat}>
-                <Typography style={{ fontSize: "6pt" }}>{cat}</Typography>
-              </Grid>
+      <div style={{ background: "#0038ae", padding: ".5em 0" }}>
+        <OrganizerView currentTab={currentTab} setCurrentTab={setCurrentTab} />
+        {currentTab === 0
+          ? builder(eventInfo, scores).map((data, index) => (
+              <StandingsExpansionPanel
+                key={index}
+                data={data}
+                index={index}
+                handleClick={handleClick}
+              />
+            ))
+          : matches.map(x => (
+              <MatchCard
+                completed={x.completed}
+                team1={x.team1}
+                team1Submitted={x.team1Submitted}
+                team2={x.team2}
+                team2Submitted={x.team2Submitted}
+              />
             ))}
-          </Grid>
-          <Grid item>Total</Grid>
-        </Grid>
-      </div> */}
-      <div style={{ margin: "0 -1em" }}>
-        {builder(eventInfo, scores).map((data, index) => (
-          <StandingsExpansionPanel
-            key={index}
-            data={data}
-            index={index}
-            handleClick={handleClick}
-          />
-        ))}
-        {/* <Grid container justify="center">
-          <Grid item>
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to={"/" + eventInfo.slug}
-            >
-              <IconButton color="primary">
-                <Add />
-              </IconButton>
-            </Link>
-          </Grid>
-        </Grid> */}
       </div>
       <Dialog open={isDialogOpen} onClose={() => toggleDialog(false)}>
         <DialogTitle>Feedback</DialogTitle>

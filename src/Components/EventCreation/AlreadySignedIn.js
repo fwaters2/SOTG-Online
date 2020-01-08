@@ -1,5 +1,5 @@
 import React from "react";
-import Firebase from "../../Firebase";
+//import Firebase from "../../Firebase";
 import ConfirmationDialog from "./ConfirmationDialog";
 import { Button, Typography } from "@material-ui/core";
 

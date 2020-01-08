@@ -1,7 +1,6 @@
 import React from "react";
 import {
   List,
-  Grid,
   Button,
   Dialog,
   Slide,
@@ -28,7 +27,6 @@ export default function Category({
   currentLanguage
 }) {
   const [isDialogOpen, toggleDialog] = React.useState(false);
-
   const categories = Object.keys(currentLanguage).filter(x => x !== "general");
   const currentStep = step - 1;
   const text = currentLanguage[categories[currentStep]];
@@ -60,13 +58,6 @@ export default function Category({
         examplesTab={examplesTab}
         setExamplesTab={setExamplesTab}
       />
-
-      {/* <LangDialog
-        open={isLangSelectOpen}
-        onClose={() => toggleLangSelect(false)}
-        setLang={setLang}
-        currentLanguage={currentLanguage}
-      /> */}
       <Box my="1em">
         <StyledFormLabel>{currentLanguage.general.feedback}:</StyledFormLabel>
         <div
@@ -74,8 +65,6 @@ export default function Category({
             background: "#0038ae",
             margin: "0 -2em",
             boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
-            //height: "30vh",
-            //overflow: "auto"
           }}
         >
           <SnackbarProvider maxSnack={3}>
@@ -86,17 +75,7 @@ export default function Category({
               onChangeIndex={e => setExamplesTab(e)}
             >
               {[0, 1, 2, 3, 4].map(page => (
-                <List
-                  key={page}
-                  dense
-                  // style={
-                  //   page === 4
-                  //     ? { borderRight: "#E82178 2px solid" }
-                  //     : page === 0
-                  //     ? { borderLeft: "#E82178 2px solid" }
-                  //     : null
-                  // }
-                >
+                <List key={page} dense>
                   {examples[page].map((x, index) => (
                     <ListCheckBox
                       key={x}
@@ -135,18 +114,18 @@ export default function Category({
       )}
 
       <Box mb="0.5em">
-      <Button
-        fullWidth
-        variant="outlined"
-        color={
-          formResponses[categories[currentStep] + "Feedback"] === ""
-            ? "default"
-            : "primary"
-        }
-        onClick={handleOpen}
-      >
-        <PostAdd />
-      </Button>
+        <Button
+          fullWidth
+          variant="outlined"
+          color={
+            formResponses[categories[currentStep] + "Feedback"] === ""
+              ? "default"
+              : "primary"
+          }
+          onClick={handleOpen}
+        >
+          <PostAdd />
+        </Button>
       </Box>
       <Dialog
         fullWidth
@@ -195,12 +174,6 @@ export default function Category({
           </Button>
         </DialogContent>
       </Dialog>
-      {/* <FeedbackContainer
-        feedback={categories[currentStep] + "Feedback"}
-        formResponses={formResponses}
-        setFormResponses={setFormResponses}
-        currentLanguage={currentLanguage}
-      /> */}
       <StepButtonGroup
         step={step}
         setStep={setStep}

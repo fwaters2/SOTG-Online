@@ -11,6 +11,7 @@ import {
 import StyledPaper from "../StyledPaper";
 import Firebase from "../../Firebase";
 import { Redirect } from "react-router-dom";
+import StyledTitle from "../StyledTitle";
 
 export default function Contact() {
   const [redirect, setRedirect] = React.useState(false);
@@ -32,7 +33,8 @@ export default function Contact() {
   return redirect ? (
     <Redirect push to="/demo" />
   ) : (
-    <StyledPaper title="Contact Form">
+    <StyledPaper>
+      <StyledTitle>Contact Form</StyledTitle>
       <Dialog open={isDialogOpen} onClose={() => setRedirect(true)}>
         <DialogTitle>Thank you for your feedback!</DialogTitle>
       </Dialog>

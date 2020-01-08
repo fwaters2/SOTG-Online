@@ -6,6 +6,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import StepConnector from "@material-ui/core/StepConnector";
 import StyledPaper from "../StyledPaper";
 import QontoStepIcon from "./QontoStepIcon";
+import StyledTitle from "../StyledTitle";
 
 //const myBlue = "#0C61E1";
 const myGreen = "#8FDE58";
@@ -65,11 +66,11 @@ export default function StepperTest({
 
   return (
     <StyledPaper
-      title={steps[activeStep]}
       setLang={setLang}
       currentLanguage={currentLanguage}
       lang={lang}
     >
+      <StyledTitle>{steps[activeStep]}</StyledTitle>
       <div
         style={{
           zIndex: 0,

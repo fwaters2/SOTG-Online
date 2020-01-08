@@ -5,26 +5,21 @@ import {
   ExpansionPanelDetails,
   Grid
 } from "@material-ui/core";
-import ScoreSummary from "./ScoreSummary";
-import ScoreExpanded from "./ScoreExpanded";
-export default function StandingsExpansionPanel({ data, index, handleClick }) {
+import SubmissionSummary from "./SubmissionSummary";
+import ScoreExpanded from "../../Standings/ScoreExpanded";
+import SubmissionExpanded from "./SubmissionExpanded";
+
+export default function SubmissionExpansionPanel({ data, index, handleClick }) {
   const [isExpanded, toggleExpanded] = React.useState(false);
 
   return (
     <ExpansionPanel
       key={data.team}
       expanded={isExpanded}
-      style={
-        isExpanded || data.individualGames.length === 0
-          ? { borderRadius: "8px", margin: ".5em 1em" }
-          : {
-              borderRadius: "8px 8px 0px 0px",
-              margin: ".5em 1em"
-            }
-      }
+      style={{ borderRadius: "8px", margin: ".5em 0" }}
     >
       <ExpansionPanelSummary style={{ padding: "0 .5em 0 1em" }}>
-        <ScoreSummary
+        <SubmissionSummary
           index={index}
           team={data.team}
           subscores={data.subscores}
@@ -37,7 +32,7 @@ export default function StandingsExpansionPanel({ data, index, handleClick }) {
       <ExpansionPanelDetails>
         <Grid container direction="column">
           {data.individualGames.map((data, index) => (
-            <ScoreExpanded
+            <SubmissionExpanded
               key={index}
               index={index}
               opponent={data.opponent}

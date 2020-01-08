@@ -1,29 +1,22 @@
 import React from "react";
-import {
-  Container,
-  Grid,
-  Typography,
-  IconButton,
-  List,
-  ListItem,
-  Button,
-  Menu,
-  MenuItem,
-  Paper
-} from "@material-ui/core";
-import { Settings } from "@material-ui/icons";
+import { List } from "@material-ui/core";
 import Standings from "./Standings/Standings";
 import DeleteDialog from "./Dialogs/DeleteDialog";
 import EditTeams from "./Dialogs/EditTeams";
-import ShareDialog from "./Dialogs/ShareDialog";
 import Logo from "../../Assets/Loader/Spinner/Logo";
+import StyledPaper from "../StyledPaper";
+import Submissions from "./Organizer/Submissions";
+import EventCardOrganizer from "./EventCardOrganizer";
+import TitleWithBack from "./TitleWithBack";
+import PaperTitle from "./PaperTitle";
 
 export default function OrganizerView({
-  events,
+  organizerEvents,
+  playerEvents,
   spiritScores,
   email,
-  handleDelete,
-  isLoading
+  isLoading,
+  matches
 }) {
   const [isViewingEvent, toggleEventView] = React.useState(false);
   const [currentEventInfo, setCurrentEventInfo] = React.useState({});
@@ -31,7 +24,6 @@ export default function OrganizerView({
   const [currentEvent, setCurrentEvent] = React.useState();
   const [anchorEl, setAnchorEl] = React.useState(null);
   //Dialogs
-  const [isShareDialogOpen, toggleShareDialog] = React.useState(false);
   const [isTeamDialogOpen, toggleTeamDialog] = React.useState(false);
   const [isDeleteDialogOpen, toggleDeleteDialog] = React.useState(false);
   const [settingsInfo, setSettingsInfo] = React.useState({
@@ -40,19 +32,20 @@ export default function OrganizerView({
     teams: [],
     slug: ""
   });
+  const [reciprocatedScores, setReciprocatedScores] = React.useState([]);
 
   React.useEffect(() => {
     setCurrentScores(
       spiritScores.filter(score => score.eventName === currentEvent)
     );
-  }, [spiritScores, currentEvent]);
+  }, []);
 
   const handleSettings = info => e => {
     setAnchorEl(e.currentTarget);
     setSettingsInfo(info);
   };
 
-  const handleClick = eventInfo => () => {
+  const handleClick = eventInfo => {
     setCurrentEventInfo(eventInfo);
     setCurrentEvent(eventInfo.eventName);
     setCurrentScores(
@@ -60,7 +53,35 @@ export default function OrganizerView({
     );
     toggleEventView(true);
   };
+  const handlePlayerClick = eventInfo => {
+    setCurrentEventInfo(eventInfo);
+    setCurrentEvent(eventInfo.eventName);
 
+    const myReciprocatedScoreIds = matches
+      .filter(x => x.eventName === eventInfo.eventName)
+      .filter(thisEventsMatch => thisEventsMatch.completed)
+      .filter(
+        completedMatch =>
+          completedMatch.team1SubmittedBy === email ||
+          completedMatch.team2SubmittedBy === email
+      )
+      .map(score =>
+        score.team1SubmittedBy === email
+          ? score.team2SubmissionId
+          : score.team1SubmissionId
+      );
+    const myReciprocatedScores = myReciprocatedScoreIds.map(
+      id => spiritScores[id]
+    );
+    setReciprocatedScores(myReciprocatedScores);
+    setCurrentScores(
+      spiritScores.filter(
+        score =>
+          score.eventName === eventInfo.eventName && score.submittedBy === email
+      )
+    );
+    toggleEventView(true);
+  };
   const handleMenuDelete = () => {
     setAnchorEl(null);
     toggleDeleteDialog(true);
@@ -75,92 +96,52 @@ export default function OrganizerView({
   };
 
   return (
-    <Container maxWidth="xs">
-      <Grid container alignItems="center" justify="space-between">
-        <Typography variant="h6">User: </Typography>
-        <Typography variant="subtitle2">{email}</Typography>
-      </Grid>
-
+    <StyledPaper>
       {isViewingEvent ? (
-        <Button
-          color="secondary"
-          variant="outlined"
-          fullWidth
-          onClick={() => toggleEventView(false)}
-        >
-          Back to Events
-        </Button>
-      ) : null}
-      {isViewingEvent ? (
-        <Standings eventInfo={currentEventInfo} scores={currentScores} />
+        <TitleWithBack toggleEventView={toggleEventView}>
+          {currentEventInfo.eventName}
+        </TitleWithBack>
       ) : (
+        <PaperTitle>Choose Event</PaperTitle>
+      )}
+      {isViewingEvent ? (
+        currentEventInfo.role === "Organizer" ? (
+          <Standings
+            eventInfo={currentEventInfo}
+            scores={currentScores}
+            matches={matches}
+          />
+        ) : (
+          <Submissions
+            scores={currentScores}
+            reciprocatedScores={reciprocatedScores}
+          />
+        )
+      ) : (
+        //This is the event choice page
         <List>
-          <Typography variant="h6">Select Event:</Typography>
           {isLoading ? (
             <Logo />
           ) : (
-            events.map(x => (
-              <Paper
-                style={{
-                  backgroundColor: "#8FDE58"
-                }}
-                key={x.eventName}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    right: "0.5em",
-                    marginTop: "0.3em",
-                    zIndex: 10
-                  }}
-                >
-                  <IconButton size="small" onClick={handleSettings(x)}>
-                    <Settings />
-                  </IconButton>
-                  <Menu
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={() => setAnchorEl(null)}
-                  >
-                    <MenuItem onClick={handleMenuCopy}>Copy Link</MenuItem>
-                    <MenuItem onClick={handleMenuTeams}>Update Teams</MenuItem>
-                    <MenuItem onClick={handleMenuDelete}>Delete</MenuItem>
-                  </Menu>
-                </div>
-                <ListItem button divider onClick={handleClick(x)}>
-                  <Grid container direction="column">
-                    <Grid item container>
-                      <Grid item xs>
-                        <Typography>{x.eventName}</Typography>
-                      </Grid>
-                    </Grid>
-                    <Grid item container>
-                      <Grid item xs>
-                        <Typography>({x.role})</Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography>
-                          Spirit Scores:{" "}
-                          {
-                            spiritScores.filter(
-                              score => score.eventName === x.eventName
-                            ).length
-                          }
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </ListItem>
-              </Paper>
+            [...organizerEvents, ...playerEvents].map((x, index) => (
+              <EventCardOrganizer
+                key={index}
+                x={x}
+                anchorEl={anchorEl}
+                handleMenuCopy={handleMenuCopy}
+                handleMenuTeams={handleMenuTeams}
+                handleMenuDelete={handleMenuDelete}
+                spiritScores={spiritScores}
+                handleSettings={handleSettings}
+                setAnchorEl={setAnchorEl}
+                handleClick={handleClick}
+                handlePlayerClick={handlePlayerClick}
+                email={email}
+              />
             ))
           )}
         </List>
       )}
-      {/* <ShareDialog
-        open={isShareDialogOpen}
-        onClose={() => toggleShareDialog(false)}
-      /> */}
       <EditTeams
         settingsInfo={settingsInfo}
         open={isTeamDialogOpen}
@@ -171,6 +152,6 @@ export default function OrganizerView({
         open={isDeleteDialogOpen}
         onClose={() => toggleDeleteDialog(false)}
       />
-    </Container>
+    </StyledPaper>
   );
 }

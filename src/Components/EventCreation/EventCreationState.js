@@ -2,10 +2,8 @@ import React from "react";
 import EventCreationView from "./EventCreationView";
 import { Strings as Languages } from "../../Assets/Lang/Languages";
 import StyledPaper from "../StyledPaper";
-
 import Firebase from "../../Firebase";
-import { Typography } from "@material-ui/core";
-import NavLink from "../NavLink";
+import StyledTitle from "../StyledTitle";
 
 export default function EventCreationState(props) {
   const { user } = props;
@@ -31,15 +29,10 @@ export default function EventCreationState(props) {
       // Get the email if available. This should be available if the user completes
       // the flow on the same device where they started it.
       var email = window.localStorage.getItem("emailForSignIn");
-
-      //setMessage("Email retrieved from storage");
       if (!email) {
         // User opened the link on a different device. To prevent session fixation
         // attacks, ask the user to provide the associated email again. For example:
         email = window.prompt("Please provide your email for confirmation");
-        // setMessage(
-        //   "No email in local storage so must have logged in from another device/browser"
-        // );
       }
       // The client SDK will parse the code from the link for you.
       Firebase.auth()
@@ -52,7 +45,6 @@ export default function EventCreationState(props) {
           // result.additionalUserInfo.profile == null
           // You can check if the user is new or existing:
           // result.additionalUserInfo.isNewUser
-          //setMessage(message.concat(". AND the result is in the console log"));
           setFormResponses({
             email: result.user.email,
             eventName: new URLSearchParams(props.location.search).get(
@@ -63,9 +55,6 @@ export default function EventCreationState(props) {
               .split(","),
             slug: new URLSearchParams(props.location.search).get("slug")
           });
-
-          //This will ACTUALLY CREATE THE EVENT
-
           console.log(result);
         })
         .catch(function(error) {
@@ -76,7 +65,6 @@ export default function EventCreationState(props) {
     } else {
       //Set the email from user data
       setFormResponses({ ...formResponses, email: user.email });
-      //setMessage("The link is NOT a sign-in with email link");
     }
   }, []);
 
@@ -97,11 +85,11 @@ export default function EventCreationState(props) {
 
   return (
     <StyledPaper
-      title="Create Event"
       setLang={setLang}
       currentLanguage={currentLanguage}
       lang={lang}
     >
+      <StyledTitle>Create Event</StyledTitle>
       <div style={{ margin: "-1em 2em 0" }}>
         <EventCreationView
           step={step}
