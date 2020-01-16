@@ -23,7 +23,7 @@ export default function PlayerTabs({ currentTab, setCurrentTab }) {
         className={classes.tabs}
         variant="fullWidth"
         style={{ borderRadius: "8px" }}
-        indicatorColor="white"
+        //indicatorColor="white"
       >
         <Tab
           className={classes.tab}

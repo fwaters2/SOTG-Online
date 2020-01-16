@@ -47,7 +47,7 @@ export default function LoginAttempt(props) {
     } else {
       setMessage("The link is NOT a sign-in with email link");
     }
-  }, []);
+  }, [message]);
   return (
     <div>
       {console.log(message)}

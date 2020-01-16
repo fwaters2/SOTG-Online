@@ -8,7 +8,7 @@ const steps = [
   { title: "Share your event link to your team captains/spirit captains" },
   {
     title:
-      "Check your email during/after event as the spirit scores are submitted!"
+      "Check the app during/after event as the spirit scores are submitted!"
   }
 ];
 

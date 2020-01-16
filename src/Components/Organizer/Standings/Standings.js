@@ -28,8 +28,9 @@ export default function Standings({ eventInfo, scores, matches }) {
                 handleClick={handleClick}
               />
             ))
-          : matches.map(x => (
+          : matches.map((x, index) => (
               <MatchCard
+                key={index}
                 completed={x.completed}
                 team1={x.team1}
                 team1Submitted={x.team1Submitted}

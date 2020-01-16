@@ -5,6 +5,7 @@ export default function Submitted({ submissions }) {
     <div>
       {submissions.map(x => (
         <SubmissionExpansionPanel
+          key={x}
           data={x}
           index={0}
           handleClick={() => alert("clicked")}

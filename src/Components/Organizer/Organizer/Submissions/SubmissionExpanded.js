@@ -1,6 +1,7 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import BoxScores from "../../Standings/BoxScores";
+import FeedbackSummary from "../../../FeedbackSummary";
 
 export default function SubmissionExpanded({ subscores, feedback }) {
   return (
@@ -29,15 +30,7 @@ export default function SubmissionExpanded({ subscores, feedback }) {
         </Grid>
         <Grid item container alignItems="center">
           <Grid item xs>
-            <Typography
-              variant="caption"
-              style={{
-                margin: "1em 0",
-                display: "block"
-              }}
-            >
-              {feedback}
-            </Typography>
+            <FeedbackSummary formResponses={feedback} currentLanguage={"en"} />
           </Grid>
         </Grid>
       </Grid>

@@ -38,7 +38,7 @@ export default function OrganizerView({
     setCurrentScores(
       spiritScores.filter(score => score.eventName === currentEvent)
     );
-  }, []);
+  }, [spiritScores]);
 
   const handleSettings = info => e => {
     setAnchorEl(e.currentTarget);
@@ -70,9 +70,17 @@ export default function OrganizerView({
           ? score.team2SubmissionId
           : score.team1SubmissionId
       );
-    const myReciprocatedScores = myReciprocatedScoreIds.map(
+    //ORIGINAL WORKS WITH DEMO
+    const demoReciprocatedScores = myReciprocatedScoreIds.map(
       id => spiritScores[id]
     );
+    console.log(demoReciprocatedScores);
+    const loggedInReciprocatedScores = myReciprocatedScoreIds.map(id =>
+      spiritScores.find(x => x.id === id)
+    );
+    const myReciprocatedScores = email
+      ? loggedInReciprocatedScores
+      : demoReciprocatedScores;
     setReciprocatedScores(myReciprocatedScores);
     setCurrentScores(
       spiritScores.filter(
@@ -115,13 +123,16 @@ export default function OrganizerView({
           <Submissions
             scores={currentScores}
             reciprocatedScores={reciprocatedScores}
+            email={email}
           />
         )
       ) : (
         //This is the event choice page
         <List>
           {isLoading ? (
-            <Logo />
+            <React.Fragment>
+              <Logo />
+            </React.Fragment>
           ) : (
             [...organizerEvents, ...playerEvents].map((x, index) => (
               <EventCardOrganizer

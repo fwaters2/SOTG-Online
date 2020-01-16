@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import StyledFormLabel from "../StyledFormLabel.js";
 import FeedbackContainer from "./FeedbackContainer.js";
+import FeedbackSummary from "../FeedbackSummary.js";
 const categories = ["rules", "fouls", "fairness", "attitude", "communication"];
 export default function Summary({
   formResponses,
@@ -77,33 +78,10 @@ export default function Summary({
         }}
       >
         <Box m="1em 2em">
-          {["rules", "fouls", "fairness", "attitude", "communication"]
-            .map(cat => ({
-              name: cat.charAt(0).toUpperCase() + cat.slice(1),
-              state: cat + "Examples",
-              categoryState: cat
-            }))
-            .map(category =>
-              category.state ? (
-                <Typography
-                  key={category.name}
-                  variant="body2"
-                  style={{ margin: ".5em 0" }}
-                >
-                  {category.name +
-                    ": " +
-                    [
-                      formResponses[category.categoryState + "Feedback"],
-                      ...formResponses[category.state].map(
-                        example =>
-                          currentLanguage[example.category].examples[
-                            example.categoryScore
-                          ][example.index]
-                      )
-                    ].join(" ")}
-                </Typography>
-              ) : null
-            )}{" "}
+          <FeedbackSummary
+            currentLanguage={currentLanguage}
+            formResponses={formResponses}
+          />
         </Box>
       </div>
     </div>

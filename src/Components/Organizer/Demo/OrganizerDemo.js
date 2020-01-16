@@ -1,5 +1,5 @@
 import React from "react";
-import OrganizerView from "../OrgananizerView";
+import OrganizerView from "../OrganizerView";
 import langStrings from "../../../Assets/Lang/enSpirit2019.json";
 import { initialEvents, initialScores, demoMatches } from "./DemoData";
 import DemoToolBar from "./DemoToolBar";
@@ -17,7 +17,7 @@ export default function OrganizerDemo() {
     setOrganizerEvents(initialEvents.filter(x => x.email === email));
   }, [email]);
   React.useEffect(() => {
-    //This one gets the scores for each event for this user
+    //To-do filter the scores so that only scores for "Demo user" is shown
     setSpiritScores(initialScores);
     setLoading(false);
   }, [email]);
@@ -45,13 +45,14 @@ export default function OrganizerDemo() {
 
   return (
     <div>
-      <DemoToolBar
+      {/* OUT OF ORDER UNTIL I CAN FIX THE BUILDER TO INCORPORATE "EXAMPLES" 
+        <DemoToolBar
         langStrings={langStrings}
         spiritScores={spiritScores}
         matches={matches}
         setSpiritScores={setSpiritScores}
         setMatches={setMatches}
-      />
+      /> */}
       <OrganizerView
         organizerEvents={organizerEvents}
         playerEvents={playerEvents}
@@ -60,7 +61,6 @@ export default function OrganizerDemo() {
         handleDelete={handleDelete}
         isLoading={isLoading}
         matches={matches}
-        setMatches={setMatches}
       />
     </div>
   );

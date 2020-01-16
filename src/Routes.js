@@ -16,8 +16,19 @@ import OrganizerDemo from "./Components/Organizer/Demo/OrganizerDemo.js";
 export default function Routes({ user }) {
   return (
     <Switch>
-      <Route exact path="/" component={user ? HomeUser : HomeNoUser} />
-      <Route path="/home" component={user ? HomeUser : HomeNoUser} />
+      <Route
+        exact
+        path="/"
+        render={() =>
+          user ? <HomeUser user={user} /> : <HomeNoUser user={user} />
+        }
+      />
+      <Route
+        path="/home"
+        render={() =>
+          user ? <HomeUser user={user} /> : <HomeNoUser user={user} />
+        }
+      />
       <Route path="/loginAttempt" component={LoginAttempt} />
       <Route exact path="/howtouse" component={HowToUse} />
       <Route exact path="/about" component={About} />
@@ -31,7 +42,10 @@ export default function Routes({ user }) {
         path="/createevent"
         render={props => <EventCreation {...props} user={user} />}
       />
-      <Route path="/:event" component={SpiritScore} />
+      <Route
+        path="/:event"
+        render={props => <SpiritScore {...props} user={user} />}
+      />
     </Switch>
   );
 }

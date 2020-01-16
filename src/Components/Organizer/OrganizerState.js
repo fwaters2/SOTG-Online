@@ -1,81 +1,107 @@
 import React from "react";
 import Firebase from "../../Firebase";
-import OrganizerView from "./OrgananizerView";
-import { Grid, IconButton } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { Add } from "@material-ui/icons";
+import OrganizerView from "./OrganizerView";
+import onlyUnique from "../../Utils/onlyUnique";
 
-export default function OrganizerState() {
+export default function OrganizerState(props) {
+  const { email } = props.user;
   const [isLoading, setLoading] = React.useState(true);
-  const [events, setEvents] = React.useState([]);
-  const [email, setEmail] = React.useState("");
+  const [organizerEvents, setOrganizerEvents] = React.useState([]);
+  const [playerEvents, setPlayerEvents] = React.useState([]);
   const [spiritScores, setSpiritScores] = React.useState([]);
+  const [matches, setMatches] = React.useState([]);
+  const [receivedScores, setRecievedScores] = React.useState([]);
+  const [organizerMatches, setOrganizerMatches] = React.useState([]);
 
+  //STEP 2: Grab the user's events
   React.useEffect(() => {
-    setEmail(Firebase.auth().currentUser.email);
-    // Firebase.auth().onAuthStateChanged(user =>
-    //   user ? setEmail(user.email) : alert("error finding events")
-    // );
-    //console.log(Firebase.auth().currentUser.email);
-    //console.log(email);
+    const eventRef = Firebase.firestore().collection("events");
+    const scoreRef = Firebase.firestore().collection("spiritScores");
+    const matchRef = Firebase.firestore().collection("matches");
+
+    eventRef.where("email", "==", email).onSnapshot(snapshot => {
+      const fbArray = snapshot.docs.map(doc => ({
+        id: doc.id,
+        role: "Organizer",
+        ...doc.data()
+      }));
+      setOrganizerEvents(fbArray);
+
+      const allEventTitles = ["no matches", ...fbArray.map(x => x.eventName)];
+
+      const organizerMatches = [];
+      matchRef.where("eventName", "in", allEventTitles).onSnapshot(snapshot => {
+        const fbArray = snapshot.docs.map(doc => doc.data());
+        organizerMatches.push(...fbArray);
+      });
+      setOrganizerMatches(organizerMatches);
+    });
+
+    scoreRef.onSnapshot(snapshot => {
+      const fbArray = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setSpiritScores(fbArray);
+    });
+
+    let reciprocatedScoreIds = ["none found"];
+
+    matchRef
+      .where("completed", "==", true)
+      .where("team1SubmittedBy", "==", email)
+      .onSnapshot(snapshot => {
+        const fbArray = snapshot.docs.map(doc => doc.data());
+        reciprocatedScoreIds = [
+          ...reciprocatedScoreIds,
+          ...fbArray.map(x => x.team2SubmissionId)
+        ];
+      });
+    matchRef
+      .where("completed", "==", true)
+      .where("team2SubmittedBy", "==", email)
+      .onSnapshot(snapshot => {
+        const fbArray = snapshot.docs.map(doc => doc.data());
+        reciprocatedScoreIds = [
+          ...reciprocatedScoreIds,
+          ...fbArray.map(x => x.team1SubmissionId)
+        ];
+        scoreRef
+          .where("id", "in", reciprocatedScoreIds)
+          .onSnapshot(snapshot => {
+            const fbArray = snapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }));
+            setRecievedScores(fbArray);
+          });
+      });
+
+    scoreRef.where("submittedBy", "==", email).onSnapshot(snapshot => {
+      const fbArray = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      const uniqueEvents = fbArray.map(x => x.eventName).filter(onlyUnique);
+      const playerEvents = uniqueEvents.map(event => ({
+        role: "Player",
+        eventName: event
+        //submissions:[]//this will be the submissions for this event
+      }));
+      setPlayerEvents(playerEvents);
+      setLoading(false);
+    });
   }, []);
-  React.useEffect(() => {
-    const unsubscribe = Firebase.firestore()
-      .collection("events")
-      .where("email", "==", email)
-      .onSnapshot(snapshot => {
-        const events = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setLoading(false);
-        setEvents(events);
-      });
-    return () => unsubscribe;
-  }, [email]);
-  React.useEffect(() => {
-    const unsubscribe = Firebase.firestore()
-      .collection("spiritscores")
-      .where("email", "==", email)
-      .onSnapshot(snapshot => {
-        const spiritScores = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setSpiritScores(spiritScores);
-        setLoading(false);
-      });
-    return () => unsubscribe;
-  }, [email]);
 
-  const handleDelete = id => () => {
-    Firebase.firestore()
-      .collection("events")
-      .doc(id)
-      .delete();
-  };
   return (
-    <React.Fragment>
-      <OrganizerView
-        events={events}
-        spiritScores={spiritScores}
-        email={email}
-        handleDelete={handleDelete}
-        isLoading={isLoading}
-      />
-
-      <Grid container justify="center">
-        <Grid item>
-          <Link
-            style={{ textDecoration: "none", color: "inherit" }}
-            to="/createevent"
-          >
-            <IconButton color="primary">
-              <Add />
-            </IconButton>
-          </Link>
-        </Grid>
-      </Grid>
-    </React.Fragment>
+    <OrganizerView
+      email={email}
+      isLoading={isLoading}
+      //To-do separate these better
+      organizerEvents={organizerEvents}
+      playerEvents={playerEvents}
+      spiritScores={spiritScores}
+      matches={organizerMatches}
+    />
   );
 }

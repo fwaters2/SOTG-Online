@@ -4,8 +4,8 @@ import PlayerTabs from "../../Player/PlayerTabs";
 import Submitted from "./Submissions/Submitted";
 import Received from "./Submissions/Received";
 
-export default function Submissions({ scores, reciprocatedScores }) {
-  const submissions = scores.map(x => ({
+export default function Submissions({ scores, reciprocatedScores, email }) {
+  const demoSubmissions = scores.map(x => ({
     team: x.opponent,
     total: x.rules + x.fouls + x.fairness + x.attitude + x.communication,
     individualGames: [
@@ -15,7 +15,17 @@ export default function Submissions({ scores, reciprocatedScores }) {
       }
     ]
   }));
-  const received = reciprocatedScores.map(x => ({
+  const playerSubmissions = scores.map(x => ({
+    team: x.opponent,
+    total: x.rules + x.fouls + x.fairness + x.attitude + x.communication,
+    individualGames: [
+      {
+        subscores: [x.rules, x.fouls, x.fairness, x.attitude, x.communication],
+        feedback: x
+      }
+    ]
+  }));
+  const demoReceived = reciprocatedScores.map(x => ({
     team: x.myTeam,
     total: x.rules + x.fouls + x.fairness + x.attitude + x.communication,
     individualGames: [
@@ -25,7 +35,19 @@ export default function Submissions({ scores, reciprocatedScores }) {
       }
     ]
   }));
+  const playerReceived = reciprocatedScores.map(x => ({
+    team: x.myTeam,
+    total: x.rules + x.fouls + x.fairness + x.attitude + x.communication,
+    individualGames: [
+      {
+        subscores: [x.rules, x.fouls, x.fairness, x.attitude, x.communication],
+        feedback: x
+      }
+    ]
+  }));
   const [currentTab, setCurrentTab] = React.useState(0);
+  const submissions = email ? playerSubmissions : demoSubmissions;
+  const received = email ? playerReceived : demoReceived;
 
   return (
     <div>

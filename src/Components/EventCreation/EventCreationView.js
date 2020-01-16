@@ -7,10 +7,10 @@ import {
   FormControl,
   InputBase
 } from "@material-ui/core";
-import Summary from "./Summary";
 import StyledFormLabel from "../StyledFormLabel";
 import string_to_slug from "../../slugify";
 import EmailVerification from "./EmailVerification";
+import AlreadySignedIn from "./AlreadySignedIn";
 
 export default function EventCreationView({
   step,
@@ -113,13 +113,13 @@ export default function EventCreationView({
       );
     case 2:
       return user ? (
-        <Summary
+        <AlreadySignedIn
           formResponses={formResponses}
+          createEvent={createEvent}
           setFormResponses={setFormResponses}
           step={step}
           setStep={setStep}
           user={user}
-          createEvent={createEvent}
         />
       ) : (
         <EmailVerification

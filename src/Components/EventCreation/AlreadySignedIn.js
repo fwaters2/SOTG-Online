@@ -3,7 +3,7 @@ import React from "react";
 import ConfirmationDialog from "./ConfirmationDialog";
 import { Button, Typography } from "@material-ui/core";
 
-export default function AlreadySignedIn({ formResponses, email, createEvent }) {
+export default function AlreadySignedIn({ formResponses, createEvent }) {
   const [isConfirmDialogOpen, toggleConfirmDialog] = React.useState(false);
   const handleCreate = () => {
     toggleConfirmDialog(true);

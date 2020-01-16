@@ -5,6 +5,7 @@ import SpiritScoreView from "./SpiritScoreView";
 import EnglishText from "../../Assets/Lang/enSpirit.json";
 
 export default function SpiritScoreState(props) {
+  const { user } = props;
   const [lang, setLang] = React.useState("en");
   const [step, setStep] = React.useState(0);
   const [exists, setExists] = useState(true);
@@ -32,9 +33,11 @@ export default function SpiritScoreState(props) {
     communicationFeedback: "",
     communicationExamples: [],
     feedback: "",
-    email: eventData.email
+    email: eventData.email,
+    submittedBy: user.email
   });
   const [isDialogOpen, toggleDialog] = React.useState(false);
+  const [isSignInDialogOpen, toggleSignInDialog] = React.useState(false);
   const spiritTexts = { en: EnglishText };
   const currentLanguage = spiritTexts[lang];
   const handleSubmit = () => {
@@ -55,36 +58,37 @@ export default function SpiritScoreState(props) {
       communication,
       communicationExamples,
       communicationFeedback,
-      feedback
+      feedback,
+      submittedBy
     } = formResponses;
-    eventData
-      ? Firebase.firestore()
-          .collection("spiritscores")
-          .add({
-            eventName: eventData.name,
-            email: eventData.email,
-            myTeam,
-            opponent,
-            rules,
-            rulesFeedback,
-            rulesExamples,
-            fouls,
-            foulsExamples,
-            fairness,
-            fairnessExamples,
-            fairnessFeedback,
-            attitude,
-            attitudeExamples,
-            attitudeFeedback,
-            communication,
-            communicationExamples,
-            communicationFeedback,
-            feedback,
-            created: Firebase.database.ServerValue.TIMESTAMP
-          })
-      : console.log("Event Data returned false");
+    Firebase.firestore()
+      .collection("spiritScores")
+      .add({
+        eventName: eventData.name,
+        email: eventData.email,
+        myTeam,
+        opponent,
+        rules,
+        rulesFeedback,
+        rulesExamples,
+        fouls,
+        foulsExamples,
+        fairness,
+        fairnessExamples,
+        fairnessFeedback,
+        attitude,
+        attitudeExamples,
+        attitudeFeedback,
+        communication,
+        communicationExamples,
+        communicationFeedback,
+        feedback,
+        created: Firebase.firestore.FieldValue.serverTimestamp(),
+        submittedBy: submittedBy || null
+      });
   };
   const handleFormSubmit = () => {
+    toggleSignInDialog(false);
     toggleDialog(true);
     handleSubmit();
   };
@@ -147,6 +151,9 @@ export default function SpiritScoreState(props) {
           handleFormSubmit={handleFormSubmit}
           isDialogOpen={isDialogOpen}
           currentLanguage={currentLanguage}
+          user={user}
+          isSignInDialogOpen={isSignInDialogOpen}
+          toggleSignInDialog={toggleSignInDialog}
         />
       }
     />

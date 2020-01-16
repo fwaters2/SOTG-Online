@@ -3,7 +3,13 @@ import TeamSelection from "./TeamSelection";
 import Category from "./Category";
 import Summary from "./Summary";
 import LastButtons from "../Stepper/LastButtons";
-import { Dialog, DialogTitle } from "@material-ui/core";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContentText,
+  DialogContent
+} from "@material-ui/core";
+import SignInDialog from "./SignInDialog";
 
 export default function SpiritScoreView({
   step,
@@ -13,7 +19,11 @@ export default function SpiritScoreView({
   setStep,
   handleFormSubmit,
   isDialogOpen,
-  currentLanguage
+  currentLanguage,
+  user,
+  isSignInDialogOpen,
+  handleSignInClose,
+  toggleSignInDialog
 }) {
   switch (step) {
     case 0:
@@ -54,12 +64,33 @@ export default function SpiritScoreView({
           <LastButtons
             step={step}
             setStep={setStep}
-            handleSubmit={handleFormSubmit}
+            handleSubmit={
+              user ? handleFormSubmit : () => toggleSignInDialog(true)
+            }
             label="Submit"
           />
+
           <Dialog open={isDialogOpen} onClose={() => window.location.reload()}>
             <DialogTitle>Thanks for Scoring!</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                {formResponses.submittedBy
+                  ? "Sign in to see any responses or review your submissions!"
+                  : "Your response has been submitted to the organizer!"}
+              </DialogContentText>
+            </DialogContent>
           </Dialog>
+
+          <SignInDialog
+            open={isSignInDialogOpen}
+            handleSignInClose={handleSignInClose}
+            formResponses={formResponses}
+            setFormResponses={setFormResponses}
+            currentLanguage={currentLanguage}
+            isSignInDialogOpen={isSignInDialogOpen}
+            toggleSignInDialog={toggleSignInDialog}
+            onClose={handleFormSubmit}
+          />
         </React.Fragment>
       );
     default:

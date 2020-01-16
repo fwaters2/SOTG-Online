@@ -1,80 +1,81 @@
 const admin = require("firebase-admin");
+
 admin.initializeApp();
 const functions = require("firebase-functions");
 const db = admin.firestore();
-//const sgMail = require("@sendgrid/mail");
-
-//sgMail.setApiKey(functions.config().sendgrid.key);
 
 exports.handleMatches = functions.firestore
-  .document("spiritscores/{spiritscore}")
-  .onCreate(async (change, context) => {
-    const scoreAll = change.data();
-    const dataPretty = {
-      eventName: scoreAll.eventName,
-      myTeam: scoreAll.myTeam,
-      opponent: scoreAll.opponent,
-      rules: scoreAll.rules,
-      fouls: scoreAll.fouls,
-      fairness: scoreAll.fairness,
-      attitude: scoreAll.attitude,
-      communication: scoreAll.communication,
-      total:
-        scoreAll.rules +
-        scoreAll.fouls +
-        scoreAll.fairness +
-        scoreAll.attitude +
-        scoreAll.communication,
-      feedback: scoreAll.feedback
-    };
-    const matchStatus = db
-      .collection("matches")
-      //only grab matches from this tourney
-      .where("eventName", "==", dataPretty.eventName)
-      //only uncompleted matches
-      .where("completed", "==", false)
+  .document("spiritScores/{spiritScore}")
+  .onCreate((change, context) => {
+    const { eventName, myTeam, opponent, submittedBy } = change.data();
 
+    const scoreData = {
+      id: change.id,
+      eventName,
+      myTeam,
+      opponent,
+      submittedBy
+    };
+    return db
+      .collection("matches")
+      .where("eventName", "==", scoreData.eventName)
+      .where("completed", "==", false)
       .get()
       .then(function(querySnapshot) {
-        const results = querySnapshot
-          .map(doc =>
-            // doc.data() is never undefined for query doc snapshots
-            ({ id: doc.id, ...doc.data() })
-          )
-          //only matches with the 2 relevant teams
-          .filter(
-            team =>
-              (team.team1 === dataPretty.myTeam ||
-                team.team1 === dataPretty.opponent) &&
-              (team.team2 === dataPretty.myTeam ||
-                team.team2 === dataPretty.opponent)
-          );
-        results.length === 0 ? "newMatch" : "updateMatch";
+        const results = [];
+        querySnapshot.forEach(doc =>
+          results.push({ id: doc.id, ...doc.data() })
+        );
+        results.filter(
+          team =>
+            (team.team1 === scoreData.myTeam ||
+              team.team1 === scoreData.opponent) &&
+            (team.team2 === scoreData.myTeam ||
+              team.team2 === scoreData.opponent)
+        );
+        const toDo =
+          results.length === 0
+            ? "newMatch"
+            : results.length === 1
+            ? "updateMatch"
+            : "tooManyMatches";
+        const matchToUpdate = !results[0]
+          ? null
+          : results[0].id
+          ? results[0].id
+          : null;
+
+        switch (toDo) {
+          case "newMatch":
+            return db.collection("matches").add({
+              eventName: scoreData.eventName,
+              team1: scoreData.myTeam,
+              team1Submitted: true,
+              team1SubmissionId: scoreData.id,
+              team1SubmittedBy: scoreData.submittedBy,
+              team2: scoreData.opponent,
+              team2Submitted: false,
+              team2SubmissionId: null,
+              completed: false
+            });
+          case "updateMatch":
+            return db
+              .collection("matches")
+              .doc(matchToUpdate)
+              .update({
+                team2: scoreData.myTeam,
+                team2Submitted: true,
+                team2SubmissionId: scoreData.id,
+                team2SubmittedBy: scoreData.submittedBy,
+                completed: true
+              });
+          default:
+            console.log(
+              "you somehow have too many matches or less than 0 matches"
+            );
+        }
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);
       });
-
-    switch (matchStatus) {
-      case "newMatch":
-        console.log("this score will create a new match");
-      // return db.collection("matches").add({
-      //   eventName: dataPretty.eventName,
-      //   team1: dataPretty.myTeam,
-      //   team1Submitted: true,
-      //   team2: dataPretty.opponent,
-      //   team2Submitted: false,
-      //   completed: false
-      // });
-      case "completeMatch":
-        console.log("this score will update an existing match");
-      // return db.collection("matches").add({
-      //   eventName: dataPretty.eventName,
-      //   team1: dataPretty.myTeam,
-      //   team1Submitted: true,
-      //   team2: dataPretty.opponent,
-      //   team2Submitted: false,
-      //   completed: false
-      // });
-    }
   });
