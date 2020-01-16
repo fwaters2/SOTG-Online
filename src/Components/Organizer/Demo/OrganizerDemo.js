@@ -45,14 +45,13 @@ export default function OrganizerDemo() {
 
   return (
     <div>
-      {/* OUT OF ORDER UNTIL I CAN FIX THE BUILDER TO INCORPORATE "EXAMPLES" 
-        <DemoToolBar
+      <DemoToolBar
         langStrings={langStrings}
         spiritScores={spiritScores}
         matches={matches}
         setSpiritScores={setSpiritScores}
         setMatches={setMatches}
-      /> */}
+      />
       <OrganizerView
         organizerEvents={organizerEvents}
         playerEvents={playerEvents}

@@ -61,6 +61,7 @@ export default function SpiritScoreView({
             isDialogOpen={isDialogOpen}
             currentLanguage={currentLanguage}
           />
+          {console.log(user)}
           <LastButtons
             step={step}
             setStep={setStep}

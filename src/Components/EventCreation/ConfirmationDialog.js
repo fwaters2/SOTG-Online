@@ -32,7 +32,7 @@ export default function ConfirmationDialog({ open, onClose, slug }) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button component={Link} to="/">
+        <Button component={Link} to="/" variant="contained" color="primary">
           Dashboard
         </Button>
       </DialogActions>
