@@ -1,6 +1,6 @@
-import React from "react";
-import logo from "../Logos/SOTG_Icon.svg";
-import "./Preloader.css";
+import React from 'react';
+import logo from '../Logos/SOTG_Icon.svg';
+import './Preloader.css';
 
 function Preloader() {
   return (

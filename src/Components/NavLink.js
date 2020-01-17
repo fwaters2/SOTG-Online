@@ -1,15 +1,14 @@
-import React from "react";
-import { Link } from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
+import React from 'react';
+import { Link } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 
-export default function NavLink(props) {
-  const { label, extension } = props;
+export default function NavLink({ label, extension }) {
   return (
     <Link
       component={React.forwardRef((props, ref) => (
         <RouterLink innerRef={ref} {...props} />
       ))}
-      to={"/" + extension}
+      to={`/${extension}`}
     >
       {label}
     </Link>

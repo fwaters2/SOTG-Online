@@ -4,14 +4,14 @@ import HowToUse from "./Components/Pages/HowToUse";
 import About from "./Components/Pages/About";
 import Contact from "./Components/Pages/Contact";
 import Verified from "./Components/Pages/Verified";
-import SpiritScore from "./Components/SpiritScoring/Index";
+import SpiritScore from "./Components/Scoring/Index";
 import EventCreation from "./Components/EventCreation/Index";
-import PlayerDemo from "./Components/SpiritScoring/PlayerDemo";
+import PlayerDemo from "./Components/Scoring/PlayerDemo";
 import Login from "./Components/Login/Login";
 import HomeNoUser from "./Components/HomeNoUser";
-import HomeUser from "./Components/Organizer/Index.js";
+import HomeUser from "./Components/Management/Index.js";
 import LoginAttempt from "./Components/Login/LoginAttempt";
-import OrganizerDemo from "./Components/Organizer/Demo/OrganizerDemo.js";
+import OrganizerDemo from "./Components/Management/Demo/OrganizerDemo.js";
 
 export default function Routes({ user }) {
   return (

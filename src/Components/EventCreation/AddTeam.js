@@ -1,30 +1,23 @@
-import React from "react";
-import {
-  Chip,
-  Box,
-  FormControl,
-  InputBase,
-  makeStyles,
-  Grid,
-  IconButton
-} from "@material-ui/core";
-import StyledFormLabel from "../StyledFormLabel";
-import { Add } from "@material-ui/icons";
+import React from 'react';
+import { Chip, Box, FormControl, InputBase, makeStyles, Grid, IconButton } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
+import StyledFormLabel from '../StyledFormLabel';
+
 const useStyles = makeStyles(theme => ({
   formControl: {
-    background: "white",
-    width: "100%",
-    margin: "1em 0",
-    padding: 0
-  }
+    background: 'white',
+    width: '100%',
+    margin: '1em 0',
+    padding: 0,
+  },
 }));
 
 export default function AddTeam({ formResponses, setFormResponses }) {
   const classes = useStyles();
-  const [newTeam, setNewTeam] = React.useState("");
+  const [newTeam, setNewTeam] = React.useState('');
   const handleAdd = e => {
     e.preventDefault();
-    newTeam !== "" &&
+    newTeam !== '' &&
       setFormResponses({
         ...formResponses,
         teams: [...formResponses.teams, newTeam].sort((b, a) => {
@@ -35,18 +28,18 @@ export default function AddTeam({ formResponses, setFormResponses }) {
             return 1;
           }
           return 0;
-        })
+        }),
       });
-    setNewTeam("");
+    setNewTeam('');
   };
   const handleDelete = team => {
     setFormResponses({
       ...formResponses,
-      teams: formResponses.teams.filter(x => x !== team)
+      teams: formResponses.teams.filter(x => x !== team),
     });
   };
   return (
-    <React.Fragment>
+    <>
       <Box mt={2}>
         <StyledFormLabel>Add Teams</StyledFormLabel>
         <form onSubmit={handleAdd}>
@@ -55,7 +48,7 @@ export default function AddTeam({ formResponses, setFormResponses }) {
               <Grid item xs>
                 <InputBase
                   autoFocus
-                  style={{ padding: ".5em 1em" }}
+                  style={{ padding: '.5em 1em' }}
                   type="text"
                   value={newTeam}
                   onChange={e => setNewTeam(e.target.value)}
@@ -63,7 +56,7 @@ export default function AddTeam({ formResponses, setFormResponses }) {
                 />
               </Grid>
               <Grid item>
-                <IconButton style={{ color: "black" }} onClick={handleAdd}>
+                <IconButton style={{ color: 'black' }} onClick={handleAdd}>
                   <Add />
                 </IconButton>
               </Grid>
@@ -71,19 +64,17 @@ export default function AddTeam({ formResponses, setFormResponses }) {
           </FormControl>
         </form>
       </Box>
-      <StyledFormLabel>
-        Total Teams: {formResponses.teams.length}
-      </StyledFormLabel>
+      <StyledFormLabel>Total Teams: {formResponses.teams.length}</StyledFormLabel>
       <br />
       {formResponses.teams.map(team => (
         <Chip
           key={team}
-          style={{ margin: ".5em" }}
+          style={{ margin: '.5em' }}
           label={team}
           onDelete={() => handleDelete(team)}
           color="primary"
         />
       ))}
-    </React.Fragment>
+    </>
   );
 }

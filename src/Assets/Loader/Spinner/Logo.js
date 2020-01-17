@@ -1,6 +1,6 @@
-import React from "react";
-import logo from "../../Logos/SOTG_Icon.svg";
-import "./Spinner.css";
+import React from 'react';
+import logo from '../../Logos/SOTG_Icon.svg';
+import './Spinner.css';
 
 export default function Logo() {
   return (

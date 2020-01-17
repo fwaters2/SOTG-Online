@@ -1,49 +1,37 @@
-import React from "react";
-import {
-  Box,
-  FormControl,
-  Select,
-  MenuItem,
-  InputBase
-} from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
-import { makeStyles, withStyles } from "@material-ui/styles";
-import StyledFormLabel from "./StyledFormLabel";
+import React from 'react';
+import { Box, FormControl, Select, MenuItem, InputBase } from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
+import { makeStyles, withStyles } from '@material-ui/styles';
+import StyledFormLabel from './StyledFormLabel';
 
 const exampleTeams = [
-  "Disc Jockeys",
-  "Galaxy",
-  "Hakuna Matata",
-  "Big Dumps",
-  "Young Bloods",
-  "Spirit Animals",
-  "UP!"
+  'Disc Jockeys',
+  'Galaxy',
+  'Hakuna Matata',
+  'Big Dumps',
+  'Young Bloods',
+  'Spirit Animals',
+  'UP!',
 ];
 
 const MatusInput = withStyles(theme => ({
   input: {
-    padding: "0.5em",
-    "&:focus": {
-      background: "none"
-    }
-  }
+    padding: '0.5em',
+    '&:focus': {
+      background: 'none',
+    },
+  },
 }))(InputBase);
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    background: "white",
+    background: 'white',
     margin: 0,
-    padding: 0
-  }
+    padding: 0,
+  },
 }));
 
-export default function StyledSelect({
-  stateKey,
-  label,
-  formResponses,
-  setFormResponses,
-  teams
-}) {
+export default function StyledSelect({ stateKey, label, formResponses, setFormResponses, teams }) {
   const classes = useStyles();
 
   return (
@@ -56,9 +44,7 @@ export default function StyledSelect({
           id="demo-simple-select-outlined"
           value={formResponses[stateKey]}
           IconComponent={ExpandMore}
-          onChange={e =>
-            setFormResponses({ ...formResponses, [stateKey]: e.target.value })
-          }
+          onChange={e => setFormResponses({ ...formResponses, [stateKey]: e.target.value })}
         >
           <MenuItem value="Select">
             <em>Select</em>

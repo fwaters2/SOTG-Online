@@ -1,6 +1,6 @@
-import React from "react";
-import { Box, FormControl, InputBase } from "@material-ui/core";
-import StyledFormLabel from "./StyledFormLabel";
+import React from 'react';
+import { Box, FormControl, InputBase } from '@material-ui/core';
+import StyledFormLabel from './StyledFormLabel';
 
 export default function StyledTextField({
   label,
@@ -10,7 +10,7 @@ export default function StyledTextField({
   placeholder,
   formResponses,
   setFormResponses,
-  ref
+  ref,
 }) {
   return (
     <Box mt={2} mb={2}>
@@ -20,13 +20,11 @@ export default function StyledTextField({
           ref={ref}
           autoFocus={autoFocus}
           required
-          style={{ padding: ".5em 1em" }}
+          style={{ padding: '.5em 1em' }}
           type={type}
           placeholder={placeholder}
           value={formResponses[stateKey]}
-          onChange={e =>
-            setFormResponses({ ...formResponses, [stateKey]: e.target.value })
-          }
+          onChange={e => setFormResponses({ ...formResponses, [stateKey]: e.target.value })}
         />
       </FormControl>
     </Box>

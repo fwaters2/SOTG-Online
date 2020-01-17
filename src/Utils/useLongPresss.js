@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export default function useLongPress(callback = () => {}, ms = 300) {
   const [startLongPress, setStartLongPress] = useState(false);
@@ -21,6 +21,6 @@ export default function useLongPress(callback = () => {}, ms = 300) {
     onMouseUp: () => setStartLongPress(false),
     onMouseLeave: () => setStartLongPress(false),
     onTouchStart: () => setStartLongPress(true),
-    onTouchEnd: () => setStartLongPress(false)
+    onTouchEnd: () => setStartLongPress(false),
   };
 }

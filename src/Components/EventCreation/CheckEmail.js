@@ -1,6 +1,6 @@
-import React from "react";
-import { SvgIcon, Typography, Grid } from "@material-ui/core";
-import { Email } from "@material-ui/icons";
+import React from 'react';
+import { SvgIcon, Typography, Grid } from '@material-ui/core';
+import { Email } from '@material-ui/icons';
 
 export default function CheckEmail({ email }) {
   return (
@@ -10,10 +10,10 @@ export default function CheckEmail({ email }) {
       alignItems="center"
       spacing={4}
       justify="center"
-      style={{ height: "100%" }}
+      style={{ height: '100%' }}
     >
       <Grid item>
-        <SvgIcon fontSize="large" style={{ color: "#E82178" }}>
+        <SvgIcon fontSize="large" style={{ color: '#E82178' }}>
           <Email />
         </SvgIcon>
       </Grid>

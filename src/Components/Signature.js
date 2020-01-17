@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function Signature() {
   const currentYear = new Date().getFullYear().toString();
@@ -6,14 +6,14 @@ export default function Signature() {
     <div
       style={{
         flexShrink: 1,
-        width: "100%",
+        width: '100%',
         zIndex: 5,
-        backgroundColor: "lightGray",
-        padding: ".5em 0",
-        textAlign: "center"
+        backgroundColor: 'lightGray',
+        padding: '.5em 0',
+        textAlign: 'center',
       }}
     >
-      {"Ⓒ" + currentYear + " UltiDeveloper"}
+      {`Ⓒ${currentYear} UltiDeveloper`}
     </div>
   );
 }
