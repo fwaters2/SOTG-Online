@@ -2,7 +2,7 @@ import React from 'react';
 import { SvgIcon, Typography, Grid } from '@material-ui/core';
 import { Email } from '@material-ui/icons';
 
-export default function CheckEmail({ email }) {
+export default function CheckEmail({ location }) {
   return (
     <Grid
       container
@@ -19,7 +19,8 @@ export default function CheckEmail({ email }) {
       </Grid>
       <Grid item>
         <Typography variant="h6" align="center">
-          Verification email sent to {email}. Check junk mail folder!
+          Verification email sent to {new URLSearchParams(location.search).get('email')}. Check junk
+          mail folder!
         </Typography>
       </Grid>
 

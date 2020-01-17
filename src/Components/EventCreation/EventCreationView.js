@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup, Box, FormControl, InputBase } from '@material-ui/core';
 import AddTeam from './AddTeam';
 import StyledFormLabel from '../StyledFormLabel';
-import string_to_slug from '../../Utils/slugify';
+import stringToSlug from '../../Utils/slugify';
 import EmailVerification from './EmailVerification';
 import AlreadySignedIn from './AlreadySignedIn';
 
@@ -32,7 +32,7 @@ export default function EventCreationView({
     function actions() {
       setFormResponses({
         ...formResponses,
-        slug: string_to_slug(formResponses.eventName),
+        slug: stringToSlug(formResponses.eventName),
       });
       setStep(step + 1);
     }

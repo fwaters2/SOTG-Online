@@ -1,81 +1,47 @@
 import React from 'react';
-import { Dialog } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 import StyledTextField from '../StyledTextField';
 import Firebase from '../../Utils/Firebase';
 import LastButtons from '../Scoring/Stepper/LastButtons';
-import string_to_slug from '../../Utils/slugify';
-import CheckEmail from './CheckEmail';
+import stringToSlug from '../../Utils/slugify';
 
 export default function EmailVerification({ formResponses, setFormResponses, step, setStep }) {
   const [emailSent, setEmailSent] = React.useState(false);
-  const actionCodeSettings = {
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be whitelisted in the Firebase Console.
-    url: `${(process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/createevent?slug='
-      : 'http://sotg.online/createevent?slug=') +
-      string_to_slug(formResponses.eventName)}&eventName=${
+  const redirectFromEmail = '/createevent';
+  const stateToURL =
+    `${redirectFromEmail}?slug=` +
+    `${stringToSlug(formResponses.eventName)}&eventName=${
       formResponses.eventName
-    }&teams=${formResponses.teams
-      // .map(team => string_to_slug(team))
-      .join(',')}`,
+    }&teams=${formResponses.teams.join(',')}`;
+  const actionCodeSettings = {
+    url: `${
+      process.env.NODE_ENV === 'development'
+        ? `http://localhost:3000${stateToURL}`
+        : `http://sotg.online${stateToURL}`
+    }`,
     // This must be true.
     handleCodeInApp: true,
-    // dynamicLinkDomain: 'example.page.link'
   };
-  React.useEffect(() => {
-    // Confirm the link is a sign-in with email link.
-    if (Firebase.auth().isSignInWithEmailLink(window.location.href)) {
-      // Additional state parameters can also be passed via URL.
-      // This can be used to continue the user's intended action before triggering
-      // the sign-in operation.
-      // Get the email if available. This should be available if the user completes
-      // the flow on the same device where they started it.
-      let email = window.localStorage.getItem('emailForSignIn');
-      if (!email) {
-        // User opened the link on a different device. To prevent session fixation
-        // attacks, ask the user to provide the associated email again. For example:
-        email = window.prompt('Please provide your email for confirmation');
-      }
-      // The client SDK will parse the code from the link for you.
-      Firebase.auth()
-        .signInWithEmailLink(email, window.location.href)
-        .then(function(result) {
-          // Clear email from storage.
-          window.localStorage.removeItem('emailForSignIn');
-          // You can access the new user via result.user
-          // Additional user info profile not available via:
-          // result.additionalUserInfo.profile == null
-          // You can check if the user is new or existing:
-          // result.additionalUserInfo.isNewUser
-          console.log('result', result);
-        })
-        .catch(function(error) {
-          // Some error occurred, you can inspect the code: error.code
-          // Common errors could be invalid email and invalid or expired OTPs.
-        });
-    }
-  }, []);
 
   const handleVerify = () => {
     Firebase.auth()
       .sendSignInLinkToEmail(formResponses.email, actionCodeSettings)
-      .then(function() {
+      .then(() => {
         // The link was successfully sent. Inform the user.
         // Save the email locally so you don't need to ask the user for it again
         // if they open the link on the same device.
         window.localStorage.setItem('emailForSignIn', formResponses.email);
-        console.log('email was sent');
       })
-      .catch(function(error) {
+      .catch(error => {
         // Some error occurred, you can inspect the code: error.code
         console.log(error);
       });
     setEmailSent(true);
   };
-  return Firebase.auth().isSignInWithEmailLink(window.location.href) ? (
-    <div>Congrats you are signed in</div>
-  ) : (
+  if (emailSent) {
+    return <Redirect to={`/checkemail?email=${formResponses.email}`} />;
+  }
+  return (
     <>
       <StyledTextField
         type="email"
@@ -86,9 +52,6 @@ export default function EmailVerification({ formResponses, setFormResponses, ste
         setFormResponses={setFormResponses}
       />
       <LastButtons step={step} setStep={setStep} label="Verify Email" handleSubmit={handleVerify} />
-      <Dialog fullScreen open={emailSent} onClose={() => alert('attempting to close')}>
-        <CheckEmail email={formResponses.email} />
-      </Dialog>
     </>
   );
 }

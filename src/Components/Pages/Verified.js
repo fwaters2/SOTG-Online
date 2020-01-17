@@ -1,10 +1,9 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, Link } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 import Firebase from '../../Utils/Firebase';
-import NavLink from '../NavLink';
 
-export default function Verified(props) {
-  // const [message, setMessage] = React.useState("");
+export default function Verified({ location }) {
   React.useEffect(() => {
     // Confirm the link is a sign-in with email link.
     if (Firebase.auth().isSignInWithEmailLink(window.location.href)) {
@@ -27,7 +26,7 @@ export default function Verified(props) {
       // The client SDK will parse the code from the link for you.
       Firebase.auth()
         .signInWithEmailLink(email, window.location.href)
-        .then(function(result) {
+        .then(result => {
           // Clear email from storage.
           window.localStorage.removeItem('emailForSignIn');
           // You can access the new user via result.user
@@ -41,9 +40,9 @@ export default function Verified(props) {
             .collection('events')
             .add({
               email: result.user.email,
-              name: new URLSearchParams(props.location.search).get('eventName'),
-              teams: new URLSearchParams(props.location.search).get('teams').split(','),
-              slug: new URLSearchParams(props.location.search).get('slug'),
+              name: new URLSearchParams(location.search).get('eventName'),
+              teams: new URLSearchParams(location.search).get('teams').split(','),
+              slug: new URLSearchParams(location.search).get('slug'),
               created: Firebase.database.ServerValue.TIMESTAMP,
             })
             .then(docRef => {
@@ -54,15 +53,15 @@ export default function Verified(props) {
             });
           console.log(result);
         })
-        .catch(function(error) {
+        .catch(error =>
           // Some error occurred, you can inspect the code: error.code
           // Common errors could be invalid email and invalid or expired OTPs.
-          console.log(error);
-        });
+          console.log(error)
+        );
     } else {
       // setMessage("The link is NOT a sign-in with email link");
     }
-  }, [props]);
+  }, [location]);
   return (
     <div>
       <Typography variant="h6">
@@ -71,13 +70,17 @@ export default function Verified(props) {
 
       <Typography>
         Your URL: SOTG.online/
-        {new URLSearchParams(props.location.search).get('slug')}
+        {new URLSearchParams(location.search).get('slug')}
       </Typography>
-      {console.log(new URLSearchParams(props.location.search).get('teams'))}
-      <NavLink
-        label="Go to your spirit form"
-        extension={new URLSearchParams(props.location.search).get('slug')}
-      />
+
+      <Link
+        component={React.forwardRef(ref => (
+          <RouterLink innerRef={ref} location={location} />
+        ))}
+        to={`/${new URLSearchParams(location.search).get('slug')}`}
+      >
+        Go to your spirit form
+      </Link>
     </div>
   );
 }

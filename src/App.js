@@ -57,39 +57,17 @@ function App() {
   const [isLoading, toggleLoading] = React.useState(true);
 
   React.useEffect(() => {
-    const unsubscribe = Firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // User is signed in.
-        const { displayName } = user;
-        const { email } = user;
-        // var emailVerified = user.emailVerified;
-        // var photoURL = user.photoURL;
+    const unsubscribe = Firebase.auth().onAuthStateChanged(firebaseUser => {
+      if (firebaseUser) {
+        const { displayName } = firebaseUser;
+        const { email } = firebaseUser;
         updateUser({ displayName, email });
-
         toggleLoading(false);
-        // Get the data stored for this user Later!
-        // firebase
-        //   .firestore()
-        //   .collection("users")
-        //   .where("email", "==", email)
-        //   .get()
-        //   .then(function(querySnapshot) {
-        //     querySnapshot.forEach(function(doc) {
-        //       // doc.data() is never undefined for query doc snapshots
-        //       setValues(doc.data());
-        //     toggleLoading(false)
-        //   })
-        //   .catch(function(error) {
-        //     console.log("Error getting documents: ", error);
-        //   });
       } else {
-        // User is signed out.
-        // ...
         updateUser(false);
         toggleLoading(false);
       }
     });
-
     return () => unsubscribe;
   }, []);
 
