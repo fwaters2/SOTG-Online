@@ -9,9 +9,9 @@ import EventCreation from './Components/EventCreation/Index';
 import PlayerDemo from './Components/Scoring/PlayerDemo';
 import Login from './Components/Login/Login';
 import HomeNoUser from './Components/HomeNoUser';
-import HomeUser from './Components/Management/Index.js';
+import HomeUser from './Components/Management/Index';
 import LoginAttempt from './Components/Login/LoginAttempt';
-import OrganizerDemo from './Components/Management/Demo/OrganizerDemo.js';
+import OrganizerDemo from './Components/Management/Demo/OrganizerDemo';
 import CheckEmail from './Components/EventCreation/CheckEmail';
 
 export default function Routes({ user }) {

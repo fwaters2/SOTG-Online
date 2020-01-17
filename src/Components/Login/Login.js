@@ -16,7 +16,7 @@ export default function Login() {
     email: '',
   });
   const [lang, setLang] = React.useState('en');
-  const [social, setSocial] = React.useState('nothing yet');
+  // const [social, setSocial] = React.useState('nothing yet');
   const currentLanguage = Languages(lang);
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
@@ -34,7 +34,7 @@ export default function Login() {
   const handleSubmit = () => {
     Firebase.auth()
       .sendSignInLinkToEmail(formResponses.email, actionCodeSettings)
-      .then(function() {
+      .then(() => {
         // The link was successfully sent. Inform the user.
         // Save the email locally so you don't need to ask the user for it again
         // if they open the link on the same device.
@@ -42,56 +42,56 @@ export default function Login() {
         console.log('Email Sent');
         toggleEmailSent(true);
       })
-      .catch(function(error) {
+      .catch(error => {
         // Some error occurred, you can inspect the code: error.code
         console.log(error);
       });
   };
-  const handleSocialLogin = () => {
-    // First, we perform the signInWithRedirect.
-    // Creates the provider object.
-    const provider = new Firebase.auth.FacebookAuthProvider();
-    const auth = Firebase.auth();
-    // You can add additional scopes to the provider:
-    provider.addScope('email');
-    // Sign in with redirect:
-    auth.signInWithRedirect(provider);
-    // //////////////////////////////////////////////////////////
-    // The user is redirected to the provider's sign in flow...
-    // //////////////////////////////////////////////////////////
-    // Then redirected back to the app, where we check the redirect result:
-    auth.getRedirectResult().then(
-      function(result) {
-        // The firebase.User instance:
-        const { user } = result;
-        // The Facebook firebase.auth.AuthCredential containing the Facebook
-        // access token:
-        const { credential } = result;
-        // As this API can be used for sign-in, linking and reauthentication,
-        // check the operationType to determine what triggered this redirect
-        // operation.
-        const { operationType } = result;
-        setSocial(result);
-      },
-      function(error) {
-        // The provider's account email, can be used in case of
-        // auth/account-exists-with-different-credential to fetch the providers
-        // linked to the email:
-        const { email } = error;
-        // The provider's credential:
-        const { credential } = error;
-        // In case of auth/account-exists-with-different-credential error,
-        // you can fetch the providers using this:
-        if (error.code === 'auth/account-exists-with-different-credential') {
-          auth.fetchSignInMethodsForEmail(email).then(function(providers) {
-            // The returned 'providers' is a list of the available providers
-            // linked to the email address. Please refer to the guide for a more
-            // complete explanation on how to recover from this error.
-          });
-        }
-      }
-    );
-  };
+  // const handleSocialLogin = () => {
+  //   // First, we perform the signInWithRedirect.
+  //   // Creates the provider object.
+  //   const provider = new Firebase.auth.FacebookAuthProvider();
+  //   const auth = Firebase.auth();
+  //   // You can add additional scopes to the provider:
+  //   provider.addScope('email');
+  //   // Sign in with redirect:
+  //   auth.signInWithRedirect(provider);
+  //   // //////////////////////////////////////////////////////////
+  //   // The user is redirected to the provider's sign in flow...
+  //   // //////////////////////////////////////////////////////////
+  //   // Then redirected back to the app, where we check the redirect result:
+  //   auth.getRedirectResult().then(
+  //     function(result) {
+  //       // The firebase.User instance:
+  //       const { user } = result;
+  //       // The Facebook firebase.auth.AuthCredential containing the Facebook
+  //       // access token:
+  //       const { credential } = result;
+  //       // As this API can be used for sign-in, linking and reauthentication,
+  //       // check the operationType to determine what triggered this redirect
+  //       // operation.
+  //       const { operationType } = result;
+  //       setSocial(result);
+  //     },
+  //     function(error) {
+  //       // The provider's account email, can be used in case of
+  //       // auth/account-exists-with-different-credential to fetch the providers
+  //       // linked to the email:
+  //       const { email } = error;
+  //       // The provider's credential:
+  //       const { credential } = error;
+  //       // In case of auth/account-exists-with-different-credential error,
+  //       // you can fetch the providers using this:
+  //       if (error.code === 'auth/account-exists-with-different-credential') {
+  //         auth.fetchSignInMethodsForEmail(email).then(function(providers) {
+  //           // The returned 'providers' is a list of the available providers
+  //           // linked to the email address. Please refer to the guide for a more
+  //           // complete explanation on how to recover from this error.
+  //         });
+  //       }
+  //     }
+  //   );
+  // };
 
   return (
     <StyledPaper setLang={setLang} currentLanguage={currentLanguage} lang={lang}>
