@@ -15,27 +15,7 @@ export default function StyledTitle({ children }) {
         <Grid item xs>
           <Typography variant="h5">{children}</Typography>
         </Grid>
-        {/* <Grid item>
-            <IconButton
-              onClick={() => toggleLangSelect(!isLangSelectOpen)}
-              style={{
-                color: "#0038ae",
-
-                padding: 0
-              }}
-              size="small"
-            >
-              <Language />
-            </IconButton>
-          </Grid> */}
       </Grid>
-      {/* <LangDialog
-          open={isLangSelectOpen}
-          onClose={() => toggleLangSelect(false)}
-          setLang={setLang}
-          currentLanguage={currentLanguage}
-          lang={lang}
-        /> */}
     </div>
   );
 }

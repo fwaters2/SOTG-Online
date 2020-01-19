@@ -2,6 +2,7 @@ import React from 'react';
 import Firebase from '../../Utils/Firebase';
 import OrganizerView from './OrganizerView';
 import onlyUnique from '../../Utils/onlyUnique';
+import WelcomeDialog from './WelcomeDialog';
 
 export default function OrganizerState({ user }) {
   const { email } = user;
@@ -12,8 +13,12 @@ export default function OrganizerState({ user }) {
   const [matches, setMatches] = React.useState([]);
   const [receivedScores, setRecievedScores] = React.useState([]);
   const [organizerMatches, setOrganizerMatches] = React.useState([]);
-
-  // STEP 2: Grab the user's events
+  const [isWelcomeDialogOpen, toggleWelcomeDialog] = React.useState(false);
+  React.useEffect(() => {
+    if (Firebase.auth().isSignInWithEmailLink(window.location.href)) {
+      toggleWelcomeDialog(true);
+    }
+  }, []);
   React.useEffect(() => {
     const eventRef = Firebase.firestore().collection('events');
     const scoreRef = Firebase.firestore().collection('spiritScores');
@@ -86,14 +91,17 @@ export default function OrganizerState({ user }) {
   }, []);
 
   return (
-    <OrganizerView
-      email={email}
-      isLoading={isLoading}
-      // To-do separate these better
-      organizerEvents={organizerEvents}
-      playerEvents={playerEvents}
-      spiritScores={spiritScores}
-      matches={organizerMatches}
-    />
+    <>
+      <OrganizerView
+        email={email}
+        isLoading={isLoading}
+        // To-do separate these better
+        organizerEvents={organizerEvents}
+        playerEvents={playerEvents}
+        spiritScores={spiritScores}
+        matches={organizerMatches}
+      />
+      <WelcomeDialog open={isWelcomeDialogOpen} onClose={() => toggleWelcomeDialog(false)} />
+    </>
   );
 }

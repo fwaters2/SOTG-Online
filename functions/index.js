@@ -1,12 +1,13 @@
-const admin = require("firebase-admin");
+const admin = require('firebase-admin');
 
 admin.initializeApp();
-const functions = require("firebase-functions");
+const functions = require('firebase-functions');
+
 const db = admin.firestore();
 
 exports.handleMatches = functions.firestore
-  .document("spiritScores/{spiritScore}")
-  .onCreate((change, context) => {
+  .document('spiritScores/{spiritScore}')
+  .onCreate(change => {
     const { eventName, myTeam, opponent, submittedBy } = change.data();
 
     const scoreData = {
@@ -14,40 +15,30 @@ exports.handleMatches = functions.firestore
       eventName,
       myTeam,
       opponent,
-      submittedBy
+      submittedBy,
     };
     return db
-      .collection("matches")
-      .where("eventName", "==", scoreData.eventName)
-      .where("completed", "==", false)
+      .collection('matches')
+      .where('eventName', '==', scoreData.eventName)
+      .where('completed', '==', false)
       .get()
-      .then(function(querySnapshot) {
+      .then(querySnapshot => {
         const results = [];
-        querySnapshot.forEach(doc =>
-          results.push({ id: doc.id, ...doc.data() })
-        );
+        querySnapshot.forEach(doc => results.push({ id: doc.id, ...doc.data() }));
         results.filter(
           team =>
-            (team.team1 === scoreData.myTeam ||
-              team.team1 === scoreData.opponent) &&
-            (team.team2 === scoreData.myTeam ||
-              team.team2 === scoreData.opponent)
+            (team.team1 === scoreData.myTeam || team.team1 === scoreData.opponent) &&
+            (team.team2 === scoreData.myTeam || team.team2 === scoreData.opponent)
         );
-        const toDo =
-          results.length === 0
-            ? "newMatch"
-            : results.length === 1
-            ? "updateMatch"
-            : "tooManyMatches";
-        const matchToUpdate = !results[0]
-          ? null
-          : results[0].id
-          ? results[0].id
-          : null;
 
-        switch (toDo) {
-          case "newMatch":
-            return db.collection("matches").add({
+        let matchToUpdate = null;
+        if (results[0].id && results[0]) {
+          matchToUpdate = results[0].id;
+        }
+
+        switch (results.length) {
+          case 0: {
+            return db.collection('matches').add({
               eventName: scoreData.eventName,
               team1: scoreData.myTeam,
               team1Submitted: true,
@@ -56,26 +47,26 @@ exports.handleMatches = functions.firestore
               team2: scoreData.opponent,
               team2Submitted: false,
               team2SubmissionId: null,
-              completed: false
+              completed: false,
             });
-          case "updateMatch":
+          }
+          case 1: {
             return db
-              .collection("matches")
+              .collection('matches')
               .doc(matchToUpdate)
               .update({
                 team2: scoreData.myTeam,
                 team2Submitted: true,
                 team2SubmissionId: scoreData.id,
                 team2SubmittedBy: scoreData.submittedBy,
-                completed: true
+                completed: true,
               });
+          }
           default:
-            console.log(
-              "you somehow have too many matches or less than 0 matches"
-            );
+            return 'you somehow have too many matches or less than 0 matches';
         }
       })
       .catch(function(error) {
-        console.log("Error getting documents: ", error);
+        console.log('Error getting documents: ', error);
       });
   });

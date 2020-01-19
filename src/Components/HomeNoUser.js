@@ -8,7 +8,6 @@ export default function HomeNoUser() {
     <Container maxWidth="xs">
       <Box
         minHeight="calc(75vh - 50px)"
-        // position="fixed"
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -22,13 +21,11 @@ export default function HomeNoUser() {
               Create Event
             </Button>
           </Link>
-
           <Link to="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
             <Button fullWidth style={{ color: '#0C61E1' }} variant="outlined">
               About
             </Button>
           </Link>
-
           <ButtonGroup fullWidth style={{ position: 'relative' }}>
             <Button
               component={Link}
@@ -38,7 +35,6 @@ export default function HomeNoUser() {
             >
               Player
             </Button>
-
             <div
               style={{
                 background: '#8FDE58',
@@ -54,7 +50,6 @@ export default function HomeNoUser() {
             >
               <Typography style={{ fontWeight: 'bold', fontSize: '10pt' }}>Demos</Typography>
             </div>
-
             <Button
               component={Link}
               to="/organizerdemo"

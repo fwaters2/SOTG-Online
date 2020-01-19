@@ -8,10 +8,9 @@ import {
   Button,
   TextField,
 } from '@material-ui/core';
-import StyledTextField from '../StyledTextField';
 
 export default function SignInDialog(props) {
-  const { isSignInDialogOpen, formResponses, setFormResponses, currentLanguage, onClose } = props;
+  const { isSignInDialogOpen, formResponses, setFormResponses, onClose } = props;
   return (
     <Dialog open={isSignInDialogOpen} onClose={onClose}>
       <DialogTitle>
@@ -22,7 +21,6 @@ export default function SignInDialog(props) {
           autoFocus
           required
           variant="outlined"
-          // style={{ padding: ".5em 1em" }}
           type="email"
           placeholder="Email"
           value={formResponses.submttedBy}

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, DialogTitle, DialogContentText, Dialog, DialogContent } from '@material-ui/core';
+import FacebookLogin from 'react-facebook-login';
+import { FacebookLoginButton } from 'react-social-login-buttons';
 import StyledPaper from '../StyledPaper';
 import StyledTextField from '../StyledTextField';
 import { Strings as Languages } from '../../Assets/Lang/Languages';
@@ -21,15 +23,9 @@ export default function Login() {
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be whitelisted in the Firebase Console.
-    url:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:3000/loginAttempt'
-        : 'http://sotg.online/loginAttempt',
-    // "http://sotg.online/home",
+    url: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://sotg.online',
     // This must be true.
     handleCodeInApp: true,
-
-    // dynamicLinkDomain: 'example.page.link'
   };
   const handleSubmit = () => {
     Firebase.auth()
@@ -39,7 +35,6 @@ export default function Login() {
         // Save the email locally so you don't need to ask the user for it again
         // if they open the link on the same device.
         window.localStorage.setItem('emailForSignIn', formResponses.email);
-        console.log('Email Sent');
         toggleEmailSent(true);
       })
       .catch(error => {
@@ -92,6 +87,29 @@ export default function Login() {
   //     }
   //   );
   // };
+  React.useEffect(() => {
+    const unsubscribe = Firebase.auth()
+      .getRedirectResult()
+      .then(function(result) {
+        if (result.credential) {
+          // This gives you a Google Access Token.
+          const token = result.credential.accessToken;
+          console.log('token', token);
+        }
+        const { user } = result;
+        console.log('user', user);
+      });
+
+    return () => unsubscribe;
+  }, []);
+  const handleFacebookLogin = () => {
+    const provider = new Firebase.auth.FacebookAuthProvider();
+
+    Firebase.auth().signInWithRedirect(provider);
+  };
+  const responseFacebook = response => {
+    console.log('response', response);
+  };
 
   return (
     <StyledPaper setLang={setLang} currentLanguage={currentLanguage} lang={lang}>
@@ -109,6 +127,15 @@ export default function Login() {
 
         <Button fullWidth variant="contained" color="primary" onClick={handleSubmit}>
           Email Link
+        </Button>
+        <Button fullWidth>
+          <FacebookLoginButton
+            appId="2635700973379109"
+            autoLoad
+            fields="email"
+            onClick={handleFacebookLogin}
+            callback={responseFacebook}
+          />
         </Button>
         {/* <GoogleLoginButton onClick={handleSocialLogin} />
         <FacebookLoginButton onClick={handleSocialLogin} /> */}

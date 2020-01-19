@@ -82,11 +82,11 @@ export default function StyledHeader({ user }) {
         </StyledExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List style={{ width: '100%' }}>
-            {links.map((nav, index) => (
+            {links.map(nav => (
               <RouterLink
                 key={nav.text}
                 to={`/${nav.extension}`}
-                onClick={e => toggleExpanded(!expanded)}
+                onClick={() => toggleExpanded(!expanded)}
                 style={{ textDecoration: 'none' }}
               >
                 <ListItem button>
@@ -104,7 +104,7 @@ export default function StyledHeader({ user }) {
                     }
                   />
                 </ListItem>
-                {/* {index === links.length - 1 ? null : <Divider />} */}
+
                 <Divider />
               </RouterLink>
             ))}
@@ -127,7 +127,7 @@ export default function StyledHeader({ user }) {
             ) : (
               <RouterLink
                 to="/login"
-                onClick={e => toggleExpanded(!expanded)}
+                onClick={() => toggleExpanded(!expanded)}
                 style={{ textDecoration: 'none' }}
               >
                 <ListItem button>

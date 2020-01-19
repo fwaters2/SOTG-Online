@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   List,
   Button,
@@ -7,27 +7,27 @@ import {
   DialogContent,
   TextField,
   Box,
-  Typography
-} from "@material-ui/core";
-import { PostAdd, Check } from "@material-ui/icons";
-import StyledFormLabel from "../StyledFormLabel.js";
-import StepButtonGroup from "./Stepper/StepButtonGroup.js";
-import ListCheckBox from "./ListCheckBox.js";
-import NumberScore from "./NumberScore.js";
-//import { SnackbarProvider } from "notistack";
-import SwipeableViews from "react-swipeable-views"
+  Typography,
+} from '@material-ui/core';
+import { PostAdd, Check } from '@material-ui/icons';
+import SwipeableViews from 'react-swipeable-views';
+import StyledFormLabel from '../StyledFormLabel';
+import StepButtonGroup from './Stepper/StepButtonGroup';
+import ListCheckBox from './ListCheckBox';
+import NumberScore from './NumberScore';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} props={props} />;
 });
 export default function Category({
   step,
   setStep,
   formResponses,
   setFormResponses,
-  currentLanguage
+  currentLanguage,
 }) {
   const [isDialogOpen, toggleDialog] = React.useState(false);
-  const categories = Object.keys(currentLanguage).filter(x => x !== "general");
+  const categories = Object.keys(currentLanguage).filter(x => x !== 'general');
   const currentStep = step - 1;
   const text = currentLanguage[categories[currentStep]];
   const { examples } = text;
@@ -35,19 +35,17 @@ export default function Category({
   const [examplesTab, setExamplesTab] = React.useState(2);
 
   const handleOpen = () => {
-    console.log("Open");
     toggleDialog(true);
   };
   const handleClose = () => {
-    console.log("Close");
     toggleDialog(false);
   };
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%"
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
       }}
     >
       <NumberScore
@@ -62,12 +60,11 @@ export default function Category({
         <StyledFormLabel>{currentLanguage.general.feedback}:</StyledFormLabel>
         <div
           style={{
-            background: "#0038ae",
-            margin: "0 -2em",
-            boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)"
+            background: '#0038ae',
+            margin: '0 -2em',
+            boxShadow: 'inset 5px 5px 5px rgba(0,0,0,0.2)',
           }}
         >
-          {/* <SnackbarProvider maxSnack={3}> */}
           <SwipeableViews
             animateHeight
             resistance
@@ -79,12 +76,12 @@ export default function Category({
                 {examples[page].map((x, index) => (
                   <ListCheckBox
                     key={x}
-                    examples={categories[currentStep] + "Examples"}
+                    examples={`${categories[currentStep]}Examples`}
                     formResponses={formResponses}
                     setFormResponses={setFormResponses}
                     example={x}
                     isLastListItem={examples[page].length === index + 1}
-                    //For storing of the example
+                    // For storing of the example
                     category={categories[currentStep]}
                     categoryScore={page}
                     index={index}
@@ -93,22 +90,19 @@ export default function Category({
               </List>
             ))}
           </SwipeableViews>
-          {/* </SnackbarProvider> */}
         </div>
       </Box>
 
-      {formResponses[categories[currentStep] + "Examples"].length > 0 && (
+      {formResponses[`${categories[currentStep]}Examples`].length > 0 && (
         <Box my="0.5em">
           <Typography variant="caption">
-            {formResponses[categories[currentStep] + "Examples"]
+            {formResponses[`${categories[currentStep]}Examples`]
               .map(
                 example =>
-                  currentLanguage[example.category].examples[
-                    example.categoryScore
-                  ][example.index]
+                  currentLanguage[example.category].examples[example.categoryScore][example.index]
               )
               .map(feedback => feedback)
-              .join(" ")}
+              .join(' ')}
           </Typography>
         </Box>
       )}
@@ -117,11 +111,7 @@ export default function Category({
         <Button
           fullWidth
           variant="outlined"
-          color={
-            formResponses[categories[currentStep] + "Feedback"] === ""
-              ? "default"
-              : "primary"
-          }
+          color={formResponses[`${categories[currentStep]}Feedback`] === '' ? 'default' : 'primary'}
           onClick={handleOpen}
         >
           <PostAdd />
@@ -142,29 +132,25 @@ export default function Category({
             multiline
             label={currentLanguage.general.additionalFeedback}
             rows="4"
-            value={formResponses[categories[currentStep] + "Feedback"]}
+            value={formResponses[`${categories[currentStep]}Feedback`]}
             onChange={e =>
               setFormResponses({
                 ...formResponses,
-                [categories[currentStep] + "Feedback"]: e.target.value
+                [`${categories[currentStep]}Feedback`]: e.target.value,
               })
             }
           />
 
           <Button
             color={
-              formResponses[categories[currentStep] + "Feedback"] === ""
-                ? "default"
-                : "primary"
+              formResponses[`${categories[currentStep]}Feedback`] === '' ? 'default' : 'primary'
             }
             variant={
-              formResponses[categories[currentStep] + "Feedback"] === ""
-                ? "outlined"
-                : "contained"
+              formResponses[`${categories[currentStep]}Feedback`] === '' ? 'outlined' : 'contained'
             }
             style={
-              formResponses[categories[currentStep] + "Feedback"] === ""
-                ? { color: "slategrey" }
+              formResponses[`${categories[currentStep]}Feedback`] === ''
+                ? { color: 'slategrey' }
                 : null
             }
             onClick={handleClose}

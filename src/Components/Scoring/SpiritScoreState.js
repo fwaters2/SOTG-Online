@@ -4,8 +4,7 @@ import Stepper from './Stepper/Index';
 import SpiritScoreView from './SpiritScoreView';
 import EnglishText from '../../Assets/Lang/enSpirit.json';
 
-export default function SpiritScoreState(props) {
-  const { user } = props;
+export default function SpiritScoreState({ user, match }) {
   const [lang, setLang] = React.useState('en');
   const [step, setStep] = React.useState(0);
   const [exists, setExists] = useState(true);
@@ -92,7 +91,7 @@ export default function SpiritScoreState(props) {
     toggleDialog(true);
     handleSubmit();
   };
-  const { event } = props.match.params;
+  const { event } = match.params;
   useEffect(() => {
     // Get all events where slug = the url
     const eventRef = Firebase.firestore()
@@ -158,6 +157,6 @@ export default function SpiritScoreState(props) {
       }
     />
   ) : (
-    <h1>Sorry, we couldn't find you're event!</h1>
+    <h1>No such event found!</h1>
   );
 }

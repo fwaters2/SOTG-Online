@@ -14,8 +14,8 @@ export default function FeedbackSummary(props) {
       state: `${cat}Examples`,
       categoryState: cat,
     }))
-    .map((category, index) => (
-      <Typography key={index} variant="body2" style={{ margin: '.5em 0' }}>
+    .map(category => (
+      <Typography key={category} variant="body2" style={{ margin: '.5em 0' }}>
         {`${category.name}: ${[
           formResponses[`${category.categoryState}Feedback`],
           ...formResponses[category.state].map(

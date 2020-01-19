@@ -5,7 +5,6 @@ import { ArrowForward, ArrowBack } from '@material-ui/icons';
 export default function StepButtonGroup({
   step,
   setStep,
-  currentLanguage,
   formResponses,
   categories,
   currentStep,

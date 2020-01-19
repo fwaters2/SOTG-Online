@@ -13,15 +13,12 @@ import HomeUser from './Components/Management/Index';
 import LoginAttempt from './Components/Login/LoginAttempt';
 import OrganizerDemo from './Components/Management/Demo/OrganizerDemo';
 import CheckEmail from './Components/EventCreation/CheckEmail';
+import Home from './Components/Home';
 
 export default function Routes({ user }) {
   return (
     <Switch>
-      <Route
-        exact
-        path="/"
-        render={() => (user ? <HomeUser user={user} /> : <HomeNoUser user={user} />)}
-      />
+      <Route exact path="/" render={() => <Home user={user} />} />
       <Route
         path="/home"
         render={() => (user ? <HomeUser user={user} /> : <HomeNoUser user={user} />)}

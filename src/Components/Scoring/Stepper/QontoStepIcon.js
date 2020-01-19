@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 
@@ -47,8 +46,3 @@ export default function QontoStepIcon(props) {
     </div>
   );
 }
-
-QontoStepIcon.propTypes = {
-  active: PropTypes.bool,
-  completed: PropTypes.bool,
-};

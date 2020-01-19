@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider, Container } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider, Container, Hidden } from '@material-ui/core';
 import Routes from './Routes';
 import Signature from './Components/Signature';
 import StyledHeader from './Components/StyledHeader';
 import Firebase from './Utils/Firebase';
 import Preloader from './Assets/Loader/Preloader';
+import StyledHeaderDesktop from './Components/StyledHeaderDesktop';
+import Logo from './Assets/Loader/Spinner/Logo';
 
 const myBlue = '#0C61E1';
 const myGreen = '#8FDE58';
@@ -76,7 +78,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           {isLoading ? (
-            <Preloader />
+            <div
+              style={{ position: 'fixed', top: '40vh', left: '50%', transform: 'translateX(-50%)' }}
+            >
+              <Logo />
+            </div>
           ) : (
             <div
               style={{
@@ -85,7 +91,12 @@ function App() {
                 minHeight: '100vh',
               }}
             >
-              <StyledHeader user={user} />
+              <Hidden smDown>
+                <StyledHeaderDesktop user={user} />
+              </Hidden>
+              <Hidden mdUp>
+                <StyledHeader user={user} />
+              </Hidden>
               <div style={{ display: 'flex', flex: 1 }}>
                 <Container maxWidth="xs" style={{ flex: 1 }}>
                   <Routes user={user} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, FormLabel } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   formLabel: {
     color: 'rgba(255,255,255,0.4)',
     textTransform: 'uppercase',

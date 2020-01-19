@@ -14,7 +14,7 @@ const exampleTeams = [
   'UP!',
 ];
 
-const MatusInput = withStyles(theme => ({
+const MatusInput = withStyles(() => ({
   input: {
     padding: '0.5em',
     '&:focus': {
@@ -23,7 +23,7 @@ const MatusInput = withStyles(theme => ({
   },
 }))(InputBase);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   formControl: {
     background: 'white',
     margin: 0,
