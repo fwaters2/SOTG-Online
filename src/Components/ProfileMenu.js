@@ -3,15 +3,6 @@ import { Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem } from '@mat
 import { makeStyles } from '@material-ui/styles';
 import Firebase from '../Utils/Firebase';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
-  paper: {
-    marginRight: theme.spacing(2),
-  },
-}));
-
 export default function ProfileMenu({ open, setOpen, anchorRef }) {
   const handleClose = event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
