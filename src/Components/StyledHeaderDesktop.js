@@ -7,13 +7,11 @@ import {
   withStyles,
   IconButton,
   makeStyles,
-  Menu,
-  MenuItem,
 } from '@material-ui/core';
 import { Link as RouterLink, Link } from 'react-router-dom';
 import { AccountCircle } from '@material-ui/icons';
 import { ReactComponent as SOTGLogo } from '../Assets/Logos/SOTG_Full.svg';
-import Firebase from '../Utils/Firebase';
+import ProfileMenu from './ProfileMenu';
 
 const links = [
   { text: 'Home', extension: '' },
@@ -50,19 +48,13 @@ const StyledExpansionPanelSummary = withStyles({
 })(ExpansionPanelSummary);
 
 export default function StyledHeaderDesktop({ user }) {
-  const [expanded, toggleExpanded] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isPopperOpen, handlePopperToggle] = React.useState(false);
+  const anchorRef = React.useRef(null);
   const classes = styles();
-  const handleLogout = () => {
-    Firebase.auth().signOut();
-    window.location.reload();
-  };
-  const handleMenuOpen = e => {
-    setAnchorEl(e.currentTarget);
-  };
+
   return (
     <div>
-      <StyledExpansionPanel elevation={0} expanded={expanded}>
+      <StyledExpansionPanel elevation={0}>
         <StyledExpansionPanelSummary>
           <Link to="/">
             <SOTGLogo
@@ -89,30 +81,21 @@ export default function StyledHeaderDesktop({ user }) {
               </Grid>
             ))}
             {user ? (
-              <Grid item onClick={handleMenuOpen}>
+              <Grid item onClick={() => handlePopperToggle(!isPopperOpen)} ref={anchorRef}>
                 <IconButton color="secondary">
                   <AccountCircle />
                 </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={() => setAnchorEl(null)}
-                >
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
+                <ProfileMenu
+                  anchorRef={anchorRef}
+                  open={isPopperOpen}
+                  setOpen={handlePopperToggle}
+                />
               </Grid>
             ) : (
-              <Grid item>
-                <RouterLink
-                  to="/login"
-                  onClick={() => toggleExpanded(!expanded)}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <IconButton>
-                    <AccountCircle />
-                  </IconButton>
-                </RouterLink>
+              <Grid item component={RouterLink} to="/login">
+                <IconButton>
+                  <AccountCircle />
+                </IconButton>
               </Grid>
             )}
           </Grid>
