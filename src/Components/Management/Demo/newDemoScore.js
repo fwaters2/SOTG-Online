@@ -44,13 +44,9 @@ export default function newDemoScore(initialEvents, langStrings, spiritScores, p
     communication: randomSpiritScore(),
     communicationExamples: [],
     communicationFeedback: '',
-    feedback: [
-      randomFeedback(),
-      randomFeedback(),
-      randomFeedback(),
-      randomFeedback(),
-      randomFeedback(),
-    ].join(' '),
+    feedback: Array(5)
+      .fill(randomFeedback())
+      .join(' '),
   };
 
   return {

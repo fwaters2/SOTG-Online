@@ -37,7 +37,7 @@ export default function EventCreationState(props) {
       // The client SDK will parse the code from the link for you.
       Firebase.auth()
         .signInWithEmailLink(email, window.location.href)
-        .then(function(result) {
+        .then(result => {
           // Clear email from storage.
           window.localStorage.removeItem('emailForSignIn');
           // You can access the new user via result.user
@@ -53,7 +53,7 @@ export default function EventCreationState(props) {
           });
           console.log(result);
         })
-        .catch(function(error) {
+        .catch(error => {
           // Some error occurred, you can inspect the code: error.code
           // Common errors could be invalid email and invalid or expired OTPs.
           console.log(error);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, IconButton, Menu, MenuItem, ListItem, Grid, Typography } from '@material-ui/core';
 import { Settings } from '@material-ui/icons';
+import myColors from '../../Utils/myColors';
 
 export default function EventCard_Organizer(props) {
   const {
@@ -51,6 +52,17 @@ export default function EventCard_Organizer(props) {
         divider
         onClick={() => (x.role === 'Organizer' ? handleClick(x) : handlePlayerClick(x))}
       >
+        <div
+          style={{
+            position: 'absolute',
+            borderRadius: '0 8px 8px 0',
+            left: 0,
+            top: '.6em',
+            width: '.3em',
+            backgroundColor: myColors.myPurple,
+            height: '2em',
+          }}
+        />
         <Grid container direction="column">
           <Grid item container>
             <Grid item xs>

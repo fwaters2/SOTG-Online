@@ -1,5 +1,13 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, Grid, DialogActions, Button } from '@material-ui/core';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Grid,
+  DialogActions,
+  Button,
+  TextField,
+} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 export default function ConfirmationDialog({ open, onClose, slug }) {
@@ -17,10 +25,10 @@ export default function ConfirmationDialog({ open, onClose, slug }) {
         Share your event's link to players submitting spirit scores!
         <Grid container>
           <Grid item xs>
-            <input ref={linkRef} value={`http://sotg.online/${slug}`} />
+            <TextField ref={linkRef} value={`http://sotg.online/${slug}`} />
           </Grid>
           <Grid item>
-            <button onClick={copyToClipboard}>{copySuccess}</button>
+            <Button onClick={copyToClipboard}>{copySuccess}</Button>
           </Grid>
         </Grid>
       </DialogContent>
