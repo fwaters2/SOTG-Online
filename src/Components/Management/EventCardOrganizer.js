@@ -1,7 +1,15 @@
-import React from 'react';
-import { Paper, IconButton, Menu, MenuItem, ListItem, Grid, Typography } from '@material-ui/core';
-import { Settings } from '@material-ui/icons';
-import myColors from '../../Utils/myColors';
+import React from "react";
+import {
+  Paper,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItem,
+  Grid,
+  Typography,
+} from "@material-ui/core";
+import { Settings } from "@material-ui/icons";
+import myColors from "../../Utils/myColors";
 
 export default function EventCard_Organizer(props) {
   const {
@@ -20,16 +28,16 @@ export default function EventCard_Organizer(props) {
   return (
     <Paper
       style={{
-        margin: '1em',
-        borderRadius: '8px',
+        margin: "1em",
+        borderRadius: "8px",
       }}
       key={x.eventName}
     >
       <div
         style={{
-          position: 'absolute',
-          right: '1.5em',
-          marginTop: '0.3em',
+          position: "absolute",
+          right: "1.5em",
+          marginTop: "0.3em",
           zIndex: 10,
         }}
       >
@@ -50,17 +58,19 @@ export default function EventCard_Organizer(props) {
       <ListItem
         button
         divider
-        onClick={() => (x.role === 'Organizer' ? handleClick(x) : handlePlayerClick(x))}
+        onClick={() =>
+          x.role === "Organizer" ? handleClick(x) : handlePlayerClick(x)
+        }
       >
         <div
           style={{
-            position: 'absolute',
-            borderRadius: '0 8px 8px 0',
+            position: "absolute",
+            borderRadius: "0 8px 8px 0",
             left: 0,
-            top: '.6em',
-            width: '.3em',
-            backgroundColor: myColors.myPurple,
-            height: '2em',
+            top: ".6em",
+            width: ".3em",
+            backgroundColor: myColors.RED_PURPLE,
+            height: "2em",
           }}
         />
         <Grid container direction="column">
@@ -75,13 +85,17 @@ export default function EventCard_Organizer(props) {
             </Grid>
             <Grid item>
               <Typography>
-                {x.role === 'Organizer'
+                {x.role === "Organizer"
                   ? `Scores: ${
-                      spiritScores.filter(score => score.eventName === x.eventName).length
+                      spiritScores.filter(
+                        (score) => score.eventName === x.eventName
+                      ).length
                     }`
                   : `Submissions: ${
                       spiritScores.filter(
-                        score => score.eventName === x.eventName && score.submittedBy === email
+                        (score) =>
+                          score.eventName === x.eventName &&
+                          score.submittedBy === email
                       ).length
                     }`}
               </Typography>

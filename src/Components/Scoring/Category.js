@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   List,
   Button,
@@ -8,13 +8,13 @@ import {
   TextField,
   Box,
   Typography,
-} from '@material-ui/core';
-import { PostAdd, Check } from '@material-ui/icons';
-import SwipeableViews from 'react-swipeable-views';
-import StyledFormLabel from '../StyledFormLabel';
-import StepButtonGroup from './Stepper/StepButtonGroup';
-import ListCheckBox from './ListCheckBox';
-import NumberScore from './NumberScore';
+} from "@material-ui/core";
+import { PostAdd, Check } from "@material-ui/icons";
+import SwipeableViews from "react-swipeable-views";
+import StyledFormLabel from "../StyledFormLabel";
+import StepButtonGroup from "./Stepper/StepButtonGroup";
+import ListCheckBox from "./ListCheckBox";
+import NumberScore from "./NumberScore";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} props={props} />;
@@ -27,7 +27,9 @@ export default function Category({
   currentLanguage,
 }) {
   const [isDialogOpen, toggleDialog] = React.useState(false);
-  const categories = Object.keys(currentLanguage).filter(x => x !== 'general');
+  const categories = Object.keys(currentLanguage).filter(
+    (x) => x !== "general"
+  );
   const currentStep = step - 1;
   const text = currentLanguage[categories[currentStep]];
   const { examples } = text;
@@ -43,9 +45,9 @@ export default function Category({
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
       }}
     >
       <NumberScore
@@ -60,18 +62,18 @@ export default function Category({
         <StyledFormLabel>{currentLanguage.general.feedback}:</StyledFormLabel>
         <div
           style={{
-            background: '#0038ae',
-            margin: '0 -2em',
-            boxShadow: 'inset 5px 5px 5px rgba(0,0,0,0.2)',
+            background: "#0038ae",
+            margin: "0 -2em",
+            boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)",
           }}
         >
           <SwipeableViews
             animateHeight
             resistance
             index={examplesTab}
-            onChangeIndex={e => setExamplesTab(e)}
+            onChangeIndex={(e) => setExamplesTab(e)}
           >
-            {[0, 1, 2, 3, 4].map(page => (
+            {[0, 1, 2, 3, 4].map((page) => (
               <List key={page} dense>
                 {examples[page].map((x, index) => (
                   <ListCheckBox
@@ -98,11 +100,13 @@ export default function Category({
           <Typography variant="caption">
             {formResponses[`${categories[currentStep]}Examples`]
               .map(
-                example =>
-                  currentLanguage[example.category].examples[example.categoryScore][example.index]
+                (example) =>
+                  currentLanguage[example.category].examples[
+                    example.categoryScore
+                  ][example.index]
               )
-              .map(feedback => feedback)
-              .join(' ')}
+              .map((feedback) => feedback)
+              .join(" ")}
           </Typography>
         </Box>
       )}
@@ -111,7 +115,11 @@ export default function Category({
         <Button
           fullWidth
           variant="outlined"
-          color={formResponses[`${categories[currentStep]}Feedback`] === '' ? 'default' : 'primary'}
+          color={
+            formResponses[`${categories[currentStep]}Feedback`] === ""
+              ? "default"
+              : "primary"
+          }
           onClick={handleOpen}
         >
           <PostAdd />
@@ -133,7 +141,7 @@ export default function Category({
             label={currentLanguage.general.additionalFeedback}
             rows="4"
             value={formResponses[`${categories[currentStep]}Feedback`]}
-            onChange={e =>
+            onChange={(e) =>
               setFormResponses({
                 ...formResponses,
                 [`${categories[currentStep]}Feedback`]: e.target.value,
@@ -143,14 +151,18 @@ export default function Category({
 
           <Button
             color={
-              formResponses[`${categories[currentStep]}Feedback`] === '' ? 'default' : 'primary'
+              formResponses[`${categories[currentStep]}Feedback`] === ""
+                ? "default"
+                : "primary"
             }
             variant={
-              formResponses[`${categories[currentStep]}Feedback`] === '' ? 'outlined' : 'contained'
+              formResponses[`${categories[currentStep]}Feedback`] === ""
+                ? "outlined"
+                : "contained"
             }
             style={
-              formResponses[`${categories[currentStep]}Feedback`] === ''
-                ? { color: 'slategrey' }
+              formResponses[`${categories[currentStep]}Feedback`] === ""
+                ? { color: "slategrey" }
                 : null
             }
             onClick={handleClose}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Firebase from '../../Utils/Firebase';
 import OrganizerView from './OrganizerView';
 import onlyUnique from '../../Utils/onlyUnique';
@@ -6,20 +6,19 @@ import WelcomeDialog from './WelcomeDialog';
 
 export default function OrganizerState({ user }) {
   const { email } = user;
-  const [isLoading, setLoading] = React.useState(true);
-  const [organizerEvents, setOrganizerEvents] = React.useState([]);
-  const [playerEvents, setPlayerEvents] = React.useState([]);
-  const [spiritScores, setSpiritScores] = React.useState([]);
-  const [matches, setMatches] = React.useState([]);
-  const [receivedScores, setRecievedScores] = React.useState([]);
-  const [organizerMatches, setOrganizerMatches] = React.useState([]);
-  const [isWelcomeDialogOpen, toggleWelcomeDialog] = React.useState(false);
-  React.useEffect(() => {
+  const [isLoading, setLoading] = useState(true);
+  const [organizerEvents, setOrganizerEvents] = useState([]);
+  const [playerEvents, setPlayerEvents] = useState([]);
+  const [spiritScores, setSpiritScores] = useState([]);
+  const [receivedScores, setRecievedScores] = useState([]);
+  const [organizerMatches, setOrganizerMatches] = useState([]);
+  const [isWelcomeDialogOpen, toggleWelcomeDialog] = useState(false);
+  useEffect(() => {
     if (Firebase.auth().isSignInWithEmailLink(window.location.href)) {
       toggleWelcomeDialog(true);
     }
   }, []);
-  React.useEffect(() => {
+  useEffect(() => {
     const eventRef = Firebase.firestore().collection('events');
     const scoreRef = Firebase.firestore().collection('spiritScores');
     const matchRef = Firebase.firestore().collection('matches');

@@ -1,23 +1,23 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepConnector from '@material-ui/core/StepConnector';
-import StyledPaper from '../../StyledPaper';
-import QontoStepIcon from './QontoStepIcon';
-import StyledTitle from '../../StyledTitle';
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import StepConnector from "@material-ui/core/StepConnector";
+import StyledPaper from "../../StyledPaper";
+import QontoStepIcon from "./QontoStepIcon";
+import StyledTitle from "../../StyledTitle";
 
-// const myBlue = "#0C61E1";
-const myGreen = '#8FDE58';
-// const myPurple = "#E82178";
+// const BLUE = "#0C61E1";
+const GREEN = "#8FDE58";
+// const RED_PURPLE = "#E82178";
 const StyledStepper = withStyles({
   root: {
-    background: 'inherit',
+    background: "inherit",
     padding: 0,
-    margin: '0 0 1em 0',
-    display: 'flex',
-    justifyContent: 'space-between',
+    margin: "0 0 1em 0",
+    display: "flex",
+    justifyContent: "space-between",
   },
 })(Stepper);
 
@@ -34,53 +34,64 @@ const StyledStepLabel = withStyles({
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
-    left: 'calc(-50% + 4px)',
-    right: 'calc(50% + 4px)',
+    left: "calc(-50% + 4px)",
+    right: "calc(50% + 4px)",
   },
   active: {
-    '& $line': {
-      borderColor: myGreen,
+    "& $line": {
+      borderColor: GREEN,
     },
   },
   completed: {
-    '& $line': {
-      borderColor: myGreen,
+    "& $line": {
+      borderColor: GREEN,
     },
   },
   line: {
-    borderColor: '#eaeaf0',
+    borderColor: "#eaeaf0",
     borderTopWidth: 3,
     borderRadius: 1,
   },
 })(StepConnector);
 
-export default function StepperTest({ step, steps, stepContent, setLang, currentLanguage, lang }) {
+export default function StepperTest({
+  step,
+  steps,
+  stepContent,
+  setLang,
+  currentLanguage,
+  lang,
+}) {
   const activeStep = step;
 
   return (
-    <StyledPaper setLang={setLang} currentLanguage={currentLanguage} lang={lang}>
+    <StyledPaper
+      setLang={setLang}
+      currentLanguage={currentLanguage}
+      lang={lang}
+    >
       <StyledTitle>{steps[activeStep]}</StyledTitle>
       <div
         style={{
           zIndex: 0,
-          position: 'relative',
-          top: '1em',
-          borderTop: '3px solid',
-          borderColor: 'rgba(255,255,255,0.2)',
-          width: '100%',
-          height: '1px',
+          position: "relative",
+          top: "1em",
+          borderTop: "3px solid",
+          borderColor: "rgba(255,255,255,0.2)",
+          width: "100%",
+          height: "1px",
         }}
       />
       <div
         style={{
           flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          margin: '0.5em 2em',
+          display: "flex",
+          flexDirection: "column",
+          margin: "0.5em 2em",
         }}
       >
         <StyledStepper activeStep={activeStep} connector={<QontoConnector />}>
-          {steps.map(label => (
+          {steps.map((label) => (
             <StyledStep key={label}>
               <StyledStepLabel StepIconComponent={QontoStepIcon} />
             </StyledStep>

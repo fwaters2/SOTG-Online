@@ -69,7 +69,6 @@ export const initialScores = [
     attitudeExamples: [],
     attitudeFeedback: '',
     communication: 2,
-    communication: [],
     communicationExamples: [],
     communicationFeedback: '',
     feedback:
@@ -93,7 +92,6 @@ export const initialScores = [
     attitudeExamples: [],
     attitudeFeedback: '',
     communication: 2,
-    communication: [],
     communicationExamples: [],
     communicationFeedback: '',
     feedback:
@@ -118,7 +116,6 @@ export const initialScores = [
     attitudeExamples: [],
     attitudeFeedback: '',
     communication: 4,
-    communication: [],
     communicationExamples: [],
     communicationFeedback: '',
     feedback:
@@ -142,7 +139,6 @@ export const initialScores = [
     attitudeExamples: [],
     attitudeFeedback: '',
     communication: 2,
-    communication: [],
     communicationExamples: [],
     communicationFeedback: '',
     feedback:
@@ -166,7 +162,6 @@ export const initialScores = [
     attitudeExamples: [],
     attitudeFeedback: '',
     communication: 2,
-    communication: [],
     communicationExamples: [],
     communicationFeedback: '',
     feedback:

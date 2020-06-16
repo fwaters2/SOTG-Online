@@ -6,7 +6,6 @@ import {
   Grid,
 } from '@material-ui/core';
 import SubmissionSummary from './SubmissionSummary';
-import ScoreExpanded from '../../Standings/ScoreExpanded';
 import SubmissionExpanded from './SubmissionExpanded';
 
 export default function SubmissionExpansionPanel({ data, index, handleClick }) {

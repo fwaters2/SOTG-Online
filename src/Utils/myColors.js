@@ -1,8 +1,8 @@
 const myColors = {
-  myBlue: '#0C61E1',
-  myGreen: '#8FDE58',
-  myPurple: '#E82178',
-  myDarkBlue: '#0038ae',
+  BLUE: "#0C61E1",
+  GREEN: "#8FDE58",
+  RED_PURPLE: "#E82178",
+  DARK_BLUE: "#0038ae",
 };
 
 export default myColors;
