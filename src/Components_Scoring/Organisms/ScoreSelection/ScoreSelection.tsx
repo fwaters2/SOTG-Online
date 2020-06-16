@@ -26,6 +26,13 @@ const Wrapper = (props: any) => (
     }}
   />
 );
+const icons = [
+  <SentimentVeryDissatisfied key={0} />,
+  <SentimentDissatisfied key={1} />,
+  <SentimentSatisfied key={2} />,
+  <SentimentVerySatisfied key={3} />,
+  <Whatshot key={4} />,
+];
 
 const ScoreSelection = ({ tempScore, examplesTab, ...props }: Props) => {
   return (
@@ -38,13 +45,7 @@ const ScoreSelection = ({ tempScore, examplesTab, ...props }: Props) => {
           justifyContent: "space-around",
         }}
       >
-        {[
-          <SentimentVeryDissatisfied />,
-          <SentimentDissatisfied />,
-          <SentimentSatisfied />,
-          <SentimentVerySatisfied />,
-          <Whatshot />,
-        ].map((icon, index) => (
+        {icons.map((icon, index) => (
           <SvgIcon
             key={index}
             style={index === tempScore ? { color: GREEN } : {}}

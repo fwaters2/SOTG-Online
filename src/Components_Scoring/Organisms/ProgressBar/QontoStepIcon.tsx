@@ -5,6 +5,11 @@ import { makeStyles } from "@material-ui/core";
 const BLUE = "#0C61E1";
 const GREEN = "#8FDE58";
 
+interface Props {
+  active: boolean;
+  completed: boolean;
+}
+
 const useQontoStepIconStyles = makeStyles({
   root: {
     color: BLUE,
@@ -32,7 +37,7 @@ const useQontoStepIconStyles = makeStyles({
   },
 });
 
-const QontoStepIcon = (props) => {
+const QontoStepIcon = (props: Props) => {
   const classes = useQontoStepIconStyles();
   const { active, completed } = props;
 

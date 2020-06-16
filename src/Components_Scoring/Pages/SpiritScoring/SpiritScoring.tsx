@@ -2,7 +2,6 @@ import React from "react";
 import ScoringForm from "../../Templates/ScoringForm";
 import NavigationButtons from "../../Organisms/NavigationButtons";
 import Feedback from "../../Organisms/Feedback";
-import ScoringTitle from "../../Organisms/ScoringTitle";
 import ScoreSelection from "../../Organisms/ScoreSelection";
 import ProgressBar from "../../Organisms/ProgressBar";
 import CheckboxList from "../../Organisms/CheckboxList";
@@ -10,7 +9,7 @@ import CheckboxList from "../../Organisms/CheckboxList";
 const SpiritScoring = () => {
   return (
     <ScoringForm
-      title={<ScoringTitle>Rules Knowledge and Use</ScoringTitle>}
+      title={"Rules Knowledge and Use"}
       progressBar={<ProgressBar steps={[1, 2, 3, 4, 5, 6, 7]} activeStep={2} />}
       pillBox={<ScoreSelection tempScore={2} examplesTab={2} />}
       checkboxList={

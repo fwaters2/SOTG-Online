@@ -18,7 +18,7 @@ const Wrapper = (props: any) => (
       flex: 1,
       display: "flex",
       flexDirection: "column",
-      margin: "0.5em 0",
+      margin: "2em 0",
     }}
   />
 );
@@ -27,7 +27,6 @@ const StyledStepper = withStyles({
   root: {
     background: "inherit",
     padding: 0,
-    margin: "0 0 1em 0",
     display: "flex",
     justifyContent: "space-between",
   },
@@ -66,23 +65,26 @@ const QontoConnector = withStyles({
   },
 })(StepConnector);
 
+const HorizontalLine = () => (
+  <div
+    style={{
+      position: "relative",
+      top: ".5em",
+      borderTop: "3px solid",
+      borderColor: "rgba(255,255,255,0.2)",
+      width: "calc(100% + 4em)",
+      height: "1px",
+      margin: "0 -2em",
+    }}
+  />
+);
+
 const ProgressBar = ({ steps, activeStep, ...props }: Props) => {
   return (
     <Wrapper {...props}>
-      <div
-        style={{
-          zIndex: 0,
-          position: "relative",
-          top: ".5em",
-          borderTop: "3px solid",
-          borderColor: "rgba(255,255,255,0.2)",
-          width: "calc(100% + 4em)",
-          height: "1px",
-          margin: "0 -2em",
-        }}
-      />
+      <HorizontalLine />
       <StyledStepper activeStep={activeStep} connector={<QontoConnector />}>
-        {steps.map((label) => (
+        {steps.map((label: number) => (
           <StyledStep key={label}>
             <StyledStepLabel StepIconComponent={QontoStepIcon} />
           </StyledStep>

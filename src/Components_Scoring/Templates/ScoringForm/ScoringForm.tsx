@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Container } from "@material-ui/core";
+import { Paper, Container, Typography } from "@material-ui/core";
 import { BLUE } from "../../../Components/Atoms/mycolors";
 import StyledFormLabel from "../../../Components/StyledFormLabel";
 
@@ -26,7 +26,7 @@ const Wrapper = (props: any) => (
   />
 );
 
-const Title = (props: any) => <div {...props} />;
+const Title = (props: any) => <Typography variant="h5" {...props} />;
 
 const ProgressBar = (props: any) => <div {...props} />;
 
