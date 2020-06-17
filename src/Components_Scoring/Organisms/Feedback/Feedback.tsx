@@ -19,19 +19,6 @@ const Feedback = ({ ...props }: Props) => {
       {feedbackPreview !== "" && (
         <Typography variant="caption">{feedbackPreview}</Typography>
       )}
-
-      <Button
-        fullWidth
-        variant="outlined"
-        style={
-          feedbackPreview === ""
-            ? { margin: "1em 0", color: "white" }
-            : { margin: "1em 0", color: GREEN }
-        }
-        onClick={() => alert("clicked current Feedback button")}
-      >
-        <PostAdd />
-      </Button>
     </Wrapper>
   );
 };

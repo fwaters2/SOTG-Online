@@ -11,7 +11,8 @@ import { GREEN } from "../../../Components/Atoms/mycolors";
 
 interface Props {
   id?: string;
-  tempScore?: any;
+  currentScore?: any;
+  updateCurrentScore?: any;
   examplesTab?: any;
 }
 
@@ -34,7 +35,12 @@ const icons = [
   <Whatshot key={4} />,
 ];
 
-const ScoreSelection = ({ tempScore, examplesTab, ...props }: Props) => {
+const ScoreSelection = ({
+  currentScore,
+  updateCurrentScore,
+  examplesTab,
+  ...props
+}: Props) => {
   return (
     <Wrapper {...props}>
       <List
@@ -48,7 +54,7 @@ const ScoreSelection = ({ tempScore, examplesTab, ...props }: Props) => {
         {icons.map((icon, index) => (
           <SvgIcon
             key={index}
-            style={index === tempScore ? { color: GREEN } : {}}
+            style={index === currentScore ? { color: GREEN } : {}}
           >
             {icon}
           </SvgIcon>
@@ -65,7 +71,7 @@ const ScoreSelection = ({ tempScore, examplesTab, ...props }: Props) => {
             label={x}
             key={x}
             style={
-              tempScore === x
+              currentScore === x
                 ? {
                     background: "#8FDE58",
                     minWidth: 0,
@@ -81,8 +87,8 @@ const ScoreSelection = ({ tempScore, examplesTab, ...props }: Props) => {
                   }
                 : { minWidth: 0, padding: "1em", fontWeight: "bold" }
             }
-            selected={tempScore === x}
-            onClick={() => alert("changed the button")}
+            selected={currentScore === x}
+            onClick={() => updateCurrentScore(x)}
           />
         ))}
       </Tabs>

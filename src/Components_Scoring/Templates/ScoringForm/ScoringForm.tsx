@@ -10,6 +10,7 @@ interface Props {
   pillBox?: any;
   checkboxList?: any;
   feedback?: any;
+  additionalFeedback?: any;
   navigationButtons?: any;
 }
 
@@ -36,6 +37,8 @@ const CheckboxList = (props: any) => <div {...props} />;
 
 const Feedback = (props: any) => <div {...props} />;
 
+const AdditionalFeedback = (props: any) => <div {...props} />;
+
 const NavigationButtons = (props: any) => <div {...props} />;
 
 const ScoringForm = ({
@@ -44,6 +47,7 @@ const ScoringForm = ({
   pillBox,
   checkboxList,
   feedback,
+  additionalFeedback,
   navigationButtons,
   ...props
 }: Props) => {
@@ -56,6 +60,7 @@ const ScoringForm = ({
         <StyledFormLabel>FEEDBACK: </StyledFormLabel>
         <CheckboxList>{checkboxList}</CheckboxList>
         <Feedback>{feedback}</Feedback>
+        <AdditionalFeedback>{additionalFeedback}</AdditionalFeedback>
         <NavigationButtons>{navigationButtons}</NavigationButtons>
       </Wrapper>
     </Container>

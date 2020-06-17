@@ -1,13 +1,15 @@
 import React from "react";
 import { List } from "@material-ui/core";
 import CheckBoxListItem from "../../Molecules/CheckBoxListItem";
+import SwipeableViews from "react-swipeable-views";
 
 interface Props {
   examplesTab?: number;
+  setExamplesTab?: any;
   examples?: any;
-  currentCategory?: any;
-  formResponses?: any;
+  validatedFeedback?: any;
   id?: string;
+  feedbackArray: any;
 }
 
 const Wrapper = (props: any) => (
@@ -23,38 +25,38 @@ const Wrapper = (props: any) => (
 
 const CheckboxList = ({
   examplesTab,
-  currentCategory,
+  setExamplesTab,
   examples,
-  //formResponses,
+  feedbackArray,
   ...props
 }: Props) => {
   return (
     <Wrapper {...props}>
-      {/* <SwipeableViews
+      <SwipeableViews
+        enableMouseEvents
         animateHeight
         resistance
         index={examplesTab}
-        onChangeIndex={(e) => alert(e)}
-      > */}
-      {/* {[0, 1, 2, 3, 4].map((page) => ( */}
-      <List dense>
-        {/* {examples[page].map((x, index) => ( */}
-        {examples[0].map((x, index) => (
-          <CheckBoxListItem
-            key={x}
-            examples={`${currentCategory}Examples`}
-            //formResponses={formResponses}
-            setFormResponses={() => alert("trying to update")}
-            example={x}
-            isLastListItem={examples[0].length === index + 1}
-            category={currentCategory}
-            //categoryScore={page}
-            index={index}
-          />
+        onChangeIndex={(e: any) => setExamplesTab(e)}
+      >
+        {[0, 1, 2, 3, 4].map((spiritScore) => (
+          <List dense key={spiritScore}>
+            {examples[spiritScore].map((x: string, index: number) => {
+              const isChecked = feedbackArray.includes(index);
+              return (
+                <CheckBoxListItem
+                  key={x}
+                  example={x}
+                  isLastListItem={examples[spiritScore].length === index + 1}
+                  isChecked={isChecked}
+                  index={index}
+                  {...props}
+                />
+              );
+            })}
+          </List>
         ))}
-      </List>
-      {/* ))} */}
-      {/* </SwipeableViews> */}
+      </SwipeableViews>
     </Wrapper>
   );
 };
