@@ -1,0 +1,177 @@
+{
+  "rules": {
+    "title": "Rules Knowledge and Use",
+    "examples": {
+      "0": [
+        "They repeatedly exhibited poor knowledge of the rules.",
+        "They often disregarded or purposefully misinterpreted the rules.",
+        "They refused to accept input or feedback on the rules and SOTG."
+      ],
+      "1": [
+        "For the level of play they showed a general lack of rules knowledge.",
+        "They disregarded or purposefully misinterpreted the rules during the game a few times.",
+        "They were resistant to being taught rules or elements of SOTG.",
+        "They didn’t keep to time limits.",
+        "They were offside during pulls even after an initial warning."
+      ],
+      "2": [
+        "For the level of play they showed appropriate knowledge of the rules.",
+        "They did not purposefully misinterpret the rules.",
+        "When they didn’t know the rules, they showed a real willingness to learn them.",
+        "They started on time and respected the time limits throughout.",
+        "They abided by the rules throughout the game."
+      ],
+      "3": [
+        "For the level of play they showed an above-average knowledge of the rules.",
+        "There was at least one case where they offered to help us learn some of the rules (Note: It’s good Spirit to accept the offer)."
+      ],
+      "4": [
+        "For the level of play they showed excellent knowledge of the rules.",
+        "They explained rules we didn’t know well very clearly, efficiently, and in a way that added to our joy of the game."
+      ]
+    }
+  },
+
+  "fouls": {
+    "title": "Fouls and Body Contact",
+    "examples": {
+      "0": [
+        "Even after repeated calls they continued to have the same foul or contact issues.",
+        "They made several dangerous or reckless plays.",
+        "They made little effort to avoid body contact.",
+        "They frequently fouled intentionally or for tactical reasons."
+      ],
+      "1": [
+        "They created a bit too much repeated non-incidental body contact.",
+        "There was at least one significant instance of them making a dangerous or reckless play."
+      ],
+      "2": [
+        "No significant physical contact occurred beyond incidental contact.",
+        "No players seemed to play in a risky or hazardous manner.",
+        "The game flowed smoothly without frequent calls."
+      ],
+      "3": [
+        "They actively avoided contact at least once.",
+        "They consistently played in a style that avoided the potential for both fouls and unnecessary body contact."
+      ],
+      "4": [
+        "They made several clear decisions that avoided contact to keep other players unharmed.",
+        "Considering the competitive nature of the game, they played with the highest level of care and safety."
+      ]
+    }
+  },
+
+  "fairness": {
+    "title": "Fair-Mindedness",
+    "examples": {
+      "0": [
+        "They always only took the stance that they were right on calls.",
+        "When asked, teammates did not give their opinion on calls where the result could have gone against their team.",
+        "They made many unjustifiable calls/contests.",
+        "They made retaliatory calls.",
+        "They unduly delayed the game for tactical reasons."
+      ],
+      "1": [
+        "They were quick to complain when we made a call, irrespective of the appropriateness of the call.",
+        "They called many insignificant breaches, (e.g. a very small travel or incidental contact that didn't affect the throw).",
+        "They often gave the impression they would only see things in a manner favorable to their team.",
+        "They made a few unjustifiable calls/contests.",
+        "They were not consistent in their calls throughout the game"
+      ],
+      "2": [
+        "They respected and acknowledged our opinions on calls, even when they disagreed.",
+        "They apologized in situations where it was appropriate (like an uncontested foul).",
+        "They adjusted their behavior based on our feedback in a way that improved the enjoyment of the game."
+      ],
+      "3": [
+        "There was at least one case where they informed teammates that they had made wrong or unnecessary calls/contests.",
+        "They didn't call breaches that did not affect the outcome of the action, such as a minimal travel on an unmarked thrower, or fouls on throws they made that would not have been caught anyway.",
+        "They retracted calls when they thought they were wrong",
+        "They made calls in a consistent manner, from player to player and from beginning to end"
+      ],
+      "4": [
+        "There were several clear examples of opposition players seeking to uphold the truth of a situation, even if it did not benefit them.",
+        "Their players helped each other make consistent, accurate calls, even if the result went against their team.",
+        "They remained fair-minded and consistent even in intense, crucial situations (e.g. universe point)."
+      ]
+    }
+  },
+
+  "attitude": {
+    "title": "Positive Attitude and Self-Control",
+    "examples": {
+      "0": [
+        "Their players and/or sideline were often rude and discourteous.",
+        "There was a physical and/or verbal confrontation on- or off- the-field.",
+        "They deliberately damaged equipment several times.",
+        "They played in a manner inappropriate to the situation (e.g. patronizing trick-throw points, ultra-aggressive behavior, etc.)"
+      ],
+      "1": [
+        "Their players and/or sideline sometimes exhibited a lack of self-control and positive attitude.",
+        "They actively celebrated our errors in an unfriendly manner directed at our players.",
+        "They taunted or intimidated our players.",
+        "They exhibited one or more instances of edge-down spiking or aggressive celebration towards opponent.",
+        "They deliberately damaged equipment"
+      ],
+      "2": [
+        "Their players and/or sideline generally exhibited self-control and positive attitude.",
+        "They left an overall positive impression before, during and after the game (e.g. during warmup and the Spirit circle).",
+        "They were polite to us, their teammates, officials and spectators.",
+        "They thanked us for the game.",
+        "They played with appropriate intensity irrespective of the score."
+      ],
+      "3": [
+        "They made an effort to make it a good and enjoyable game.",
+        "They communicated their point of view effectively and calmly.",
+        "They complimented us on a good play or celebrated good plays by either team.",
+        "They shared with us.",
+        "There were a few instances where they clearly exhibited very good self-control."
+      ],
+      "4": [
+        "They went out of their way to make sure that everybody had a great game.",
+        "They demonstrated excellent self-control on and off the field during potentially stressful situations.",
+        "They exhibited the highest level of respect and positive attitude from start to finish."
+      ]
+    }
+  },
+
+  "communication": {
+    "title": "Communication",
+    "examples": {
+      "0": [
+        "They frequently refused to discuss issues/calls.",
+        "They got angry/reacted with contempt at several calls/contests.",
+        "They frequently used offensive language.",
+        "Their body language was frequently rude or aggressive, such as smirking or making offensive hand gestures."
+      ],
+      "1": [
+        "Their players not directly involved in the play or who did not have best perspective got involved a few times without being asked.",
+        "There were a few instances where they were not calm while communicating.",
+        "There were a few instances where their body language was rude or aggressive, such as smirking or making offensive hand gestures.",
+        "They did not keep discussion to a reasonable duration."
+      ],
+      "2": [
+        "Conflicts were resolved without incident.",
+        "They communicated respectfully.",
+        "They listened.",
+        "They kept to reasonable time lengths.",
+        "If asked for input, their sideline/other players were helpful.",
+        "They understood and occasionally used official hand signals to indicate fouls, scores, etc.",
+        "A Spirit time out was called."
+      ],
+      "3": [
+        "If asked, they provided clear, factual explanations to support their calls.",
+        "They introduced themselves to us and knew our team name.",
+        "Their captain/leaders communicated with our leaders very effectively.",
+        "They brought up spirit issues and general concerns as early as possible, directly or through (spirit) captains.",
+        "They made use of official hand signals throughout the game to indicate fouls, scores, etc."
+      ],
+      "4": [
+        "They explained the game to spectators or new players.",
+        "They motivated us to keep high spirit and suggested or demonstrated how to do it.",
+        "They communicated extremely effectively and respectfully and made us feel comfortable discussing the game.",
+        "They always used official hand signals to indicate fouls, scores, etc., and they echoed our calls also."
+      ]
+    }
+  }
+}

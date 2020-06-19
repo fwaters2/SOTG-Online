@@ -8,53 +8,18 @@ interface Props {
   isLastListItem: boolean;
   isChecked: boolean;
   index: number;
+  onClick: any;
 }
 
 const ListCheckBox = ({
-  //examples,
-  //formResponses,
-  //setFormResponses,
   example,
   isLastListItem,
   isChecked,
-}: // for international example
-//category,
-//categoryScore,
-//index,
-Props) => {
+  onClick,
+}: Props) => {
   const handleClick = () => {
-    if (isChecked) {
-      alert("already selected");
-      return null;
-    }
-    alert("wants to become selected");
+    onClick();
   };
-  // const handleClick = () => {
-  //   if (isChecked) {
-  //     const filteredExamples = formResponses[examples].filter(
-  //       (x) =>
-  //         !(
-  //           x.category === category &&
-  //           x.categoryScore === categoryScore &&
-  //           x.index === index
-  //         )
-  //     );
-  //     // handleRemoveNotification("error");
-  //     setFormResponses({
-  //       //...formResponses,
-  //       [examples]: filteredExamples,
-  //     });
-  //   } else {
-  //     // handleAddNotification("success");
-  //     setFormResponses({
-  //       ...formResponses,
-  //       [examples]: [
-  //         ...formResponses[examples],
-  //         { category, categoryScore, index },
-  //       ],
-  //     });
-  //   }
-  // };
 
   const checkbox = isChecked ? (
     <CheckBox style={{ color: GREEN }} />

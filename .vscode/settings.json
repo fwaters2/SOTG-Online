@@ -6,7 +6,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#c962d4",
     "activityBar.activeBorder": "#d6cb69",

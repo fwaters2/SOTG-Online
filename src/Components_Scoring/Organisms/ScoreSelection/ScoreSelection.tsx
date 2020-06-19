@@ -10,10 +10,9 @@ import {
 import { GREEN } from "../../../Components/Atoms/mycolors";
 
 interface Props {
-  id?: string;
-  currentScore?: any;
-  updateCurrentScore?: any;
-  examplesTab?: any;
+  currentScore: number;
+  updateCurrentScore: (x: number) => void;
+  examplesTab: number;
 }
 
 const Wrapper = (props: any) => (
@@ -41,6 +40,7 @@ const ScoreSelection = ({
   examplesTab,
   ...props
 }: Props) => {
+  const defaultTabStyle = { minWidth: 0, padding: "1em", fontWeight: "bold" };
   return (
     <Wrapper {...props}>
       <List
@@ -74,18 +74,14 @@ const ScoreSelection = ({
               currentScore === x
                 ? {
                     background: "#8FDE58",
-                    minWidth: 0,
-                    padding: "1em",
-                    fontWeight: "bold",
+                    ...defaultTabStyle,
                   }
                 : x <= 3
                 ? {
                     borderRight: "1px solid darkgrey",
-                    minWidth: 0,
-                    padding: "1em",
-                    fontWeight: "bold",
+                    ...defaultTabStyle,
                   }
-                : { minWidth: 0, padding: "1em", fontWeight: "bold" }
+                : defaultTabStyle
             }
             selected={currentScore === x}
             onClick={() => updateCurrentScore(x)}

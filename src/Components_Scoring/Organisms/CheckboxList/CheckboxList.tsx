@@ -3,13 +3,20 @@ import { List } from "@material-ui/core";
 import CheckBoxListItem from "../../Molecules/CheckBoxListItem";
 import SwipeableViews from "react-swipeable-views";
 
+interface Example {
+  stringsId: string;
+  category: string;
+  category_short: string;
+  value: number;
+  default_example: string;
+}
 interface Props {
   examplesTab?: number;
   setExamplesTab?: any;
-  examples?: any;
+  examples: Example[];
   validatedFeedback?: any;
   id?: string;
-  feedbackArray: any;
+  setValidatedFeedback: any;
 }
 
 const Wrapper = (props: any) => (
@@ -27,7 +34,8 @@ const CheckboxList = ({
   examplesTab,
   setExamplesTab,
   examples,
-  feedbackArray,
+  validatedFeedback,
+  setValidatedFeedback,
   ...props
 }: Props) => {
   return (
@@ -39,23 +47,34 @@ const CheckboxList = ({
         index={examplesTab}
         onChangeIndex={(e: any) => setExamplesTab(e)}
       >
-        {[0, 1, 2, 3, 4].map((spiritScore) => (
-          <List dense key={spiritScore}>
-            {examples[spiritScore].map((x: string, index: number) => {
-              const isChecked = feedbackArray.includes(index);
-              return (
-                <CheckBoxListItem
-                  key={x}
-                  example={x}
-                  isLastListItem={examples[spiritScore].length === index + 1}
-                  isChecked={isChecked}
-                  index={index}
-                  {...props}
-                />
-              );
-            })}
-          </List>
-        ))}
+        {[0, 1, 2, 3, 4].map((spiritScore) => {
+          const arrayForThisScore = examples.filter(
+            (example) => example.value === spiritScore
+          );
+          return (
+            <List dense key={spiritScore}>
+              {arrayForThisScore.map((x: Example, index: number) => {
+                const isChecked = validatedFeedback[x.stringsId];
+                const toggleChecked = () =>
+                  setValidatedFeedback({
+                    ...validatedFeedback,
+                    [x.stringsId]: !validatedFeedback[x.stringsId],
+                  });
+                return (
+                  <CheckBoxListItem
+                    key={x.stringsId}
+                    example={x.default_example}
+                    isLastListItem={arrayForThisScore.length === index + 1}
+                    isChecked={isChecked}
+                    onClick={toggleChecked}
+                    index={index}
+                    {...props}
+                  />
+                );
+              })}
+            </List>
+          );
+        })}
       </SwipeableViews>
     </Wrapper>
   );

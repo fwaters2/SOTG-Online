@@ -5,10 +5,8 @@ import { GREEN } from "../../../Components/Atoms/mycolors";
 import QontoStepIcon from "./QontoStepIcon";
 
 interface Props {
-  children?: any;
-  id?: string;
-  steps?: any;
-  activeStep?: any;
+  steps: number[];
+  activeStep: number;
 }
 
 const Wrapper = (props: any) => (

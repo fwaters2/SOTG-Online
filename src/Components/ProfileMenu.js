@@ -1,10 +1,16 @@
-import React from 'react';
-import { Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import Firebase from '../Utils/Firebase';
+import React from "react";
+import {
+  Popper,
+  Grow,
+  Paper,
+  ClickAwayListener,
+  MenuList,
+  MenuItem,
+} from "@material-ui/core";
+import Firebase from "../Utils/Firebase";
 
 export default function ProfileMenu({ open, setOpen, anchorRef }) {
-  const handleClose = event => {
+  const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -13,7 +19,7 @@ export default function ProfileMenu({ open, setOpen, anchorRef }) {
   };
 
   function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
@@ -34,15 +40,28 @@ export default function ProfileMenu({ open, setOpen, anchorRef }) {
   };
   return (
     <div>
-      <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
+      >
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            style={{
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
+            }}
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                <MenuList
+                  autoFocusItem={open}
+                  id="menu-list-grow"
+                  onKeyDown={handleListKeyDown}
+                >
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </ClickAwayListener>

@@ -9,7 +9,7 @@ interface Props {
   progressBar?: any;
   pillBox?: any;
   checkboxList?: any;
-  feedback?: any;
+  currentFeedback?: string;
   additionalFeedback?: any;
   navigationButtons?: any;
 }
@@ -35,7 +35,9 @@ const PillBox = (props: any) => <div {...props} />;
 
 const CheckboxList = (props: any) => <div {...props} />;
 
-const Feedback = (props: any) => <div {...props} />;
+const CurrentFeedback = (props: any) => (
+  <div style={{ margin: "1em 0" }} {...props} />
+);
 
 const AdditionalFeedback = (props: any) => <div {...props} />;
 
@@ -46,7 +48,7 @@ const ScoringForm = ({
   progressBar,
   pillBox,
   checkboxList,
-  feedback,
+  currentFeedback,
   additionalFeedback,
   navigationButtons,
   ...props
@@ -59,7 +61,11 @@ const ScoringForm = ({
         <PillBox>{pillBox}</PillBox>
         <StyledFormLabel>FEEDBACK: </StyledFormLabel>
         <CheckboxList>{checkboxList}</CheckboxList>
-        <Feedback>{feedback}</Feedback>
+        <CurrentFeedback>
+          {currentFeedback !== "" && (
+            <Typography variant="caption">{currentFeedback}</Typography>
+          )}
+        </CurrentFeedback>
         <AdditionalFeedback>{additionalFeedback}</AdditionalFeedback>
         <NavigationButtons>{navigationButtons}</NavigationButtons>
       </Wrapper>
