@@ -1,5 +1,6 @@
 import { createMuiTheme } from "@material-ui/core";
-import { BLUE, GREEN, RED_PURPLE } from "../../Components/Atoms/mycolors";
+import { GREEN, RED_PURPLE, BLUE } from "../../Components/themes/colors";
+//mport { BLUE, GREEN, RED_PURPLE } from "../../Components/Atoms/mycolors";
 const theme = createMuiTheme({
   palette: {
     primary: { main: GREEN },

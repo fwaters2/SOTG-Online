@@ -1,20 +1,24 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/core";
-import HomePage from "./Pages/HomePage";
-import theme from "../Themes";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
+import ThemeContext, { defaultPalette } from "./themes/default";
+import SpiritScoring from "./Pages/SpiritScoring";
 
 const App = () => {
+  // const [theme, setTheme] = React.useState()
+
+  // const changeTheme = (mode:string):void => {
+  //     setTheme(setTheme(mode));
+  // };
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <ThemeContext.Provider value={{ palette: defaultPalette }}>
         <Switch>
-          <Route path="/" component={HomePage} />
-          {/* <Route path="/sample-page" component={SamplePage} /> */}
+          <Route>
+            <SpiritScoring />
+          </Route>
         </Switch>
-      </ThemeProvider>
-    </Router>
+      </ThemeContext.Provider>
+    </BrowserRouter>
   );
 };
-
 export default App;
