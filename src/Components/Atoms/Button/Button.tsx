@@ -7,6 +7,7 @@ interface Props {
   variant?: any;
   color?: any;
   onClick?: any;
+  fullWidth?: boolean;
 }
 
 const Button = (props: Props) => {
@@ -20,6 +21,11 @@ const Button = (props: Props) => {
       //   fontSize: "14pt",
       // }}
       {...props}
+      // color={props.color}
+      // onClick={props.onClick}
+      // variant={props.variant}
+      // style={props.style}
+      // fullWidth={props.fullWidth}
     >
       {props.children}
     </MuiButton>

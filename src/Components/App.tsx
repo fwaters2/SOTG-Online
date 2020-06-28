@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import ThemeContext, { defaultPalette } from "./themes/default";
-import SpiritScoring from "./Pages/SpiritScoring";
+import ScoringData from "./ScoringData";
 
 const App = () => {
   // const [theme, setTheme] = React.useState()
@@ -14,7 +14,7 @@ const App = () => {
       <ThemeContext.Provider value={{ palette: defaultPalette }}>
         <Switch>
           <Route>
-            <SpiritScoring />
+            <ScoringData />
           </Route>
         </Switch>
       </ThemeContext.Provider>

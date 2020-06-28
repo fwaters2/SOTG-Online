@@ -16,7 +16,7 @@ interface Props {
   examples: Example[];
   validatedFeedback?: any;
   id?: string;
-  setValidatedFeedback: any;
+  setValidatedFeedbacks: any;
 }
 
 const Wrapper = (props: any) => (
@@ -37,7 +37,7 @@ const CheckboxList = ({
   setExamplesTab,
   examples,
   validatedFeedback,
-  setValidatedFeedback,
+  setValidatedFeedbacks,
   ...props
 }: Props) => {
   return (
@@ -55,24 +55,16 @@ const CheckboxList = ({
           );
           return (
             <List dense key={spiritScore}>
-              {arrayForThisScore.map((x: Example, index: number) => {
-                const isChecked = validatedFeedback[x.stringsId];
-                const toggleChecked = () =>
-                  setValidatedFeedback({
-                    ...validatedFeedback,
-                    [x.stringsId]: !validatedFeedback[x.stringsId],
-                  });
-                return (
-                  <CheckBoxListItem
-                    key={x.stringsId}
-                    primary={x.default_example}
-                    isChecked={isChecked}
-                    onClick={toggleChecked}
-                    index={index}
-                    {...props}
-                  />
-                );
-              })}
+              {arrayForThisScore.map((x: Example, index: number) => (
+                <CheckBoxListItem
+                  key={x.stringsId}
+                  primary={x.default_example}
+                  isChecked={validatedFeedback[x.stringsId]}
+                  onClick={() => setValidatedFeedbacks(x.stringsId)}
+                  index={index}
+                  {...props}
+                />
+              ))}
             </List>
           );
         })}

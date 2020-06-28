@@ -12,8 +12,7 @@ interface Props {
 
 const Wrapper = (props: any) => <div {...props} />;
 
-const NavigationButtons = ({ ...props }: Props) => {
-  const { currentStep, setStep } = props;
+const NavigationButtons = ({ setStep, ...props }: Props) => {
   const theme = React.useContext(ThemeContext);
   const { palette } = theme;
 
@@ -24,15 +23,15 @@ const NavigationButtons = ({ ...props }: Props) => {
     });
 
   const handleBack = () => {
-    setStep(currentStep - 1);
+    setStep("previous");
     scrollToTop();
   };
   const handleNext = () => {
-    setStep(currentStep + 1);
+    setStep("next");
     scrollToTop();
   };
   return (
-    <Wrapper {...props}>
+    <Wrapper>
       <ButtonGroup fullWidth>
         <Button
           style={{ padding: "1em 0", borderRadius: "8px 0 0 8px" }}

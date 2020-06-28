@@ -5,6 +5,6 @@ import CheckboxList from ".";
 storiesOf("ScoringForm", module).add("CheckboxList", () => (
   <CheckboxList
     examples={[]}
-    setValidatedFeedback={() => alert("updatding feedback")}
+    setValidatedFeedbacks={() => alert("updatding feedback")}
   />
 ));

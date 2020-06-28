@@ -6,42 +6,36 @@ import ScoreSelection from "../../Organisms/ScoreSelection";
 import ProgressBar from "../../Organisms/ProgressBar";
 import CheckboxList from "../../Organisms/CheckboxList";
 
-//const sotgExamples = require("../../../Assets/Lang/enSpirit2019.json");
-const examplesFlatList = require("./examplesFlatList.json");
-const relevantExamples = examplesFlatList.filter(
-  (example: any) => example.category_short === "rules"
-);
-
-const defaultSettings = {
-  RULES_0_0: false,
-  RULES_0_1: false,
-  RULES_0_2: false,
-  RULES_1_0: false,
-  RULES_1_1: false,
-  RULES_1_2: false,
-  RULES_1_3: false,
-  RULES_1_4: false,
-  RULES_2_0: true,
-  RULES_2_1: false,
-  RULES_2_2: true,
-  RULES_2_3: false,
-  RULES_2_4: false,
-  RULES_3_0: false,
-  RULES_3_1: false,
-  RULES_4_0: false,
-  RULES_4_1: false,
-};
-
 interface validatedExample {
   stringsId: string;
   isChecked: boolean;
 }
 
-const SpiritScoring = () => {
-  const [currentScore, setCurrentScore] = useState(2);
-  const [examplesTab, setExamplesTab] = useState(2);
-  const [formData, setFormData] = useState(defaultSettings);
-  const [additionalFeedback, setAdditionalFeedback] = useState("");
+interface Props {
+  title: any;
+  currentScore: number;
+  setCurrentScore: (newScore: number) => void;
+  examples: any;
+  validatedFeedbacks: { [key: string]: boolean };
+  setValidatedFeedbacks: any;
+  additionalFeedback: string;
+  setAdditionalFeedback: any;
+  handleStepChange: (action: string) => void;
+}
+
+const SpiritScoring = ({
+  title,
+  currentScore,
+  setCurrentScore,
+  examples,
+  validatedFeedbacks,
+  setValidatedFeedbacks,
+  additionalFeedback,
+  setAdditionalFeedback,
+  handleStepChange,
+  ...props
+}: Props) => {
+  const [examplesTab, setExamplesTab] = useState(currentScore);
   const [currentFeedback, setCurrentFeedback] = useState("");
 
   const validatedFeedbackToString = () => {
@@ -60,7 +54,7 @@ const SpiritScoring = () => {
 
   return (
     <ScoringForm
-      title={"Rules Knowledge and Use"}
+      title={title}
       progressBar={<ProgressBar steps={[1, 2, 3, 4, 5, 6, 7]} activeStep={2} />}
       pillBox={
         <ScoreSelection
@@ -73,10 +67,9 @@ const SpiritScoring = () => {
         <CheckboxList
           examplesTab={examplesTab}
           setExamplesTab={setExamplesTab}
-          //examples={sotgExamples.rules.examples}
-          examples={relevantExamples}
-          validatedFeedback={formData}
-          setValidatedFeedback={setFormData}
+          examples={examples}
+          validatedFeedback={validatedFeedbacks}
+          setValidatedFeedbacks={setValidatedFeedbacks}
         />
       }
       currentFeedback={currentFeedback}
@@ -88,10 +81,7 @@ const SpiritScoring = () => {
         />
       }
       navigationButtons={
-        <NavigationButtons
-          currentStep={0}
-          setStep={() => console.log("hello")}
-        />
+        <NavigationButtons currentStep={0} setStep={handleStepChange} />
       }
     />
   );
