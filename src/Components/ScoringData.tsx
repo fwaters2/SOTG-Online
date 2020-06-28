@@ -20,58 +20,63 @@ interface FormData {
   };
   additionalFeedbacks: { [key: string]: string }; //"rules":"knew the rules"
 }
+
 const titles = Array.from(
   new Set(examplesFlatList.map((x: ExamplesShape) => x.category))
 );
 
-const categoriesReal = Array.from(
+const categories: string[] = Array.from(
   new Set(examplesFlatList.map((x: ExamplesShape) => x.category_short))
 );
-const categories = ["rules", "fouls", "fairness", "attitude", "communication"];
 
-const ids = examplesFlatList.map((x: ExamplesShape) => x.stringsId);
+const totalSteps = categories.length;
+//const ids = examplesFlatList.map((x: ExamplesShape) => x.stringsId);
 
-const defaultScores = {
-  rules: 2,
-  fouls: 2,
-  fairness: 2,
-  attitude: 2,
-  communication: 2,
+const defaultObject = (defaultValue) => () => {
+  let defaults = {};
+  categories.forEach((category) => {
+    defaults = {
+      ...defaults,
+      [category]: defaultValue,
+    };
+  });
+  return defaults;
+};
+
+const defaultScores = defaultObject(2);
+
+const getIdsByCategory = (category) => {
+  const thisCategoriesIds = examplesFlatList
+    .filter((example) => example.category_short === category)
+    .map((x) => x.stringsId);
+  let idObject = {};
+  thisCategoriesIds.forEach((id) => {
+    idObject = {
+      ...idObject,
+      [id]: false,
+    };
+  });
+  return idObject;
 };
 const defaultExampleFeedbacks = () => {
-  let newObject = {};
+  let defaults = {};
   categories.forEach((category) => {
-    const thisCategoriesIds = examplesFlatList
-      .filter((example) => example.category_short === category)
-      .map((x) => x.stringsId);
-    let idObject = {};
-    thisCategoriesIds.forEach((id) => {
-      idObject = {
-        ...idObject,
-        [id]: false,
-      };
-    });
+    const idObject = getIdsByCategory(category);
 
-    newObject = {
-      ...newObject,
+    defaults = {
+      ...defaults,
       [category]: idObject,
     };
   });
-  return newObject;
+  return defaults;
 };
 
-const defaultFeedbacks = {
-  rules: "",
-  fouls: "",
-  fairness: "",
-  attitude: "",
-  communication: "",
-};
+const defaultAdditionalFeedbacks = defaultObject("");
 
 const defaultFormData = {
-  scores: defaultScores,
+  scores: defaultScores(),
   validatedFeedbacks: defaultExampleFeedbacks(),
-  additionalFeedbacks: defaultFeedbacks,
+  additionalFeedbacks: defaultAdditionalFeedbacks(),
 };
 
 const ScoringData = () => {
@@ -79,10 +84,11 @@ const ScoringData = () => {
   const [formData, setFormData] = useState(defaultFormData);
 
   const handleStepChange = (action: string): void => {
-    if (action === "next") {
+    const lastStep = totalSteps - 1;
+    if (action === "next" && currentStep < lastStep) {
       setCurrentStep(currentStep + 1);
     }
-    if (action === "previous") {
+    if (action === "previous" && currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
   };
@@ -96,10 +102,19 @@ const ScoringData = () => {
       scores: { ...formData.scores, [currentCategory]: newScore },
     });
   };
+  const spanishTranslation = {
+    RULES_2_0: "que vas a hacer?",
+  };
+  const lang = spanishTranslation;
 
-  const currentExamples = examplesFlatList.filter(
-    (example: any) => example.category_short === currentCategory
-  );
+  const currentExamples = examplesFlatList
+    .filter((example: any) => example.category_short === currentCategory)
+    .map((x) => {
+      return {
+        ...x,
+        translatedExample: lang[x.stringsId] || x.default_example,
+      };
+    });
 
   const currentValidatedFeedbacks =
     formData.validatedFeedbacks[currentCategory];
@@ -130,6 +145,8 @@ const ScoringData = () => {
   };
   return (
     <SpiritScoring
+      currentStep={currentStep}
+      steps={categories}
       title={currentTitle}
       currentScore={currentScore}
       setCurrentScore={setCurrentScore}

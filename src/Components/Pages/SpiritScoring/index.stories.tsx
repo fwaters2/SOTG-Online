@@ -24,6 +24,8 @@ const validatedFeedbacks = {
 
 storiesOf("SpiritScoring", module).add("Page", () => (
   <SpiritScoring
+    currentStep={3}
+    steps={["step1", "step2", "step3"]}
     title={"Title in Stories"}
     currentScore={2}
     setCurrentScore={() => alert(2)}

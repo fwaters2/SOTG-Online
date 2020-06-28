@@ -1,5 +1,13 @@
 import React from "react";
-import { BLUE, GREEN, WHITE, BLACK, RED_PURPLE } from "./colors";
+import {
+  BLUE,
+  GREEN,
+  WHITE,
+  BLACK,
+  RED_PURPLE,
+  DARK_BLUE,
+  BLACK_OLIVE,
+} from "./colors";
 
 type Color = {
   [key: string]: {
@@ -14,6 +22,8 @@ type Color = {
 export interface Palette {
   primary: string;
   onPrimary: string;
+  inset: string;
+  onInset: string;
   secondary: string;
   onSecondary: string;
   surface: string;
@@ -55,8 +65,10 @@ export interface Palette {
 export const defaultPalette = {
   primary: BLUE,
   onPrimary: WHITE,
+  inset: DARK_BLUE,
+  onInset: WHITE,
   secondary: GREEN,
-  onSecondary: WHITE,
+  onSecondary: BLACK,
   surface: WHITE,
   onSurface: BLACK,
   background: WHITE,
@@ -74,10 +86,12 @@ export const defaultPalette = {
 };
 
 const palettes: Color = {
-  primary: { light: BLUE, dark: WHITE },
+  primary: { light: BLUE, dark: BLACK_OLIVE },
   onPrimary: { light: WHITE, dark: WHITE },
+  inset: { light: DARK_BLUE, dark: BLACK },
+  onInset: { light: WHITE, dark: WHITE },
   secondary: { light: GREEN, dark: GREEN },
-  onSecondary: { light: WHITE, dark: WHITE },
+  onSecondary: { light: BLACK, dark: BLACK },
   surface: { light: WHITE, dark: BLACK },
   onSurface: { light: BLACK, dark: WHITE },
   background: { light: WHITE, dark: BLACK },
@@ -93,15 +107,15 @@ const palettes: Color = {
   header: { light: GREEN, dark: BLACK },
   onHeader: { light: WHITE, dark: WHITE },
 };
-export const theme = (mode: string): { palette: Palette } => {
+export const theme = (mode: string): Palette => {
   let currentPalette = defaultPalette;
 
   for (let key in palettes) {
     currentPalette[key] = palettes[key][mode];
   }
-  return { palette: currentPalette };
+  return currentPalette;
 };
 
-const ThemeContext = React.createContext({ palette: defaultPalette });
+const ThemeContext = React.createContext({ palette: theme("light") });
 
 export default ThemeContext;

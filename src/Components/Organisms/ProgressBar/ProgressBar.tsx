@@ -5,7 +5,7 @@ import QontoStepIcon from "./QontoStepIcon";
 import { GREEN } from "../../themes/colors";
 
 interface Props {
-  steps: number[];
+  steps: string[];
   activeStep: number;
 }
 
@@ -82,7 +82,7 @@ const ProgressBar = ({ steps, activeStep, ...props }: Props) => {
     <Wrapper {...props}>
       <HorizontalLine />
       <StyledStepper activeStep={activeStep} connector={<QontoConnector />}>
-        {steps.map((label: number) => (
+        {steps.map((label: string) => (
           <StyledStep key={label}>
             <StyledStepLabel StepIconComponent={QontoStepIcon} />
           </StyledStep>

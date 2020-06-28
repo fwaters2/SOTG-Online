@@ -12,6 +12,8 @@ interface validatedExample {
 }
 
 interface Props {
+  currentStep: number;
+  steps: string[];
   title: any;
   currentScore: number;
   setCurrentScore: (newScore: number) => void;
@@ -24,6 +26,8 @@ interface Props {
 }
 
 const SpiritScoring = ({
+  currentStep,
+  steps,
   title,
   currentScore,
   setCurrentScore,
@@ -55,7 +59,7 @@ const SpiritScoring = ({
   return (
     <ScoringForm
       title={title}
-      progressBar={<ProgressBar steps={[1, 2, 3, 4, 5, 6, 7]} activeStep={2} />}
+      progressBar={<ProgressBar steps={steps} activeStep={currentStep} />}
       pillBox={
         <ScoreSelection
           currentScore={currentScore}

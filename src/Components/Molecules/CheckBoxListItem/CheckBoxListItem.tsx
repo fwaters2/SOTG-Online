@@ -16,7 +16,7 @@ const ListCheckBox = ({ isChecked, onClick, ...props }: Props) => {
   const checkbox = isChecked ? (
     <CheckBox style={{ color: palette.secondary }} />
   ) : (
-    <CheckBoxOutlineBlank style={{ color: "white" }} />
+    <CheckBoxOutlineBlank style={{ color: palette.onPrimary }} />
   );
 
   return (

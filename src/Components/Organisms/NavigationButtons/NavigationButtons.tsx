@@ -47,7 +47,7 @@ const NavigationButtons = ({ setStep, ...props }: Props) => {
             padding: "1em 0",
             borderRadius: "0 8px 8px 0",
             background: palette.secondary,
-            color: "black",
+            color: palette.onSecondary,
           }}
           onClick={handleNext}
         >

@@ -9,6 +9,7 @@ interface Example {
   category_short: string;
   value: number;
   default_example: string;
+  translatedExample: string;
 }
 interface Props {
   examplesTab?: number;
@@ -19,16 +20,7 @@ interface Props {
   setValidatedFeedbacks: any;
 }
 
-const Wrapper = (props: any) => (
-  <div
-    {...props}
-    style={{
-      background: "#0038ae",
-      margin: "0 -2em",
-      boxShadow: "inset 5px 5px 5px rgba(0,0,0,0.2)",
-    }}
-  />
-);
+const Wrapper = (props: any) => <div {...props} />;
 
 const scoreArray = [0, 1, 2, 3, 4];
 
@@ -58,7 +50,7 @@ const CheckboxList = ({
               {arrayForThisScore.map((x: Example, index: number) => (
                 <CheckBoxListItem
                   key={x.stringsId}
-                  primary={x.default_example}
+                  primary={x.translatedExample}
                   isChecked={validatedFeedback[x.stringsId]}
                   onClick={() => setValidatedFeedbacks(x.stringsId)}
                   index={index}

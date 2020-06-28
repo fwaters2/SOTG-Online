@@ -11,20 +11,17 @@ import FormPaper from "../../Molecules/FormPaper";
 
 interface Props {
   id?: any;
-  title: any;
-  progressBar: any;
-  pillBox: any;
-  checkboxList: any;
-  currentFeedback?: string;
-  additionalFeedback: any;
-  navigationButtons: any;
+  title?: any;
+  progressBar?: any;
+  subtotals?: any;
+  finalThoughts?: any;
+  feedbackSummary?: any;
+  navigationButtons?: any;
 }
 
 const Title = (props: any) => <Typography variant="h5" {...props} />;
 
 const ProgressBar = (props: any) => <div {...props} />;
-
-const PillBox = (props: any) => <div {...props} />;
 
 const useStyles = makeStyles(() => ({
   formLabel: {
@@ -40,6 +37,19 @@ const StyledFormLabel = (props: any) => {
   return <FormLabel className={classes.formLabel} {...props} />;
 };
 
+const Subtotals = (props: any) => {
+  const { palette } = React.useContext(ThemeContext);
+  return (
+    <div
+      {...props}
+      style={{
+        background: palette.surface,
+        color: palette.onSurface,
+        margin: "0 -2em",
+      }}
+    />
+  );
+};
 const Inset = (props: any) => {
   const { palette } = React.useContext(ThemeContext);
   return (
@@ -54,21 +64,16 @@ const Inset = (props: any) => {
   );
 };
 
-const CurrentFeedback = (props: any) => (
-  <div style={{ margin: "1em 0" }} {...props} />
-);
-
-const AdditionalFeedback = (props: any) => <div {...props} />;
+const FinalThoughts = (props: any) => <div {...props} />;
 
 const NavigationButtons = (props: any) => <div {...props} />;
 
-const ScoringForm = ({
+const ScoringSummary = ({
   title,
   progressBar,
-  pillBox,
-  checkboxList,
-  currentFeedback,
-  additionalFeedback,
+  subtotals,
+  finalThoughts,
+  feedbackSummary,
   navigationButtons,
   ...props
 }: Props) => {
@@ -77,19 +82,16 @@ const ScoringForm = ({
       <FormPaper {...props}>
         <Title>{title}</Title>
         <ProgressBar>{progressBar}</ProgressBar>
-        <PillBox>{pillBox}</PillBox>
-        <StyledFormLabel>FEEDBACK: </StyledFormLabel>
-        <Inset>{checkboxList}</Inset>
-        <CurrentFeedback>
-          {currentFeedback !== "" && (
-            <Typography variant="caption">{currentFeedback}</Typography>
-          )}
-        </CurrentFeedback>
-        <AdditionalFeedback>{additionalFeedback}</AdditionalFeedback>
+        <StyledFormLabel>Subtotals: </StyledFormLabel>
+        <Subtotals>{subtotals}</Subtotals>
+        <StyledFormLabel>Final Thoughts: </StyledFormLabel>
+        <FinalThoughts>{finalThoughts}</FinalThoughts>
+        <StyledFormLabel>Feedback: </StyledFormLabel>
+        <Inset>{feedbackSummary}</Inset>
         <NavigationButtons>{navigationButtons}</NavigationButtons>
       </FormPaper>
     </Container>
   );
 };
 
-export default ScoringForm;
+export default ScoringSummary;

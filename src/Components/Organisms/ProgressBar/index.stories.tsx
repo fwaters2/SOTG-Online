@@ -3,5 +3,5 @@ import { storiesOf } from "@storybook/react";
 import ProgressBar from ".";
 
 storiesOf("ScoringForm", module).add("ProgressBar", () => (
-  <ProgressBar steps={[1, 2, 3, 4, 5]} activeStep={3} />
+  <ProgressBar steps={["step1", "step2", "step3"]} activeStep={3} />
 ));

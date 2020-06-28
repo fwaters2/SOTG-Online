@@ -32,7 +32,7 @@ const AdditionalFeedback = ({
         variant="outlined"
         style={
           additionalFeedback === ""
-            ? { margin: "1em 0", color: "white" }
+            ? { margin: "1em 0", color: palette.onPrimary }
             : { margin: "1em 0", color: palette.secondary }
         }
         onClick={() => toggleDialog(true)}

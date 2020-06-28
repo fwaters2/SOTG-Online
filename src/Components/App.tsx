@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import ThemeContext, { defaultPalette } from "./themes/default";
+import ThemeContext, { theme } from "./themes/default";
 import ScoringData from "./ScoringData";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
   // };
   return (
     <BrowserRouter>
-      <ThemeContext.Provider value={{ palette: defaultPalette }}>
+      <ThemeContext.Provider value={{ palette: theme("light") }}>
         <Switch>
           <Route>
             <ScoringData />
