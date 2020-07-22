@@ -20,7 +20,9 @@
     "firebase": "^7.15.5",
     "firebase-admin": "^8.12.1",
     "firebase-functions": "^3.7.0",
+    "json2mq": "^0.2.0",
     "notistack": "^0.9.17",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
@@ -30,7 +32,8 @@
     "react-swipeable-views": "^0.13.9",
     "sib-api-v3-sdk": "^7.2.3",
     "source-map-explorer": "^2.4.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "warning": "^4.0.3"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",

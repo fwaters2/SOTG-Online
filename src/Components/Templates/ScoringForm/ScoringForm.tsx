@@ -4,14 +4,19 @@ import {
   Typography,
   makeStyles,
   FormLabel,
+  useMediaQuery,
 } from "@material-ui/core";
 
 import ThemeContext from "../../themes/default";
 import FormPaper from "../../Molecules/FormPaper";
+import json2mq from "json2mq";
+import { BLUE } from "../../themes/colors";
+import LangSelection from "../../Organisms/LangSelection";
 
 interface Props {
   id?: any;
   title: any;
+  langSelectorIcon: any;
   progressBar: any;
   pillBox: any;
   checkboxList: any;
@@ -64,6 +69,7 @@ const NavigationButtons = (props: any) => <div {...props} />;
 
 const ScoringForm = ({
   title,
+  langSelectorIcon,
   progressBar,
   pillBox,
   checkboxList,
@@ -72,10 +78,25 @@ const ScoringForm = ({
   navigationButtons,
   ...props
 }: Props) => {
+  const isMobile = useMediaQuery(
+    json2mq({
+      maxWidth: 600,
+    })
+  );
+  const AppContainer = (props: any) =>
+    isMobile ? (
+      //this Blue background is a hack to get rid of the rounded edges
+      <div {...props} style={{ flex: 1, background: BLUE }} />
+    ) : (
+      <Container maxWidth="xs" style={{ flex: 1 }} {...props} />
+    );
   return (
-    <Container maxWidth="xs" style={{ flex: 1 }}>
+    <AppContainer>
       <FormPaper {...props}>
-        <Title>{title}</Title>
+        <div style={{ display: "flex" }}>
+          <Title style={{ flex: 1 }}>{title}</Title>
+          <LangSelection>{langSelectorIcon}</LangSelection>
+        </div>
         <ProgressBar>{progressBar}</ProgressBar>
         <PillBox>{pillBox}</PillBox>
         <StyledFormLabel>FEEDBACK: </StyledFormLabel>
@@ -88,7 +109,7 @@ const ScoringForm = ({
         <AdditionalFeedback>{additionalFeedback}</AdditionalFeedback>
         <NavigationButtons>{navigationButtons}</NavigationButtons>
       </FormPaper>
-    </Container>
+    </AppContainer>
   );
 };
 

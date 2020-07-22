@@ -4,10 +4,12 @@ import {
   Typography,
   makeStyles,
   FormLabel,
+  useMediaQuery,
 } from "@material-ui/core";
-
+import json2mq from "json2mq";
 import ThemeContext from "../../themes/default";
 import FormPaper from "../../Molecules/FormPaper";
+import { BLUE } from "../../themes/colors";
 
 interface Props {
   id?: any;
@@ -77,20 +79,32 @@ const ScoringSummary = ({
   navigationButtons,
   ...props
 }: Props) => {
+  const isMobile = useMediaQuery(
+    json2mq({
+      maxWidth: 600,
+    })
+  );
+  const AppContainer = (props: any) =>
+    isMobile ? (
+      //this Blue background is a hack to get rid of the rounded edges
+      <div {...props} style={{ flex: 1, background: BLUE }} />
+    ) : (
+      <Container maxWidth="xs" style={{ flex: 1 }} {...props} />
+    );
   return (
-    <Container maxWidth="xs" style={{ flex: 1 }}>
+    <AppContainer>
       <FormPaper {...props}>
         <Title>{title}</Title>
         <ProgressBar>{progressBar}</ProgressBar>
         <StyledFormLabel>Subtotals: </StyledFormLabel>
         <Subtotals>{subtotals}</Subtotals>
+        <StyledFormLabel>Your Teams Feedback: </StyledFormLabel>
+        <Inset>{feedbackSummary}</Inset>
         <StyledFormLabel>Final Thoughts: </StyledFormLabel>
         <FinalThoughts>{finalThoughts}</FinalThoughts>
-        <StyledFormLabel>Feedback: </StyledFormLabel>
-        <Inset>{feedbackSummary}</Inset>
         <NavigationButtons>{navigationButtons}</NavigationButtons>
       </FormPaper>
-    </Container>
+    </AppContainer>
   );
 };
 

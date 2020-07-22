@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import SpiritScoring from "./Pages/SpiritScoring";
-
+import LanguageContext, { setLanguage } from "./languages/default";
+import SummaryData from "./Pages/SummaryData";
+import ScoringFormContext from "../Contexts/ScoringFormContext";
 const examplesFlatList = require("./convertedFile.json");
+const defaultLanguage = require("../Components/languages/examples/default.json");
 
 interface ExamplesShape {
   stringsId: string;
@@ -9,16 +12,6 @@ interface ExamplesShape {
   category_short: string;
   value: number;
   default_example: string;
-}
-
-interface FormData {
-  scores: {
-    [key: string]: number; //"rules":2
-  };
-  exampleSelections: {
-    [key: string]: boolean; //"rules":[RULES_0_0: false,RULES_0_1: false]
-  };
-  additionalFeedbacks: { [key: string]: string }; //"rules":"knew the rules"
 }
 
 const titles = Array.from(
@@ -82,14 +75,21 @@ const defaultFormData = {
 const ScoringData = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState(defaultFormData);
+  const [currentLang, setCurrentLanguage] = useState("en");
+  const [choosingTeams, toggleChoosingTeams] = useState(false);
+  const [viewingSummary, toggleViewingSummary] = useState(false);
 
   const handleStepChange = (action: string): void => {
     const lastStep = totalSteps - 1;
-    if (action === "next" && currentStep < lastStep) {
-      setCurrentStep(currentStep + 1);
+    if (action === "next") {
+      if (currentStep === lastStep) {
+        toggleViewingSummary(true);
+      } else {
+        setCurrentStep((prevStep) => prevStep + 1);
+      }
     }
     if (action === "previous" && currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep((prevStep) => prevStep - 1);
     }
   };
   const currentTitle = titles[currentStep];
@@ -102,20 +102,17 @@ const ScoringData = () => {
       scores: { ...formData.scores, [currentCategory]: newScore },
     });
   };
-  const spanishTranslation = {
-    RULES_2_0: "que vas a hacer?",
+
+  const currentExamples = (currentLang) => {
+    return examplesFlatList
+      .filter((example: any) => example.category_short === currentCategory)
+      .map((x) => {
+        return {
+          ...x,
+          translatedExample: currentLang[x.stringsId] || x.default_example,
+        };
+      });
   };
-  const lang = spanishTranslation;
-
-  const currentExamples = examplesFlatList
-    .filter((example: any) => example.category_short === currentCategory)
-    .map((x) => {
-      return {
-        ...x,
-        translatedExample: lang[x.stringsId] || x.default_example,
-      };
-    });
-
   const currentValidatedFeedbacks =
     formData.validatedFeedbacks[currentCategory];
 
@@ -143,20 +140,48 @@ const ScoringData = () => {
       },
     });
   };
+  const state = {
+    currentStep,
+    steps: categories,
+    title: currentTitle,
+    currentScore,
+    setCurrentScore: setCurrentScore,
+    examples: currentExamples(setLanguage(currentLang)),
+    validatedFeedbacks: currentValidatedFeedbacks,
+    setValidatedFeedbacks: setCurrentValidatedFeedbacks,
+    additionalFeedback: currentAdditionalFeedback,
+    setAdditionalFeedback: setCurrentAdditionalFeedback,
+    handleStepChange,
+    setStep: setCurrentStep,
+  };
+  const CurrentTemplate = () => {
+    if (choosingTeams) {
+      return (
+        <div>
+          <h1>ChooseTeam</h1>
+          <button onClick={() => toggleChoosingTeams(false)}>Next</button>
+        </div>
+      );
+    } else if (viewingSummary) {
+      return <SummaryData {...state} />;
+    } else {
+      return <SpiritScoring {...state} />;
+    }
+  };
+
   return (
-    <SpiritScoring
-      currentStep={currentStep}
-      steps={categories}
-      title={currentTitle}
-      currentScore={currentScore}
-      setCurrentScore={setCurrentScore}
-      examples={currentExamples}
-      validatedFeedbacks={currentValidatedFeedbacks}
-      setValidatedFeedbacks={setCurrentValidatedFeedbacks}
-      additionalFeedback={currentAdditionalFeedback}
-      setAdditionalFeedback={setCurrentAdditionalFeedback}
-      handleStepChange={handleStepChange}
-    />
+    <LanguageContext.Provider
+      value={{ currentLang: setLanguage(currentLang), setCurrentLanguage }}
+    >
+      <ScoringFormContext.Provider
+        value={{
+          state: state,
+          dispatch: () => console.log("trying to change"),
+        }}
+      >
+        <CurrentTemplate />
+      </ScoringFormContext.Provider>
+    </LanguageContext.Provider>
   );
 };
 

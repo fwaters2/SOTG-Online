@@ -15,7 +15,6 @@ const FormPaper = ({ children, ...props }: Props) => {
         color: palette.onPrimary,
         backgroundColor: palette.primary,
         borderRadius: "12px",
-        marginBottom: "1em",
         padding: "2em",
       }}
       {...props}

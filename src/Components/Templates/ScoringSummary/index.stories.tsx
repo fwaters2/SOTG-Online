@@ -6,6 +6,7 @@ import ProgressBar from "../../Organisms/ProgressBar";
 // import CheckboxList from "../../Organisms/CheckboxList";
 import NavigationButtons from "../../Organisms/NavigationButtons";
 import { TextField, Divider } from "@material-ui/core";
+import ScoreList from "./ScoreList";
 
 const subtotalText = [
   {
@@ -51,44 +52,7 @@ storiesOf("ScoringSummary", module).add("default", () => (
         activeStep={4}
       />
     }
-    subtotals={
-      <div style={{ margin: "0 2em 1em", padding: "10px 0" }}>
-        {subtotalText.map((category) => (
-          <>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                margin: ".5em 0",
-              }}
-            >
-              <div style={{ flex: 1 }}>{category.name}</div>
-              <div style={{ fontSize: "18pt" }}>{category.score}</div>
-            </div>
-            <Divider />
-          </>
-        ))}
-        <div style={{ display: "flex", alignItems: "center", margin: "1em 0" }}>
-          <div style={{ flex: 1, fontSize: "18pt" }}>Total</div>
-          <div style={{ fontSize: "24pt", fontWeight: "bolder" }}>10</div>
-        </div>
-      </div>
-    }
-    // feedbackSummary={
-    //   <CheckboxList
-    //     examplesTab={2}
-    //     currentCategory={"A Category"}
-    //     examples={[
-    //       [
-    //         "For the level of play they showed appropriate knowledge of the rules.",
-    //         "They did not purposefully misinterpret the rules.",
-    //         "When they didn’t know the rules, they showed a real willingness to learn them.",
-    //         "They started on time and respected the time limits throughout.",
-    //         "They abided by the rules throughout the game.",
-    //       ],
-    //     ]}
-    //   />
-    // }
+    subtotals={<ScoreList />}
     finalThoughts={
       <TextField
         style={{

@@ -1,7 +1,7 @@
 import React from "react";
 import { List } from "@material-ui/core";
 import CheckBoxListItem from "../../Molecules/CheckBoxListItem";
-import SwipeableViews from "react-swipeable-views";
+import SwipeableViews from "../../Templates/SwipeableViews";
 
 interface Example {
   stringsId: string;

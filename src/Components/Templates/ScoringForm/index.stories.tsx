@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import ScoringForm from ".";
+import { Language } from "@material-ui/icons";
 // import ProgressBar from "../../Organisms/ProgressBar";
 // import ScoreSelection from "../../Organisms/ScoreSelection";
 // import CheckboxList from "../../Organisms/CheckboxList";
@@ -9,6 +10,7 @@ import ScoringForm from ".";
 storiesOf("ScoringForm", module).add("default", () => (
   <ScoringForm
     title={"Rules Knowledge and Use"}
+    langSelectorIcon={<Language />}
     progressBar={
       <div />
       // <ProgressBar steps={[1, 2, 3, 4, 5, 6, 7]} activeStep={2} />

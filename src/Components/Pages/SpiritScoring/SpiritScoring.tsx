@@ -5,6 +5,7 @@ import AdditionalFeedback from "../../Molecules/AdditionalFeedback";
 import ScoreSelection from "../../Organisms/ScoreSelection";
 import ProgressBar from "../../Organisms/ProgressBar";
 import CheckboxList from "../../Organisms/CheckboxList";
+import { Language } from "@material-ui/icons";
 
 interface validatedExample {
   stringsId: string;
@@ -59,6 +60,7 @@ const SpiritScoring = ({
   return (
     <ScoringForm
       title={title}
+      langSelectorIcon={<Language />}
       progressBar={<ProgressBar steps={steps} activeStep={currentStep} />}
       pillBox={
         <ScoreSelection
