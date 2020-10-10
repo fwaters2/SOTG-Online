@@ -8,11 +8,11 @@ import {
   List,
 } from "@material-ui/core";
 import ThemeContext from "../../themes/default";
-import ScoringFormContext from "../../../Contexts/ScoringFormContext";
+// import ScoringFormContext from "../../../Contexts/ScoringFormContext";
 
 const ScoreList = () => {
   const theme = React.useContext(ThemeContext);
-  const formData = React.useContext(ScoringFormContext);
+  // const formData = React.useContext(ScoringFormContext);
   //const { setStep } = formData;
   const subtotalText = [
     {

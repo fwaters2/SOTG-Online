@@ -4,7 +4,7 @@ import LanguageContext, { setLanguage } from "./languages/default";
 import SummaryData from "./Pages/SummaryData";
 import ScoringFormContext from "../Contexts/ScoringFormContext";
 const examplesFlatList = require("./convertedFile.json");
-const defaultLanguage = require("../Components/languages/examples/default.json");
+// const defaultLanguage = require("../Components/languages/examples/default.json");
 
 interface ExamplesShape {
   stringsId: string;

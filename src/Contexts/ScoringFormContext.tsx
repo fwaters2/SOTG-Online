@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-const defaultLanguage = require("../Components/languages/examples/default.json");
+// const defaultLanguage = require("../Components/languages/examples/default.json");
 
 interface StateProps {
   currentStep: number;
