@@ -7,9 +7,9 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import json2mq from "json2mq";
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 import FormPaper from "../../Molecules/FormPaper";
-import { BLUE } from "../../themes/colors";
+import { BLUE } from "../../../Assets/palette/colors";
 
 interface Props {
   id?: any;

@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import ScoreSelection from ".";
-import { BLUE } from "../../themes/colors";
+import { BLUE } from "../../../Assets/palette/colors";
 
 storiesOf("ScoringForm", module).add("ScoreSelection", () => (
   <div style={{ background: BLUE, padding: "1em" }}>

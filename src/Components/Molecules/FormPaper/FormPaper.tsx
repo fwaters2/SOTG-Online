@@ -1,5 +1,5 @@
 import React from "react";
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 import { Paper } from "@material-ui/core";
 
 interface Props {

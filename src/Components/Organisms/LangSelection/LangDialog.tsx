@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
-import { BLUE } from "../../themes/colors";
+import { BLUE } from "../../../Assets/palette/colors";
 import { ListItemIcon, SvgIcon } from "@material-ui/core";
 import { ReactComponent as USA } from "./svg/USA.svg";
 import { ReactComponent as SouthKorea } from "./svg/SouthKorea.svg";

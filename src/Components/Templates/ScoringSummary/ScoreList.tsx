@@ -7,7 +7,7 @@ import {
   Avatar,
   List,
 } from "@material-ui/core";
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 // import ScoringFormContext from "../../../Contexts/ScoringFormContext";
 
 const ScoreList = () => {

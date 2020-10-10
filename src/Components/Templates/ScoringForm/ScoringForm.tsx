@@ -7,10 +7,10 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 import FormPaper from "../../Molecules/FormPaper";
 import json2mq from "json2mq";
-import { BLUE } from "../../themes/colors";
+import { BLUE } from "../../../Assets/palette/colors";
 import LangSelection from "../../Organisms/LangSelection";
 
 interface Props {

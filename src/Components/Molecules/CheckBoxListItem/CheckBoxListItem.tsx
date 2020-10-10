@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItemIcon, ListItemText, ListItem } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 
 interface Props {
   primary: string;

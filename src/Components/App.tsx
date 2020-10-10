@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import ThemeContext, { theme } from "./themes/default";
+import ThemeContext, { theme } from "../Assets/palette/default";
 import ScoringData from "./ScoringData";
 
 const App = () => {

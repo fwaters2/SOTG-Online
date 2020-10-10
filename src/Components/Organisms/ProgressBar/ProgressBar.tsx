@@ -2,7 +2,7 @@ import React from "react";
 import { Stepper, StepLabel, StepConnector, Step } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import QontoStepIcon from "./QontoStepIcon";
-import { GREEN } from "../../themes/colors";
+import { GREEN } from "../../../Assets/palette/colors";
 
 interface Props {
   steps: string[];

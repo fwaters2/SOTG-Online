@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import { PostAdd } from "@material-ui/icons";
 
 import FeedbackDialog from "../../Organisms/FeedbackDialog";
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 
 interface Props {
   additionalFeedback: string;

@@ -2,7 +2,7 @@ import React from "react";
 import { ButtonGroup } from "@material-ui/core";
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import Button from "../../Atoms/Button";
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 
 interface Props {
   id?: string;

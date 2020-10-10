@@ -7,7 +7,7 @@ import {
   SentimentVerySatisfied,
   Whatshot,
 } from "@material-ui/icons";
-import ThemeContext from "../../themes/default";
+import ThemeContext from "../../../Assets/palette/default";
 
 interface Props {
   currentScore: number;
