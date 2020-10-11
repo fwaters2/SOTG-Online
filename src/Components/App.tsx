@@ -11,7 +11,7 @@ const App = () => {
   // };
   return (
     <BrowserRouter>
-      <ThemeContext.Provider value={{ palette: theme("light") }}>
+      <ThemeContext.Provider value={{ palette: theme("dark") }}>
         <Switch>
           <Route>
             <ScoringData />

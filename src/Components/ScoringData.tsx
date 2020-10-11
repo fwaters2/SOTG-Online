@@ -3,7 +3,7 @@ import SpiritScoring from "./Pages/SpiritScoring";
 import LanguageContext, { setLanguage } from "./languages/default";
 import SummaryData from "./Pages/SummaryData";
 import ScoringFormContext from "../Contexts/ScoringFormContext";
-const examplesFlatList = require("./convertedFile.json");
+const examplesFlatList = require("../Assets/Lang/convertedFile.json");
 // const defaultLanguage = require("../Components/languages/examples/default.json");
 
 interface ExamplesShape {
